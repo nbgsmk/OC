@@ -5,6 +5,6 @@ module cc.kostic.oc {
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
 
-    opens cc.kostic.oc to javafx.fxml;
-    exports cc.kostic.oc;
+    opens rs.node.oc to javafx.fxml;
+    exports rs.node.oc;
 }

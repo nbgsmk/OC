@@ -1,4 +1,4 @@
-package cc.kostic.oc.model;
+package rs.node.oc.model;
 
 public class Underl {
 	private double cena;

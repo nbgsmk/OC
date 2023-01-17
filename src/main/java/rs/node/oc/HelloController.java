@@ -1,4 +1,4 @@
-package cc.kostic.oc;
+package rs.node.oc;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

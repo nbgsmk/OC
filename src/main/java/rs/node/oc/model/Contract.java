@@ -1,13 +1,16 @@
-package cc.kostic.oc.model;
+package rs.node.oc.model;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class Contract {
 	private TIP tip;
-	private Double strajk;
+	private double strajk;
 
-	private Double bid = null;
-	private Double ask = null;
-	private Double intrinsic = null;
-	private final Double extrinsic = null;
+	private double bid;
+	private double ask;
+	private double intrinsic;
+	private double extrinsic;
 
 	public Contract(TIP tip, double strajk) {
 		this.strajk = strajk;
@@ -24,7 +27,8 @@ public class Contract {
 	}
 
 	public double getIntrinsic(double cena) {
-		return Math.max(0,Math.abs(cena - strajk));
+		double val = Math.max(0,Math.abs(cena - strajk));
+		return val;
 		// switch (putCall) {
 		// 	case CALL -> {
 		// 		if (cena > strajk){

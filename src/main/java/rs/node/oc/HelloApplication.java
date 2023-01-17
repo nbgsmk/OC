@@ -1,8 +1,8 @@
-package cc.kostic.oc;
+package rs.node.oc;
 
-import cc.kostic.oc.model.Contract;
-import cc.kostic.oc.model.TIP;
-import cc.kostic.oc.model.Underl;
+import rs.node.oc.model.Contract;
+import rs.node.oc.model.TIP;
+import rs.node.oc.model.Underl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
