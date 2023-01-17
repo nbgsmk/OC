@@ -2,7 +2,6 @@ package rs.node.oc;
 
 import rs.node.oc.model.Contract;
 import rs.node.oc.model.TIP;
-import rs.node.oc.model.Underl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,13 +21,17 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         // launch();
-        Contract c = new Contract(TIP.CALL, 25);
-        Underl u = new Underl(27);
+	    Contract call = new Contract(TIP.CALL, 100);
 
-        double a = c.getIntrinsic(27.1f);
-        a = c.getIntrinsic(17.4f);
+        double a = call.getIntrinsic(112);
+        a = call.getIntrinsic(99d);
+        a = call.getIntrinsic(100d);
         System.out.println("patka zec");
 
 
+		Contract put = new Contract(TIP.PUT, 100);
+	    a = put.getIntrinsic(95.7);
+	    a = put.getIntrinsic(103);
+		a = put.getIntrinsic(100);
     }
 }

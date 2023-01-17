@@ -4,49 +4,37 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class Contract {
-	private TIP tip;
+	private TIP putCall;
 	private double strajk;
-
+	
 	private double bid;
 	private double ask;
 	private double intrinsic;
 	private double extrinsic;
 
 	public Contract(TIP tip, double strajk) {
+		this.putCall = tip;
 		this.strajk = strajk;
-		this.tip = tip;
 	}
 
 
 	public double getStrajk() {
 		return strajk;
 	}
+	
 
-	public TIP getTip() {
-		return tip;
-	}
+	public double getIntrinsic(double cena){
+		double val = 0;
+		switch (putCall) {
+			case CALL -> {
+				val = Math.abs(Math.max(cena - strajk, 0));
+			}
 
-	public double getIntrinsic(double cena) {
-		double val = Math.max(0,Math.abs(cena - strajk));
+			case PUT -> {
+				val = Math.abs(Math.max(strajk - cena, 0));
+			}
+		}
 		return val;
-		// switch (putCall) {
-		// 	case CALL -> {
-		// 		if (cena > strajk){
-		// 			return cena - strajk;
-		// 		} else {
-		// 			return 0;
-		// 		}
-		// 	}
-		//
-		// 	case PUT -> {
-		// 		if (cena >= strajk){
-		// 			return 0;
-		// 		} else {
-		// 			return strajk - cena;
-		// 		}
-		// 	}
-		//
-		// }
 	}
 
 	public double getExtrinsic() {

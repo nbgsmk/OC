@@ -8,8 +8,6 @@ import static org.testng.Assert.*;
 
 public class ContractTest {
 	
-	private SoftAssert  softAssert = new SoftAssert();
-	
 	Contract call;
 	Contract put;
 	
@@ -20,7 +18,7 @@ public class ContractTest {
 	}
 	
 	@Test
-	public void testGetIntrinsic() {
+	private void testGetIntrinsic() {
 		assertEquals(call.getIntrinsic(102.3d), 2.3d);
 		assertEquals(call.getIntrinsic(99d), 0d);
 		assertEquals(call.getIntrinsic(100d), 0d);
