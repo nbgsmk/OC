@@ -1,11 +1,13 @@
 package rs.node.oc;
 
+import rs.node.oc.model.Call;
+import rs.node.oc.model.Combo;
 import rs.node.oc.model.Contract;
-import rs.node.oc.model.TIP;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import rs.node.oc.model.Put;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,27 +42,33 @@ public class HelloApplication extends Application {
 	    f.add(b,BorderLayout.SOUTH);
 	    f.pack();
 	    f.setVisible(true);
-
+	
+	    GraphView graphView = new GraphView();
+	    graphView.setVisible(true);
+	    graphView.setLayout(new GridLayout());
+		
+		f.add(graphView);
     }
 
     public static void main(String[] args) {
-        launch();
-	    Contract call = new Contract(TIP.CALL, 100);
+        // launch();
+	    Call call = new Call(100);
 
         double a = call.getIntrinsic(112);
         a = call.getIntrinsic(99d);
         a = call.getIntrinsic(100d);
         System.out.println("patka zec");
 
-
-		Contract put = new Contract(TIP.PUT, 100);
+		Put put = new Put(100d);
 	    a = put.getIntrinsic(95.7);
 	    a = put.getIntrinsic(103);
 		a = put.getIntrinsic(100);
 	
-	    GraphView graphView = new GraphView();
-	    graphView.setVisible(true);
-	    graphView.setLayout(new GridLayout());
+	    Combo combo = new Combo();
+		combo.addContract(new Put(91));
+		combo.addContract(new Call(99));
+		combo.addContract(new Put(102));
+
 		
     }
 }

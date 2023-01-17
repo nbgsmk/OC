@@ -2,19 +2,19 @@ package rs.node.oc.model;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+
 
 import static org.testng.Assert.*;
 
 public class ContractTest {
 	
-	Contract call;
-	Contract put;
+	Call call;
+	Put put;
 	
 	@BeforeMethod
 	public void setUp() {
-		call = new Contract(TIP.CALL, 100d);
-		put = new Contract(TIP.PUT, 100d);
+		call = new Call(100d);
+		put = new Put(100d);
 	}
 	
 	@Test
