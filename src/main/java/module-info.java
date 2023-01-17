@@ -4,7 +4,8 @@ module cc.kostic.oc {
 
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
-
-    opens rs.node.oc to javafx.fxml;
+	requires java.desktop;
+	
+	opens rs.node.oc to javafx.fxml;
     exports rs.node.oc;
 }
