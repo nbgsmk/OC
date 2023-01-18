@@ -5,30 +5,29 @@ import java.util.List;
 
 public class Combo {
 
-	private List<Contract> combo;
+	private final List<Pozicija> lista = new ArrayList<>();
 	
-	public Combo() {
-		this.combo = new ArrayList<>();
+	
+	public void add(Pozicija p){
+		lista.add(p);
 	}
 	
-	public List<Contract> getCombo() {
-		return combo;
+	public void add(int amount, Contract contract, double px){
+		lista.add(new Pozicija(amount, contract, px));
 	}
 	
-	public void setCombo(List<Contract> combo) {
-		this.combo = combo;
-	}
-	
-	public void addContract(Contract contract){
-		combo.add(contract);
-	}
-	
-	public double getPriceAt(double last){
+	public double getPx(){
 		double val = 0;
-		for (Contract c : combo){
+		for (Pozicija p : lista){
+			val += p.getPx();
+		}
+		return val;
+	}
 	
-
-			
+	public double getExpirationPxAt(double underl){
+		double val = 0;
+		for (Pozicija p : lista){
+			val += p.getPxAtExpiration(underl);
 		}
 		return val;
 	}

@@ -1,13 +1,10 @@
 package rs.node.oc;
 
-import rs.node.oc.model.Call;
-import rs.node.oc.model.Combo;
-import rs.node.oc.model.Contract;
+import rs.node.oc.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import rs.node.oc.model.Put;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,23 +49,43 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         // launch();
-	    Call call = new Call(100);
+	    Combo combo;
+	    double a;
 
-        double a = call.getIntrinsic(112);
-        a = call.getIntrinsic(99d);
-        a = call.getIntrinsic(100d);
-        System.out.println("patka zec");
+	    Pozicija pc = new Pozicija(1, new Call(400), 5.11);
+	    combo = new Combo();
+	    combo.add(pc);
+        a = pc.getPx();
+	    a = pc.getPxAtExpiration(399);
+	    a = pc.getPxAtExpiration(400);
+	    a = pc.getPxAtExpiration(403);
+	    a = combo.getPx();
+		a = combo.getExpirationPxAt(399);
+		a = combo.getExpirationPxAt(400);
+		a = combo.getExpirationPxAt(402.7);
 
-		Put put = new Put(100d);
-	    a = put.getIntrinsic(95.7);
-	    a = put.getIntrinsic(103);
-		a = put.getIntrinsic(100);
+		
+		Pozicija pp = new Pozicija(1, new Put(400), 2.45);
+	    combo = new Combo();
+	    combo.add(pp);
+	    a = pp.getPx();
+	    a = pp.getPxAtExpiration(399);
+	    a = pp.getPxAtExpiration(400);
+	    a = pp.getPxAtExpiration(403);
+	    a = combo.getPx();
+	    a = combo.getExpirationPxAt(399);
+	    a = combo.getExpirationPxAt(400);
+	    a = combo.getExpirationPxAt(402.7);
 	
-	    Combo combo = new Combo();
-		combo.addContract(new Put(91));
-		combo.addContract(new Call(99));
-		combo.addContract(new Put(102));
+	    combo.add(pc);
+		a = combo.getPx();
+	    a = combo.getExpirationPxAt(399);
+	    a = combo.getExpirationPxAt(400);
+	    a = combo.getExpirationPxAt(402.7);
 
+		
+		a = combo.getExpirationPxAt(110);
+		
 		
     }
 }

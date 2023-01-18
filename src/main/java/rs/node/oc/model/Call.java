@@ -7,8 +7,4 @@ public class Call extends Contract{
 		super(strajk);
 	}
 	
-	@Override
-	public double getIntrinsic(double cena) {
-		return Math.abs(Math.max(cena - strajk, 0));
-	}
 }

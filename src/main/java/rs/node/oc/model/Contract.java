@@ -1,30 +1,57 @@
 package rs.node.oc.model;
 
-public abstract class Contract {
+public class Contract {
 	
-	protected double strajk = 0;
+	protected int amount;
+	protected final double strajk;
 	
 	protected double bid;
 	protected double ask;
-	protected double avgPx;
 	private double intrinsic;
 	private double extrinsic;
 
-	
 	
 	public Contract(double strajk) {
 		this.strajk = strajk;
 	}
 
-
 	public double getStrajk() {
 		return strajk;
 	}
 	
-
-	public abstract double getIntrinsic(double cena);
-
-	public double getExtrinsic() {
-		return extrinsic;
+	public double getTimeValue(double underl){
+		if (this instanceof Call) {
+			// return px - Math.max((underl - strajk), 0);
+			return Math.max((underl - strajk), 0);
+		} else {
+			// return px - Math.max((strajk - underl), 0);
+			return Math.max((strajk - underl), 0);
+		}
 	}
+	
+	public double getPxAtExpiration(double underl){
+		if (this instanceof Call) {
+			return Math.max(strajk - underl, 0);
+		} else {
+			return Math.max(underl - strajk, 0);
+		}
+	}
+	/*
+	public double getIntrinsic(double last){
+		// return Math.abs(last - avgPx);
+		if (this instanceof Call) {
+			return (last - avgPx);
+		} else {
+			return (avgPx - last);
+		}
+	};
+
+	public double getExtrinsic(double last){
+		if (this instanceof Call) {
+			return Math.min((last - avgPx), 0);
+		} else {
+			return Math.max((avgPx - last), 0);
+		}
+	};
+	*/
 }
