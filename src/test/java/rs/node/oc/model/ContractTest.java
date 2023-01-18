@@ -4,7 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-import static org.testng.Assert.*;
+import java.util.TreeMap;
 
 public class ContractTest {
 	
@@ -21,46 +21,59 @@ public class ContractTest {
 	private void testGetIntrinsic() {
 		Combo combo;
 		double a;
+		TreeMap<Double, Double> karakteristicneTacke;
 		
-		Pozicija pc = new Pozicija(1, new Call(400), 5.11);
+		Pozicija pc = new Pozicija(1, new Call(398), 1.5);
 		combo = new Combo();
 		combo.add(pc);
-		a = pc.getPx();
-		a = pc.getPxAtExpiration(399);
-		a = pc.getPxAtExpiration(400);
-		a = pc.getPxAtExpiration(403);
-		a = combo.getPx();
-		a = combo.getExpirationPxAt(399);
-		a = combo.getExpirationPxAt(400);
-		a = combo.getExpirationPxAt(402.7);
+		a = pc.getOpenPrice();
+		a = pc.getExpirationPriceAt(399);
+		a = pc.getExpirationPriceAt(400);
+		a = pc.getExpirationPriceAt(403);
+		a = combo.getOpenPrice();
+		a = combo.getExpirationPriceAt(399);
+		a = combo.getExpirationPriceAt(400);
+		a = combo.getExpirationPriceAt(402.7);
 		
 		
-		Pozicija pp = new Pozicija(1, new Put(400), 2.45);
+		Pozicija pp = new Pozicija(-1, new Put(401), 0.5);
 		combo = new Combo();
 		combo.add(pp);
-		a = pp.getPx();
-		a = pp.getPxAtExpiration(399);
-		a = pp.getPxAtExpiration(400);
-		a = pp.getPxAtExpiration(403);
-		a = combo.getPx();
-		a = combo.getExpirationPxAt(399);
-		a = combo.getExpirationPxAt(400);
-		a = combo.getExpirationPxAt(402.7);
+		a = pp.getOpenPrice();
+		a = pp.getExpirationPriceAt(399);
+		a = pp.getExpirationPriceAt(400);
+		a = pp.getExpirationPriceAt(403);
+		a = combo.getOpenPrice();
+		a = combo.getExpirationPriceAt(399);
+		a = combo.getExpirationPriceAt(400);
+		a = combo.getExpirationPriceAt(402.7);
 		
 		combo.add(pc);
-		a = combo.getPx();
-		a = combo.getExpirationPxAt(399);
-		a = combo.getExpirationPxAt(400);
-		a = combo.getExpirationPxAt(402.7);
+		a = combo.getOpenPrice();
+		a = combo.getExpirationPriceAt(399);
+		a = combo.getExpirationPriceAt(400);
+		a = combo.getExpirationPriceAt(402.7);
 		
 		
-		a = combo.getExpirationPxAt(110);
+		a = combo.getExpirationPriceAt(110);
+		
+		combo.add(new Pozicija(-1, new Put(399), 4.3));
+		karakteristicneTacke = combo.getCharacteristicPoints();
+		
+		combo = new Combo();
+		combo.add(new Pozicija(1, new Call(398), 1.5));
+		combo.add(new Pozicija(-2, new Call(401), 0.5));
+		combo.add(new Pozicija(1, new Call(402), 0.35));
+		karakteristicneTacke = combo.getCharacteristicPoints();
+		
+		a = combo.getOpenPrice();
+		a = combo.getExpirationPriceAt(390);
+		a = combo.getExpirationPriceAt(400);
+		a = combo.getExpirationPriceAt(410);
 		
 		
 		
 	}
 	
-	@Test
-	public void testGetExtrinsic() {
-	}
+
 }

@@ -50,45 +50,37 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         // launch();
-	    Combo combo;
+	    Combo combo = new Combo();
+	    TreeMap<Double, Double> karakteristicneTacke;
 	    double a;
 
-	    Pozicija pc = new Pozicija(1, new Call(400), 5.09);
+	    Pozicija pcall = new Pozicija(1, new Call(398), 1.5);
+	    Pozicija pput = new Pozicija(-1, new Put(401), 0.5);
+	    combo.add(pcall);
+	    combo.add(pput);
+	    combo.add(new Pozicija(-1, new Put(399), 4.3));
+	    karakteristicneTacke = combo.getCharacteristicPoints();
+		
 	    combo = new Combo();
-	    combo.add(pc);
-        a = pc.getPx();
-	    a = pc.getPxAtExpiration(399);
-	    a = pc.getPxAtExpiration(400);
-	    a = pc.getPxAtExpiration(403);
-	    a = combo.getPx();
-		a = combo.getExpirationPxAt(399);
-		a = combo.getExpirationPxAt(400);
-		a = combo.getExpirationPxAt(402.7);
-
+		// combo.add(new Pozicija(1, new Call(398), 1.5));
+		// combo.add(new Pozicija(-2, new Call(401), 0.5));
+		// combo.add(new Pozicija(1, new Call(402), 0.35));
+		combo.add(new Pozicija(1, new Call(402), 1.3));
+		combo.add(new Pozicija(1, new Put(400), 1.3));
+	    karakteristicneTacke = combo.getCharacteristicPoints();
 		
-		Pozicija pp = new Pozicija(1, new Put(400), 2.45);
-	    combo = new Combo();
-	    combo.add(pp);
-	    a = pp.getPx();
-	    a = pp.getPxAtExpiration(399);
-	    a = pp.getPxAtExpiration(400);
-	    a = pp.getPxAtExpiration(403);
-	    a = combo.getPx();
-	    a = combo.getExpirationPxAt(399);
-	    a = combo.getExpirationPxAt(400);
-	    a = combo.getExpirationPxAt(402.7);
+		a = combo.getOpenPrice();
+		a = combo.getExpirationPriceAt(390);
+		a = combo.getExpirationPriceAt(400);
+		a = combo.getExpirationPriceAt(410);
+		
+		a = combo.getPnLAt(390);
+		a = combo.getPnLAt(398);
+		a = combo.getPnLAt(400);
+		a = combo.getPnLAt(401);
+		a = combo.getPnLAt(402);
+		a = combo.getPnLAt(410);
 	
-	    combo.add(pc);
-		a = combo.getPx();
-	    a = combo.getExpirationPxAt(399);
-	    a = combo.getExpirationPxAt(400);
-	    a = combo.getExpirationPxAt(402.7);
-
-		
-		a = combo.getExpirationPxAt(110);
-	
-		combo.add(new Pozicija(-1, new Put(399), 4.3));
-	    TreeMap<Double, Double> karakteristicneTacke = combo.getCharacteristic();
-		
+		System.out.println("do yaya");
     }
 }

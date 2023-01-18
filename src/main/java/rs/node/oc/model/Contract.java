@@ -29,11 +29,12 @@ public class Contract {
 		}
 	}
 	
-	public double getPxAtExpiration(double underl){
+	public double getExpirationPriceAt(double underl){
 		if (this instanceof Call) {
 			return Math.max(strajk - underl, 0);
 		} else {
-			return Math.max(underl - strajk, 0);
+			// return Math.max(underl - strajk, 0);
+			return Math.max(strajk - underl, 0);
 		}
 	}
 	/*

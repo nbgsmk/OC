@@ -15,29 +15,40 @@ public class Combo {
 		lista.add(new Pozicija(amount, contract, px));
 	}
 	
-	public double getPx(){
+	public double getOpenPrice(){
 		double val = 0;
 		for (Pozicija p : lista){
-			val += p.getPx();
+			val += p.getOpenPrice();
 		}
 		return val;
 	}
 	
-	public double getExpirationPxAt(double underl){
+	public double getExpirationPriceAt(double underl){
 		double val = 0;
 		for (Pozicija p : lista){
-			val += p.getPxAtExpiration(underl);
+			val += p.getExpirationPriceAt(underl);
 		}
 		return val;
 	}
 	
-	public TreeMap<Double, Double> getCharacteristic() {
-		TreeMap<Double, Double> tmp = new TreeMap<>();
+	public double getPnLAt(double underl){
+		double pnl = 0;
+		for (Pozicija p : lista) {
+			pnl += p.getPnLat(underl);
+		}
+		return pnl;
+	}
+	
+	public TreeMap<Double, Double> getCharacteristicPoints() {
+		TreeMap<Double, Double> tm = new TreeMap<>();
 		for (Pozicija p : lista) {
 			double strajk = p.getContract().getStrajk();
-			double pnl = p.getPnL(strajk);
-			tmp.put(strajk, pnl);
+			double pnl = p.getPnLat(strajk);
+			if (tm.containsKey(strajk)) {
+				pnl += p.getPnLat(strajk);
+			}
+			tm.put(strajk, pnl);
 		}
-		return tmp;
+		return tm;
 	}
 }

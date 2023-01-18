@@ -4,13 +4,13 @@ public class Pozicija {
 	
 	private final Contract contract;
 	private final int amount;
-	private final double px;
+	private final double openPrice;
 	
 	
-	public Pozicija(int amount, Contract contract, double px) {
+	public Pozicija(int amount, Contract contract, double openPrice) {
 		this.contract = contract;
 		this.amount = amount;
-		this.px = px;
+		this.openPrice = openPrice;
 	}
 	
 	public Contract getContract() {
@@ -21,15 +21,15 @@ public class Pozicija {
 		return amount;
 	}
 	
-	public double getPx() {
-		return px * amount;
+	public double getOpenPrice() {
+		return openPrice * amount;
 	}
 	
-	public double getPxAtExpiration(double underl){
-		return amount * getContract().getPxAtExpiration(underl);
+	public double getExpirationPriceAt(double underl){
+		return amount * getContract().getExpirationPriceAt(underl);
 	}
 	
-	public double getPnL(double underl){
-		return getPx() - getPxAtExpiration(underl);
+	public double getPnLat(double underl){
+		return getExpirationPriceAt(underl) - getOpenPrice();
 	}
 }
