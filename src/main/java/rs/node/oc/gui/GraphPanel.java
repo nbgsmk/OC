@@ -1,4 +1,4 @@
-package rs.node.oc;
+package rs.node.oc.gui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -12,13 +12,12 @@ import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 public class GraphPanel extends JPanel {
+	
 	private int width = 800;
-	private int height = 400;
+	private int heigth = 400;
 	private int padding = 25;
 	private int labelPadding = 25;
 	private Color lineColor = new Color(44, 102, 230, 180);
@@ -120,9 +119,8 @@ public class GraphPanel extends JPanel {
 	
 	//    @Override
 	//    public Dimension getPreferredSize() {
-	//        return new Dimension(width, height);
+	//        return new Dimension(width, heigth);
 	//    }
-	
 	private double getMinScore() {
 		double minScore = Double.MAX_VALUE;
 		for (Double score : scores) {
@@ -149,7 +147,7 @@ public class GraphPanel extends JPanel {
 		return scores;
 	}
 	
-	private static void createAndShowGui() {
+	public static void createAndShowGui() {
 		List<Double> scores = new ArrayList<>();
 		Random random = new Random();
 		int maxDataPoints = 40;
@@ -160,6 +158,9 @@ public class GraphPanel extends JPanel {
 		}
 		GraphPanel mainPanel = new GraphPanel(scores);
 		mainPanel.setPreferredSize(new Dimension(800, 600));
+		
+		
+		
 		JFrame frame = new JFrame("DrawGraph");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(mainPanel);

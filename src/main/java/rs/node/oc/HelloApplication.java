@@ -1,5 +1,6 @@
 package rs.node.oc;
 
+import rs.node.oc.gui.GraphPanel;
 import rs.node.oc.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,9 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.TreeMap;
 
@@ -23,33 +21,11 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
 	
-	    JFrame f = new JFrame();
-	    f.setLayout(new BorderLayout());
-	    final JPanel p = new JPanel();
-	    p.add(new JLabel("A Panel"));
-	    f.add(p, BorderLayout.CENTER);
-	
-	    //create a button which will hide the panel when clicked.
-	    JButton b = new JButton("HIDE");
-	    b.addActionListener(new ActionListener(){
-		    public void actionPerformed(ActionEvent e){
-			    p.setVisible(false);
-		    }
-	    });
-	
-	    f.add(b,BorderLayout.SOUTH);
-	    f.pack();
-	    f.setVisible(true);
-	
-	    GraphView graphView = new GraphView();
-	    graphView.setVisible(true);
-	    graphView.setLayout(new GridLayout());
 		
-		f.add(graphView);
     }
 
     public static void main(String[] args) {
-        // launch();
+        launch();
 	    Combo combo = new Combo();
 	    TreeMap<Double, Double> karakteristicneTacke;
 	    double a;
@@ -82,5 +58,11 @@ public class HelloApplication extends Application {
 		a = combo.getPnLAt(410);
 	
 		System.out.println("do yaya");
+	
+	    SwingUtilities.invokeLater(new Runnable() {
+		    public void run() {
+			    GraphPanel.createAndShowGui();
+		    }
+	    });
     }
 }
