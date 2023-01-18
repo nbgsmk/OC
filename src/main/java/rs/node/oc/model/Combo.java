@@ -1,12 +1,11 @@
 package rs.node.oc.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Combo {
 
 	private final List<Pozicija> lista = new ArrayList<>();
-	
+	private TreeMap<Double, Double> characteristic = new TreeMap<>();
 	
 	public void add(Pozicija p){
 		lista.add(p);
@@ -30,5 +29,15 @@ public class Combo {
 			val += p.getPxAtExpiration(underl);
 		}
 		return val;
+	}
+	
+	public TreeMap<Double, Double> getCharacteristic() {
+		TreeMap<Double, Double> tmp = new TreeMap<>();
+		for (Pozicija p : lista) {
+			double strajk = p.getContract().getStrajk();
+			double pnl = p.getPnL(strajk);
+			tmp.put(strajk, pnl);
+		}
+		return tmp;
 	}
 }

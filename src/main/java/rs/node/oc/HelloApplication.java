@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.TreeMap;
 
 
 public class HelloApplication extends Application {
@@ -52,7 +53,7 @@ public class HelloApplication extends Application {
 	    Combo combo;
 	    double a;
 
-	    Pozicija pc = new Pozicija(1, new Call(400), 5.11);
+	    Pozicija pc = new Pozicija(1, new Call(400), 5.09);
 	    combo = new Combo();
 	    combo.add(pc);
         a = pc.getPx();
@@ -85,7 +86,9 @@ public class HelloApplication extends Application {
 
 		
 		a = combo.getExpirationPxAt(110);
-		
+	
+		combo.add(new Pozicija(-1, new Put(399), 4.3));
+	    TreeMap<Double, Double> karakteristicneTacke = combo.getCharacteristic();
 		
     }
 }

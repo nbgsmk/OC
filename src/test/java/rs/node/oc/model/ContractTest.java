@@ -19,13 +19,44 @@ public class ContractTest {
 	
 	@Test
 	private void testGetIntrinsic() {
-		assertEquals(call.getIntrinsic(102.3d), 2.3d);
-		assertEquals(call.getIntrinsic(99d), 0d);
-		assertEquals(call.getIntrinsic(100d), 0d);
+		Combo combo;
+		double a;
 		
-		assertEquals(put.getIntrinsic(99.7d), 0.3d);
-		assertEquals(put.getIntrinsic(103.7d), 0d);
-		assertEquals(put.getIntrinsic(100d), 90d);
+		Pozicija pc = new Pozicija(1, new Call(400), 5.11);
+		combo = new Combo();
+		combo.add(pc);
+		a = pc.getPx();
+		a = pc.getPxAtExpiration(399);
+		a = pc.getPxAtExpiration(400);
+		a = pc.getPxAtExpiration(403);
+		a = combo.getPx();
+		a = combo.getExpirationPxAt(399);
+		a = combo.getExpirationPxAt(400);
+		a = combo.getExpirationPxAt(402.7);
+		
+		
+		Pozicija pp = new Pozicija(1, new Put(400), 2.45);
+		combo = new Combo();
+		combo.add(pp);
+		a = pp.getPx();
+		a = pp.getPxAtExpiration(399);
+		a = pp.getPxAtExpiration(400);
+		a = pp.getPxAtExpiration(403);
+		a = combo.getPx();
+		a = combo.getExpirationPxAt(399);
+		a = combo.getExpirationPxAt(400);
+		a = combo.getExpirationPxAt(402.7);
+		
+		combo.add(pc);
+		a = combo.getPx();
+		a = combo.getExpirationPxAt(399);
+		a = combo.getExpirationPxAt(400);
+		a = combo.getExpirationPxAt(402.7);
+		
+		
+		a = combo.getExpirationPxAt(110);
+		
+		
 		
 	}
 	

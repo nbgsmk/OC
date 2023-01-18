@@ -2,9 +2,9 @@ package rs.node.oc.model;
 
 public class Pozicija {
 	
-	private Contract contract;
-	private int amount;
-	private double px;
+	private final Contract contract;
+	private final int amount;
+	private final double px;
 	
 	
 	public Pozicija(int amount, Contract contract, double px) {
@@ -27,5 +27,9 @@ public class Pozicija {
 	
 	public double getPxAtExpiration(double underl){
 		return amount * getContract().getPxAtExpiration(underl);
+	}
+	
+	public double getPnL(double underl){
+		return getPx() - getPxAtExpiration(underl);
 	}
 }
