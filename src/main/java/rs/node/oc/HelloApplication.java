@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        // launch();
 	    Combo combo = new Combo();
 	    TreeMap<Double, Double> karakteristicneTacke;
 	    double a;
@@ -41,7 +41,7 @@ public class HelloApplication extends Application {
 		// combo.add(new Pozicija(1, new Call(398), 1.5));
 		// combo.add(new Pozicija(-2, new Call(401), 0.5));
 		// combo.add(new Pozicija(1, new Call(402), 0.35));
-		combo.add(new Pozicija(1, new Call(402), 1.3));
+		// combo.add(new Pozicija(1, new Call(400), 1.3));
 		combo.add(new Pozicija(1, new Put(400), 1.3));
 	    karakteristicneTacke = combo.getCharacteristicPoints();
 		

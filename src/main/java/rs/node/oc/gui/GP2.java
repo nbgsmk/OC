@@ -1,20 +1,11 @@
 package rs.node.oc.gui;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import javax.swing.*;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
-public class GraphPanel extends JPanel {
+public class GP2 extends JPanel {
 	
 	private int width = 800;
 	private int heigth = 400;
@@ -26,9 +17,9 @@ public class GraphPanel extends JPanel {
 	private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
 	private int pointWidth = 4;
 	private int numberYDivisions = 10;
-	private List<Double> scores;
+	private Map<Integer, Double> scores;
 	
-	public GraphPanel(List<Double> scores) {
+	public GP2(Map<Integer, Double> scores) {
 		this.scores = scores;
 	}
 	
@@ -42,9 +33,15 @@ public class GraphPanel extends JPanel {
 		double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
 		
 		List<Point> graphPoints = new ArrayList<>();
-		for (int i = 0; i < scores.size(); i++) {
-			int x1 = (int) (i * xScale + padding + labelPadding);
-			int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
+		// for (int i = 0; i < scores.size(); i++) {
+		// 	int x1 = (int) (i * xScale + padding + labelPadding);
+		// 	int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
+		// 	graphPoints.add(new Point(x1, y1));
+		// }
+		
+		for (Map.Entry<Integer, Double> score : scores.entrySet()) {
+			int x1 = (int) (score.getKey() * xScale + padding + labelPadding);
+			int y1 = (int) ((getMaxScore() - score.getValue()) * yScale + padding);
 			graphPoints.add(new Point(x1, y1));
 		}
 		
@@ -114,6 +111,7 @@ public class GraphPanel extends JPanel {
 			int ovalW = pointWidth;
 			int ovalH = pointWidth;
 			g2.fillOval(x, y, ovalW, ovalH);
+			g2.drawString((i + 1) + " " + scores., x , y);
 		}
 	}
 	
@@ -123,57 +121,31 @@ public class GraphPanel extends JPanel {
 	//    }
 	private double getMinScore() {
 		double minScore = Double.MAX_VALUE;
-		for (Double score : scores) {
-			minScore = Math.min(minScore, score);
+		for (Map.Entry<Integer, Double> score : scores.entrySet()){
+			minScore = Math.min(minScore, score.getValue());
 		}
 		return minScore;
 	}
 	
 	private double getMaxScore() {
 		double maxScore = Double.MIN_VALUE;
-		for (Double score : scores) {
-			maxScore = Math.max(maxScore, score);
+		for (Map.Entry<Integer, Double> score : scores.entrySet()){
+			maxScore = Math.max(maxScore, score.getValue());
 		}
 		return maxScore;
 	}
 	
-	public void setScores(List<Double> scores) {
+	public void setScores(TreeMap<Integer, Double> scores) {
 		this.scores = scores;
 		invalidate();
 		this.repaint();
 	}
 	
-	public List<Double> getScores() {
+	public Map<Integer, Double> getScores() {
 		return scores;
 	}
 	
-	public static void createAndShowGui() {
-		List<Double> scores = new ArrayList<>();
-		Random random = new Random();
-		int maxDataPoints = 60;
-		int maxScore = 10;
-		for (int i = 0; i < maxDataPoints; i++) {
-			scores.add((double) random.nextDouble() * maxScore);
-			//            scores.add((double) i);
-		}
-		GraphPanel mainPanel = new GraphPanel(scores);
-		mainPanel.setPreferredSize(new Dimension(800, 600));
-		
-		
-		
-		JFrame frame = new JFrame("DrawGraph");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(mainPanel);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-	}
+
 	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGui();
-			}
-		});
-	}
+
 }
