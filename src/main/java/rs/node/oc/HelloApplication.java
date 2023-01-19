@@ -1,6 +1,7 @@
 package rs.node.oc;
 
-import rs.node.oc.gui.GraphPanel;
+import rs.node.oc.gui.DemoData;
+import rs.node.oc.gui.GP2;
 import rs.node.oc.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
+import java.util.Map;
 import java.util.TreeMap;
 
 
@@ -58,11 +61,42 @@ public class HelloApplication extends Application {
 		a = combo.getPnLAt(410);
 	
 		System.out.println("do yaya");
+		
+		
 	
 	    SwingUtilities.invokeLater(new Runnable() {
 		    public void run() {
-			    GraphPanel.createAndShowGui();
+			    kreni();
+			    
 		    }
 	    });
     }
+	
+	
+	
+	
+	private static void kreni(){
+		
+		Map<Integer, Double> data = DemoData.getDemoData();
+		System.out.println(data);
+		
+		GP2 mainPanel = new GP2(data);
+		mainPanel.setPreferredSize(new Dimension(800, 600));
+		int w = mainPanel.getWidth();
+		int h = mainPanel.getHeight();
+		
+		JFrame frame = new JFrame("OC 2");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+		
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		
+		
+		frame.setVisible(true);
+		
+		
+		
+		
+	}
 }

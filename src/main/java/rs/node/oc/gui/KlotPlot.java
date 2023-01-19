@@ -1,15 +1,16 @@
 package rs.node.oc.gui;
 
-import java.awt.*;  
-import javax.swing.*;  
-import java.awt.geom.*;  
-		  
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+
+
 //Extends JPanel class  
-public class PlotExample extends JPanel{  
+public class KlotPlot extends JPanel{
 		    //initialize coordinates  
-		    int[] cord = {65, 20, 40, 80};  
-		    int marg = 60;  
-		      
+		    int[] cord = {0, 65, 20, 40, 80};
+			
 		    protected void paintComponent(Graphics grf){  
 		        //create instance of the Graphics to use its methods  
 		        super.paintComponent(grf);  
@@ -23,22 +24,26 @@ public class PlotExample extends JPanel{
 		        int height = getHeight();  
 		          
 		        // draw graph  
-		        graph.draw(new Line2D.Double(marg, marg, marg, height-marg));  
-		        graph.draw(new Line2D.Double(marg, height-marg, width-marg, height-marg));  
+		        graph.draw(new Line2D.Double(0, 0, 0, height));
+		        graph.draw(new Line2D.Double(0, height, width, height));
+				
 		          
 		        //find value of x and scale to plot points  
-		        double x = (double)(width-2*marg)/(cord.length-1);  
-		        double scale = (double)(height-2*marg)/getMax();  
+		        double x = (double)(width)/(cord.length-1);
+		        double scale = (double)(height)/getMax();
 		          
 		        //set color for points  
 		        graph.setPaint(Color.RED);  
 		          
 		        // set points to the graph  
 		        for(int i=0; i<cord.length; i++){  
-		            double x1 = marg+i*x;  
-		            double y1 = height-marg-scale*cord[i];  
-		            graph.fill(new Ellipse2D.Double(x1-2, y1-2, 4, 4));  
-		        }  
+		            double x1 = i*x;
+		            double y1 = height-scale*cord[i];
+		            graph.fill(new Ellipse2D.Double(x1-2, y1-2, 6, 6));
+					graph.drawString(cord[i] + "", (float) x1, (float) y1);
+		        }
+				
+				
 		    }  
 		      
 		    //create getMax() method to find maximum value  
@@ -51,17 +56,38 @@ public class PlotExample extends JPanel{
 		        }  
 		        return max;  
 		    }         
-		      
+		    
+			
+			
 		    //main() method start  
 		    public static void main(String args[]){  
-
+				
+				JPanel yo = new JPanel();
+				yo.setPreferredSize(new Dimension(30, 400));
+				yo.setToolTipText("y");
+				yo.setBackground(Color.GREEN);
+				
+				JPanel xo = new JPanel();
+			    xo.setPreferredSize(new Dimension(40, 30));
+				xo.setToolTipText("x");
+				xo.setBackground(Color.PINK);
+				
+				KlotPlot klotPlot = new KlotPlot();
+				klotPlot.setPreferredSize(new Dimension(400, 400));
+				
 				
 				
 			    JFrame frame = new JFrame();
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		        frame.add(new PlotExample());  
-		        frame.setSize(400, 400);  
-		        frame.setLocation(200, 200);  
-		        frame.setVisible(true);  
+			
+			    Container cont = frame.getContentPane();
+				cont.add(klotPlot, BorderLayout.CENTER);
+				cont.add(xo, BorderLayout.SOUTH);
+			    cont.add(yo, BorderLayout.WEST);
+				
+				frame.pack();
+				frame.setLocationByPlatform(true);
+			    // frame.setLocationRelativeTo(null);
+		        frame.setVisible(true);
 		    }  
 		}  
