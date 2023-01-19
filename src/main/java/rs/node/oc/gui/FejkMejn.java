@@ -21,12 +21,20 @@ public class FejkMejn {
 		Map<Integer, Double> scores = new TreeMap<>();
 		Random randomX = new Random();
 		Random randomY = new Random();
-		int maxX = 20;
-		int offsetX = 0;
-		int maxScore = 7;
+		int minX = 20;
+		int maxX = 90;
+		
+		int minY = 14;
+		int maxY = 71;
+		
 		int maxDataPoints = 40;
-		for (int i = 0; i < maxDataPoints; i++) {
-			scores.put(randomX.nextInt(maxX) + offsetX, randomY.nextDouble() * maxScore);
+		for (int i = minX; i <= maxX; i += ( (maxX - minX) / maxDataPoints) ) {
+			int spanX = maxX-minX;
+			int ofsX = minX;
+			int spanY = maxY-minY;
+			int ofsY = minY;
+			
+			scores.put(randomX.nextInt(spanX) + ofsX, randomY.nextDouble(spanY) + ofsY);
 			// scores.put(i, randomY.nextDouble() * maxScore);
 		}
 		GP2 mainPanel = new GP2(scores);

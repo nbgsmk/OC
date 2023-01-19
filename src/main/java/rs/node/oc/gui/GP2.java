@@ -111,14 +111,14 @@ public class GP2 extends JPanel {
 			int ovalW = pointWidth;
 			int ovalH = pointWidth;
 			g2.fillOval(x, y, ovalW, ovalH);
-			g2.drawString((i + 1) + " " + scores., x , y);
+			g2.drawString((i + 1) + ", (" + x + ", " + y + ")", x , y);
 		}
+		
+		g2.drawString("x: " + getMinX() + " - " + getMaxX() + ", " + scores.size() + " ", 10, 10);
+		g2.drawString("y: " + getMinScore() + " - " + getMaxScore() + ", " + " ", 10, 20);
 	}
 	
-	//    @Override
-	//    public Dimension getPreferredSize() {
-	//        return new Dimension(width, heigth);
-	//    }
+
 	private double getMinScore() {
 		double minScore = Double.MAX_VALUE;
 		for (Map.Entry<Integer, Double> score : scores.entrySet()){
@@ -134,6 +134,24 @@ public class GP2 extends JPanel {
 		}
 		return maxScore;
 	}
+	
+	private int getMinX(){
+		int minX = Integer.MAX_VALUE;
+		for (Integer x : scores.keySet()){
+			minX = Math.min(minX, x);
+		}
+		return minX;
+	}
+	
+	
+	private int getMaxX(){
+		int maX = Integer.MIN_VALUE;
+		for (Integer x : scores.keySet()){
+			maX = Math.max(maX, x);
+		}
+		return maX;
+	}
+	
 	
 	public void setScores(TreeMap<Integer, Double> scores) {
 		this.scores = scores;
