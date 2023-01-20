@@ -1,5 +1,7 @@
 package rs.node.oc;
 
+import javafx.scene.PointLight;
+import javafx.scene.effect.Light;
 import rs.node.oc.gui.DemoData;
 import rs.node.oc.gui.GP2;
 import rs.node.oc.model.*;
@@ -10,6 +12,7 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -76,7 +79,7 @@ public class HelloApplication extends Application {
 	
 	
 	private static void kreni(){
-		
+	
 		Map<Integer, Double> data = DemoData.getDemoData();
 		System.out.println(data);
 		
