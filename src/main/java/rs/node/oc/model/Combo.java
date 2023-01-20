@@ -5,7 +5,7 @@ import java.util.*;
 public class Combo {
 
 	private final List<Pozicija> lista = new ArrayList<>();
-	private TreeMap<Double, Double> characteristic = new TreeMap<>();
+	private TreeMap<Double, Double> pnlPoints = new TreeMap<>();
 	
 	public void add(Pozicija p){
 		lista.add(p);
@@ -39,7 +39,7 @@ public class Combo {
 		return pnl;
 	}
 	
-	public TreeMap<Double, Double> getCharacteristicPoints() {
+	public TreeMap<Double, Double> getPnLPoints() {
 		TreeMap<Double, Double> tm = new TreeMap<>();
 		for (Pozicija p : lista) {
 			double strajk = p.getContract().getStrajk();

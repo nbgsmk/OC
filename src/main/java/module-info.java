@@ -10,4 +10,6 @@ module cc.kostic.oc {
     exports rs.node.oc;
 	exports rs.node.oc.gui;
 	opens rs.node.oc.gui to javafx.fxml;
+	exports rs.node.oc.data;
+	opens rs.node.oc.data to javafx.fxml;
 }

@@ -1,4 +1,4 @@
-package rs.node.oc.gui;
+package rs.node.oc.data;
 
 import java.util.HashMap;
 import java.util.Map;
