@@ -2,7 +2,6 @@ package rs.node.oc;
 
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
-import rs.node.oc.gui.GP2;
 import rs.node.oc.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,25 +14,29 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-
-public class HelloApplication extends Application {
-    @Override
+public class AppMain extends Application {
+	private String appTitle = "OC";
+	
+	
+	@Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppMain.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle(appTitle);
         stage.setScene(scene);
         stage.show();
-
+		
 	    DemoCombo dc = new DemoCombo();
 		Combo combo = dc.getDemoCombo();
 
-		// kreni(combo);
+		kreni(combo);
 		
+
     }
 
     public static void main(String[] args) {
-        launch(args);
+        // Application.launch(AppMain.class, args);
+		launch(args);
 
     }
 	
@@ -49,19 +52,6 @@ public class HelloApplication extends Application {
 			data.put((int) Math.round(entry.getKey()), entry.getValue());
 		}
 		System.out.println(data);
-		
-		GP2 mainPanel = new GP2(data);
-		mainPanel.setPreferredSize(new Dimension(800, 600));
-
-		JFrame frame = new JFrame("OC 2");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
-		
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		
-		
 		
 		
 	}
