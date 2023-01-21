@@ -15,7 +15,7 @@
    <children>
       <VBox>
          <children>
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="prikaziKombo" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" />
             <CheckBox mnemonicParsing="false" text="CheckBox" />
          </children>
       </VBox>
@@ -35,9 +35,7 @@
                <bottom>
                   <HBox BorderPane.alignment="CENTER">
                      <children>
-                     		<Button mnemonicParsing="false" onAction="#dajRandomData" text="random data" />
-                     		<Button onAction="#onHelloButtonClick" text="Hello!">
-		</Button>
+                     		<Button mnemonicParsing="false" onAction="#dajRandomData" text="JOS random data" />
             
                            		<Label fx:id="welcomeLejbel" contentDisplay="RIGHT" text="klikni ispod" />
                      </children>

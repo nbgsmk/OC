@@ -4,21 +4,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
+import rs.node.oc.model.Combo;
 
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 
 public class AppMainController implements Initializable {
 	
 	@FXML
 	public LineChart<String, Double> grafikoncicNum;
-	
-	@FXML
-	private Label welcomeLejbel;
+	public Button prikaziKombo;
 	
 
 	
@@ -27,9 +29,9 @@ public class AppMainController implements Initializable {
 		
 		Map<Integer, Double> data = DemoData.getDemoData();
 		XYChart.Series<String, Double> series2 = new XYChart.Series<>();
-		series2.setName("dabl trabl");
+		series2.setName("inišalajz рандом дата");
 		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
-			series2.getData().add(new XYChart.Data(tacka.getKey().toString(), tacka.getValue()));
+			series2.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 		}
 		
 		grafikoncicNum.getData().add(series2);
@@ -37,9 +39,18 @@ public class AppMainController implements Initializable {
 	
 	
     @FXML
-    protected void onHelloButtonClick() {
-	    welcomeLejbel.setText("Welcome to JavaFX Application!");
+    protected void onPrikaziKomboClick() {
 	
+	    DemoCombo dc = new DemoCombo();
+	    Combo combo = dc.getDemoCombo();
+	    TreeMap<Double, Double> pl = combo.getPnLPoints();
+		XYChart.Series<String, Double> series = new XYChart.Series<>();
+	    series.setName("kombic");
+	    for (Map.Entry<Double, Double> tacka : pl.entrySet()) {
+		    series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
+	    }
+		grafikoncicNum.getData().clear();
+		grafikoncicNum.getData().add(series);
 		
     }
 	
@@ -49,7 +60,7 @@ public class AppMainController implements Initializable {
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
 		series.setName("dabl trabl");
 		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
-			series.getData().add(new XYChart.Data(tacka.getKey().toString(), tacka.getValue()));
+			series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 		}
 		
 		grafikoncicNum.getData().add(series);
