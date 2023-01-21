@@ -1,25 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="rs.node.oc.AppMainController">
-		<LineChart fx:id="grafikoncicNum">
-			<xAxis>
-				<CategoryAxis side="BOTTOM"/>
-			</xAxis>
-			<yAxis>
-				<NumberAxis side="LEFT"/>
-			</yAxis>
-		</LineChart>
-		<Button mnemonicParsing="false" onAction="#dajRandomData" text="random data"/>
-
-		<Label fx:id="welcomeLejbel" contentDisplay="RIGHT" text="klikni ispod"/>
-		<Button onAction="#onHelloButtonClick" text="Hello!">
+<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.AppMainController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <VBox>
+         <children>
+            <Button mnemonicParsing="false" text="Button" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" />
+         </children>
+      </VBox>
+      <VBox GridPane.columnIndex="1">
+         <children>
+            <BorderPane>
+               <center>
+               		<LineChart fx:id="grafikoncicNum" BorderPane.alignment="CENTER">
+               			<xAxis>
+               				<CategoryAxis side="BOTTOM" />
+               			</xAxis>
+               			<yAxis>
+               				<NumberAxis side="LEFT" />
+               			</yAxis>
+               		</LineChart>
+               </center>
+               <bottom>
+                  <HBox BorderPane.alignment="CENTER">
+                     <children>
+                     		<Button mnemonicParsing="false" onAction="#dajRandomData" text="random data" />
+                     		<Button onAction="#onHelloButtonClick" text="Hello!">
 		</Button>
-</VBox>
-
-
+            
+                           		<Label fx:id="welcomeLejbel" contentDisplay="RIGHT" text="klikni ispod" />
+                     </children>
+                  </HBox>
+               </bottom>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
+</GridPane>
