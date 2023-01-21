@@ -11,8 +11,8 @@ public class DemoData {
 		Map<Integer, Double> tacke = new TreeMap<>();
 		Random randomX = new Random();
 		Random randomY = new Random();
-		int minX = 3864;
-		int maxX = 4100;
+		int minX = 70;
+		int maxX = 150;
 		
 		int minY = 44;
 		int maxY = 74;

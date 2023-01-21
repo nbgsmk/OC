@@ -13,17 +13,43 @@
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <VBox>
+      <GridPane alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Button fx:id="prikaziKombo" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" />
+            <VBox alignment="TOP_CENTER" prefHeight="164.0" prefWidth="104.0">
+               <children>
+                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="XSP">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                      <Tab text="SPX">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               		<Button mnemonicParsing="false" onAction="#dajRandomData" text="random data" />
+                  <RadioButton mnemonicParsing="false" text="1" />
+               </children>
+            </VBox>
+            <Button fx:id="prikaziKombo" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" GridPane.rowIndex="1" />
          </children>
-      </VBox>
+      </GridPane>
       <VBox GridPane.columnIndex="1">
          <children>
             <BorderPane>
                <center>
-               		<LineChart fx:id="grafikoncicNum" BorderPane.alignment="CENTER">
+               		<LineChart fx:id="grafikoncicNum" prefHeight="247.0" prefWidth="338.0" BorderPane.alignment="CENTER">
                			<xAxis>
                				<CategoryAxis side="BOTTOM" />
                			</xAxis>
@@ -32,16 +58,46 @@
                			</yAxis>
                		</LineChart>
                </center>
-               <bottom>
-                  <HBox BorderPane.alignment="CENTER">
-                     <children>
-                     		<Button mnemonicParsing="false" onAction="#dajRandomData" text="JOS random data" />
-            
-                           		<Label fx:id="welcomeLejbel" contentDisplay="RIGHT" text="klikni ispod" />
-                     </children>
-                  </HBox>
-               </bottom>
             </BorderPane>
+            <HBox>
+               <children>
+                  <CheckBox mnemonicParsing="false" />
+                  <RadioButton mnemonicParsing="false" selected="true" text="Call">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="call_or_put" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" text="Put" toggleGroup="$call_or_put" />
+                  <Spinner fx:id="price" />
+                  <Spinner fx:id="amount" layoutX="67.0" layoutY="10.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="410.0">
+               <children>
+                  <CheckBox mnemonicParsing="false" />
+                  <RadioButton mnemonicParsing="false" selected="true" text="Call">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="call_or_put1" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" text="Put" toggleGroup="$call_or_put1" />
+                  <Spinner fx:id="price1" />
+                  <Spinner fx:id="amount1" layoutX="67.0" layoutY="10.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="435.0">
+               <children>
+                  <CheckBox mnemonicParsing="false" />
+                  <RadioButton mnemonicParsing="false" selected="true" text="Call">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="call_or_put11" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" text="Put" toggleGroup="$call_or_put11" />
+                  <Spinner fx:id="price11" />
+                  <Spinner fx:id="amount11" layoutX="67.0" layoutY="10.0" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>
