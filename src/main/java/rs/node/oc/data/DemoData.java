@@ -11,11 +11,11 @@ public class DemoData {
 		Map<Integer, Double> tacke = new TreeMap<>();
 		Random randomX = new Random();
 		Random randomY = new Random();
-		int minX = 12;
-		int maxX = 80;
+		int minX = 3864;
+		int maxX = 4100;
 		
-		int minY = 4;
-		int maxY = 14;
+		int minY = 44;
+		int maxY = 74;
 		
 		int maxDataPoints = 20;
 		for (int i = minX; i <= maxX; i += ( (maxX - minX) / maxDataPoints) ) {

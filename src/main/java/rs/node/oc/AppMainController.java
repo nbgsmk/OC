@@ -14,25 +14,25 @@ import java.util.ResourceBundle;
 
 public class AppMainController implements Initializable {
 	
-	public LineChart grafikoncicNum;
+	@FXML
+	public LineChart<String, Double> grafikoncicNum;
+	
 	@FXML
 	private Label welcomeLejbel;
 	
-	@FXML
-	public LineChart<String, Double> grafikoncicKat;
+
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		XYChart.Series<String, Double> series = new XYChart.Series<>();
-		series.setName("serija podataka");
-		series.getData().add(new XYChart.Data("patka", 33));
-		series.getData().add(new XYChart.Data("zec", 45));
-		series.getData().add(new XYChart.Data("mile", 12));
-		series.getData().add(new XYChart.Data("kile", 22));
-		series.getData().add(new XYChart.Data("zile", 71));
+		Map<Integer, Double> data = DemoData.getDemoData();
+		XYChart.Series<String, Double> series2 = new XYChart.Series<>();
+		series2.setName("dabl trabl");
+		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
+			series2.getData().add(new XYChart.Data(tacka.getKey().toString(), tacka.getValue()));
+		}
 		
-		grafikoncicKat.getData().add(series);
+		grafikoncicNum.getData().add(series2);
 	}
 	
 	
@@ -43,15 +43,16 @@ public class AppMainController implements Initializable {
 		
     }
 	
-	
-	public void initialize(MouseEvent mouseEvent) {
+	@FXML
+	protected void dajRandomData() {
 		Map<Integer, Double> data = DemoData.getDemoData();
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
 		series.setName("dabl trabl");
 		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
-			series.getData().add(new XYChart.Data(tacka.getKey(), tacka.getValue()));
+			series.getData().add(new XYChart.Data(tacka.getKey().toString(), tacka.getValue()));
 		}
 		
 		grafikoncicNum.getData().add(series);
+		
 	}
 }
