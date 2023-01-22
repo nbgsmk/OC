@@ -4,101 +4,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.AppMainController">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-   </rowConstraints>
-   <children>
-      <GridPane alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <VBox alignment="TOP_CENTER" prefHeight="164.0" prefWidth="104.0">
-               <children>
-                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="XSP">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                      <Tab text="SPX">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                    </tabs>
-                  </TabPane>
-               		<Button mnemonicParsing="false" onAction="#dajRandomData" text="random data" />
-                  <RadioButton mnemonicParsing="false" text="1" />
-               </children>
-            </VBox>
-            <Button fx:id="prikaziKombo" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-      <VBox GridPane.columnIndex="1">
-         <children>
-            <BorderPane>
-               <center>
-               		<LineChart fx:id="grafikoncicNum" prefHeight="247.0" prefWidth="338.0" BorderPane.alignment="CENTER">
-               			<xAxis>
-               				<CategoryAxis side="BOTTOM" />
-               			</xAxis>
-               			<yAxis>
-               				<NumberAxis side="LEFT" />
-               			</yAxis>
-               		</LineChart>
-               </center>
-            </BorderPane>
-            <HBox>
-               <children>
-                  <CheckBox mnemonicParsing="false" />
-                  <RadioButton mnemonicParsing="false" selected="true" text="Call">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="call_or_put" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Put" toggleGroup="$call_or_put" />
-                  <Spinner fx:id="price" />
-                  <Spinner fx:id="amount" layoutX="67.0" layoutY="10.0" />
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="410.0">
-               <children>
-                  <CheckBox mnemonicParsing="false" />
-                  <RadioButton mnemonicParsing="false" selected="true" text="Call">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="call_or_put1" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Put" toggleGroup="$call_or_put1" />
-                  <Spinner fx:id="price1" />
-                  <Spinner fx:id="amount1" layoutX="67.0" layoutY="10.0" />
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="435.0">
-               <children>
-                  <CheckBox mnemonicParsing="false" />
-                  <RadioButton mnemonicParsing="false" selected="true" text="Call">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="call_or_put11" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Put" toggleGroup="$call_or_put11" />
-                  <Spinner fx:id="price11" />
-                  <Spinner fx:id="amount11" layoutX="67.0" layoutY="10.0" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
-</GridPane>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.AppMainController">
+    <left>
+        <VBox fx:id="levo" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="prikaziKombo" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" />
+                <Button mnemonicParsing="false" onAction="#dajRandomData" text="random data" />
+                <Button fx:id="dodajRow" mnemonicParsing="false" onAction="#dodajRow" text="dodaj" />
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <LineChart fx:id="grafikoncic" prefHeight="247.0" prefWidth="338.0" BorderPane.alignment="CENTER">
+            <xAxis>
+                <CategoryAxis side="BOTTOM" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" />
+            </yAxis>
+        </LineChart>
+    </center>
+    <bottom>
+        <VBox fx:id="dole" alignment="TOP_CENTER" prefHeight="164.0" prefWidth="104.0" BorderPane.alignment="CENTER" />
+    </bottom>
+</BorderPane>
