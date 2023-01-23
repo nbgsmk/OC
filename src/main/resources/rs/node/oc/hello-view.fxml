@@ -11,9 +11,9 @@
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 	</columnConstraints>
 	<rowConstraints>
-		<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+		<RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
 		<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-		<RowConstraints minHeight="10.0" prefHeight="30.0" />
+		<RowConstraints minHeight="10.0" />
 	</rowConstraints>
 	<LineChart fx:id="grafikoncic" prefHeight="247.0" prefWidth="338.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
 		<xAxis>
@@ -36,8 +36,8 @@
 		<RadioButton fx:id="condor" layoutY="208.0" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" />
 		<RadioButton fx:id="calendar" layoutY="225.0" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" />
 	</AnchorPane>
-	<VBox fx:id="dole" alignment="CENTER" pickOnBounds="false" prefHeight="400.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
-	<Button fx:id="dodajRow" mnemonicParsing="false" onAction="#dodajRow" text="dodaj red" GridPane.rowIndex="2" />
+	<VBox fx:id="dole" alignment="CENTER" pickOnBounds="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+	<Button fx:id="dodajRow" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#dodajRow" text="dodaj red" GridPane.rowIndex="2" />
 		<Button fx:id="prikaziKombo" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" />
 		<Button fx:id="randomData" mnemonicParsing="false" onAction="#dajRandomData" text="random data" GridPane.columnIndex="1" />
 </GridPane>
