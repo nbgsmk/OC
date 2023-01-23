@@ -30,7 +30,7 @@ public class ContractTest {
 		a = pc.getExpirationPriceAt(399);
 		a = pc.getExpirationPriceAt(400);
 		a = pc.getExpirationPriceAt(403);
-		a = combo.getOpenPrice();
+		a = combo.getComboOpenPrice();
 		a = combo.getExpirationPriceAt(399);
 		a = combo.getExpirationPriceAt(400);
 		a = combo.getExpirationPriceAt(402.7);
@@ -43,13 +43,13 @@ public class ContractTest {
 		a = pp.getExpirationPriceAt(399);
 		a = pp.getExpirationPriceAt(400);
 		a = pp.getExpirationPriceAt(403);
-		a = combo.getOpenPrice();
+		a = combo.getComboOpenPrice();
 		a = combo.getExpirationPriceAt(399);
 		a = combo.getExpirationPriceAt(400);
 		a = combo.getExpirationPriceAt(402.7);
 		
 		combo.add(pc);
-		a = combo.getOpenPrice();
+		a = combo.getComboOpenPrice();
 		a = combo.getExpirationPriceAt(399);
 		a = combo.getExpirationPriceAt(400);
 		a = combo.getExpirationPriceAt(402.7);
@@ -66,7 +66,7 @@ public class ContractTest {
 		combo.add(new Pozicija(1, new Call(402), 0.35));
 		karakteristicneTacke = combo.getPnLPoints();
 		
-		a = combo.getOpenPrice();
+		a = combo.getComboOpenPrice();
 		a = combo.getExpirationPriceAt(390);
 		a = combo.getExpirationPriceAt(400);
 		a = combo.getExpirationPriceAt(410);

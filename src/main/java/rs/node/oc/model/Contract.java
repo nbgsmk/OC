@@ -9,6 +9,8 @@ public class Contract {
 	protected double ask;
 	private double intrinsic;
 	private double extrinsic;
+	private String shortName;
+	private String description;
 
 	
 	public Contract(double strajk) {
@@ -37,6 +39,23 @@ public class Contract {
 			return Math.max(strajk - underl, 0);
 		}
 	}
+	
+	public String getShortName() {
+		return shortName;
+	}
+	
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	/*
 	public double getIntrinsic(double last){
 		// return Math.abs(last - avgPx);

@@ -5,6 +5,7 @@ public class Put extends Contract{
 	
 	public Put(double strajk) {
 		super(strajk);
+		setShortName("P");
 	}
 
 }

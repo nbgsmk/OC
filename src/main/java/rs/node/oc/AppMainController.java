@@ -15,10 +15,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
-import rs.node.oc.model.Call;
-import rs.node.oc.model.Combo;
-import rs.node.oc.model.Pozicija;
-import rs.node.oc.model.Put;
+import rs.node.oc.model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,8 +57,10 @@ public class AppMainController implements Initializable {
 		}
 		
 		grafikoncic.getData().add(series2);
+		grafikoncic.setLegendVisible(true);
 		
 		comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 				if (newValue == butterfly) {
@@ -92,8 +91,30 @@ public class AppMainController implements Initializable {
 				
 				}
 				
+				dole.getChildren().clear();
+				onPrikaziKomboClick();
+				for (int i = 0; i < combo.getPnLPoints().size(); i++) {
+					ContractRowController ctrl = dodajRow(null);
+					
+					Integer amt = combo.getPozicije().get(i).getAmount();
+					ctrl.amount.getValueFactory().setValue(amt);
+					
+					Contract contract = combo.getPozicije().get(i).getContract();
+					ctrl.call_put.setText(contract.getShortName());
+					
+					Double strajk = combo.getPozicije().get(i).getContract().getStrajk();
+					ctrl.strajk.getValueFactory().setValue(strajk);
+					
+					Double avgpx = combo.getPozicije().get(i).getOpenPrice();
+					ctrl.avg_px.getValueFactory().setValue(avgpx);
+					
+					Double delta = combo.getPozicije().get(i).getDelta();
+					ctrl.delta.getValueFactory().setValue(delta);
+					
+				}
 				
 			}
+			
 		});
 
 	}
@@ -108,7 +129,7 @@ public class AppMainController implements Initializable {
 	    }
 	    TreeMap<Double, Double> pl = combo.getPnLPoints();
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
-	    series.setName("kombic");
+	    series.setName("legenda si");
 	    for (Map.Entry<Double, Double> tacka : pl.entrySet()) {
 		    series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 	    }
@@ -131,9 +152,14 @@ public class AppMainController implements Initializable {
 	}
 
 
-	public void dodajRow(ActionEvent actionEvent) throws IOException {
-		FXMLLoader loader = new FXMLLoader(AppMain.class.getResource("contract-row.fxml"));
-		dole.getChildren().add(loader.load());
-		
+	public ContractRowController dodajRow(ActionEvent actionEvent){
+		try {
+			FXMLLoader loader = new FXMLLoader(AppMain.class.getResource("contract-row.fxml"));
+			dole.getChildren().add(loader.load());
+			return loader.getController();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
+	
 }

@@ -4,8 +4,8 @@ public class Pozicija {
 	
 	private final Contract contract;
 	private final int amount;
-	private final double openPrice;
-	
+	private double openPrice;
+	private double delta = 0;
 	
 	public Pozicija(int amount, Contract contract, double openPrice) {
 		this.contract = contract;
@@ -22,7 +22,19 @@ public class Pozicija {
 	}
 	
 	public double getOpenPrice() {
-		return openPrice * amount;
+		return openPrice;
+	}
+	
+	public void setOpenPrice(double openPrice) {
+		this.openPrice = openPrice;
+	}
+	
+	public double getDelta() {
+		return delta;
+	}
+	
+	public void setDelta(double delta) {
+		this.delta = delta;
 	}
 	
 	public double getExpirationPriceAt(double underl){

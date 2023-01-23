@@ -31,7 +31,7 @@ public class DemoCombo {
 		// combo.add(new Pozicija(1, new Put(400), 1.3));
 		karakteristicneTacke = combo.getPnLPoints();
 
-		a = combo.getOpenPrice();
+		a = combo.getComboOpenPrice();
 		a = combo.getExpirationPriceAt(390);
 		a = combo.getExpirationPriceAt(400);
 		a = combo.getExpirationPriceAt(410);
