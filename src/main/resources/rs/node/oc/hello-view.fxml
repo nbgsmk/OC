@@ -36,7 +36,7 @@
 		<RadioButton fx:id="condor" layoutY="208.0" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" />
 		<RadioButton fx:id="calendar" layoutY="225.0" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" />
 	</AnchorPane>
-	<VBox fx:id="dole" alignment="CENTER" pickOnBounds="false" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
+	<VBox fx:id="dole" alignment="CENTER" pickOnBounds="false" prefHeight="400.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
 	<Button fx:id="dodajRow" mnemonicParsing="false" onAction="#dodajRow" text="dodaj red" GridPane.rowIndex="2" />
 		<Button fx:id="prikaziKombo" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" />
 		<Button fx:id="randomData" mnemonicParsing="false" onAction="#dajRandomData" text="random data" GridPane.columnIndex="1" />

@@ -102,8 +102,10 @@ public class AppMainController implements Initializable {
     @FXML
     protected void onPrikaziKomboClick() {
 	
-	    DemoCombo dc = new DemoCombo();
-	    Combo combo = dc.getDemoCombo();
+	    if (combo == null) {
+		    DemoCombo dc = new DemoCombo();
+		    combo = dc.getDemoCombo();
+	    }
 	    TreeMap<Double, Double> pl = combo.getPnLPoints();
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
 	    series.setName("kombic");
