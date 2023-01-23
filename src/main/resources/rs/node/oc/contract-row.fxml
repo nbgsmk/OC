@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER"
-          maxHeight="-Infinity"
-          maxWidth="-Infinity"
-          minHeight="-Infinity"
-          minWidth="-Infinity"
-          prefHeight="400.0"
-          prefWidth="600.0"
-          xmlns="http://javafx.com/javafx/17.0.2-ea"
-          xmlns:fx="http://javafx.com/fxml/1"
-          fx:id="rooww"
-          fx:controller="rs.node.oc.ContractRowController"
-
->
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <CheckBox fx:id="enable" mnemonicParsing="false" text="en" />
-      <Label fx:id="call_put" text="Call/Put" GridPane.columnIndex="1" />
-      <Label fx:id="amount" text="amount" GridPane.columnIndex="2" />
-      <Spinner fx:id="avg_px" editable="true" GridPane.columnIndex="3" />
-      <Spinner fx:id="editable" editable="true" GridPane.columnIndex="4" />
-   </children>
+<GridPane fx:id="rooww" alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.ContractRowController">
+	<columnConstraints>
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+	</rowConstraints>
+	<CheckBox fx:id="enable" mnemonicParsing="false" text="en" GridPane.halignment="CENTER">
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding></CheckBox>
+	<CheckBox fx:id="call_put" mnemonicParsing="false" text="C/P" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding></CheckBox>
+	<Spinner fx:id="amount" onScroll="#amountWheel" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+	<Spinner fx:id="avg_px" onScroll="#avgPxWheel" editable="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+	<Spinner fx:id="delta" onScroll="#deltaWheel" editable="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
 </GridPane>

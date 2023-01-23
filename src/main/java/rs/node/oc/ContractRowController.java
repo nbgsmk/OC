@@ -1,60 +1,76 @@
 package rs.node.oc;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.GridPane;
+import rs.node.oc.model.Combo;
 
 import javax.swing.plaf.PanelUI;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ContractRowController extends PanelUI {
+public class ContractRowController implements Initializable {
 	public CheckBox enable;
-	public Label call_put;
-	public Label amount;
+	
+	public Spinner<Integer> amount;
 	public Spinner<Double> avg_px;
-	public Spinner<Integer> editable;
-
-	public ContractRowController(Label call_put, Label amount) {
-		this.call_put = call_put;
-		this.amount = amount;
+	public Spinner<Double> delta;
+	public CheckBox call_put;
+	
+	Combo combo;
+	
+	public ContractRowController(Combo combo) {
+		this.combo = combo;
 	}
-
-	public CheckBox getEnable() {
-		return enable;
+	
+	public ContractRowController() {
 	}
+	
+	public void initialize(URL location, ResourceBundle resources) {
+		amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3, 0, 1));
+		amount.getValueFactory().setWrapAround(false);
+		
+		avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 5, 0, 0.05));
+		avg_px.getValueFactory().setWrapAround(true);
+		
+		delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 1, 0.5, 0.02));
+		delta.getValueFactory().setWrapAround(true);
 
-	public void setEnable(CheckBox enable) {
-		this.enable = enable;
 	}
-
-	public Label getCall_put() {
-		return call_put;
+	
+	
+	public void amountWheel(ScrollEvent scrollEvent) {
+		if (scrollEvent.getDeltaY() > 0) {
+			amount.increment();
+		} else {
+			amount.decrement();
+		}
 	}
-
-	public void setCall_put(Label call_put) {
-		this.call_put = call_put;
+	
+	public void avgPxWheel(ScrollEvent scrollEvent) {
+		if (scrollEvent.getDeltaY() > 0) {
+			avg_px.increment();
+		} else {
+			avg_px.decrement();
+		}
 	}
-
-	public Label getAmount() {
-		return amount;
+	
+	public void deltaWheel(ScrollEvent scrollEvent) {
+		if (scrollEvent.getDeltaY() > 0) {
+			delta.increment();
+		} else {
+			delta.decrement();
+		}
 	}
-
-	public void setAmount(Label amount) {
-		this.amount = amount;
-	}
-
-	public Spinner<Double> getAvg_px() {
-		return avg_px;
-	}
-
-	public void setAvg_px(Spinner<Double> avg_px) {
-		this.avg_px = avg_px;
-	}
-
-	public Spinner<Integer> getEditable() {
-		return editable;
-	}
-
-	public void setEditable(Spinner<Integer> editable) {
-		this.editable = editable;
+	
+	public void setCombo(Combo combo){
+		this.combo = combo;
 	}
 }
