@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane gridLinesVisible="true" minWidth="500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.AppMainController">
+<GridPane minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.AppMainController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -18,7 +19,7 @@
 	</rowConstraints>
 	<Button fx:id="prikaziKombo" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" />
 	<Button fx:id="randomData" mnemonicParsing="false" onAction="#dajRandomData" text="random data" GridPane.columnIndex="1" />
-	<LineChart fx:id="grafikoncic" prefHeight="247.0" prefWidth="338.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+	<LineChart fx:id="grafikoncic" animated="false" legendSide="RIGHT" prefHeight="247.0" prefWidth="338.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
 		<xAxis>
 			<CategoryAxis side="BOTTOM" />
 		</xAxis>
@@ -27,19 +28,22 @@
 		</yAxis>
 	</LineChart>
 	<AnchorPane GridPane.rowIndex="1">
-		<RadioButton fx:id="butterfly" layoutX="1.0" layoutY="157.0" mnemonicParsing="false" text="Butterfly">
+		<RadioButton fx:id="vertical" layoutX="1.0" layoutY="157.0" mnemonicParsing="false" text="Vertical">
 			<toggleGroup>
 				<ToggleGroup fx:id="comboTip" />
 			</toggleGroup>
 		</RadioButton>
-		<RadioButton fx:id="unbal" layoutY="174.0" mnemonicParsing="false" text="Unbal" toggleGroup="$comboTip" />
-		<RadioButton fx:id="vertical" layoutY="191.0" mnemonicParsing="false" text="Vertical" toggleGroup="$comboTip" />
+		<RadioButton fx:id="butterfly" layoutY="174.0" mnemonicParsing="false" text="Butterfly" toggleGroup="$comboTip" />
+		<RadioButton fx:id="unbal" layoutY="191.0" mnemonicParsing="false" text="Unbal" toggleGroup="$comboTip" />
 		<RadioButton fx:id="condor" layoutY="208.0" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" />
 		<RadioButton fx:id="calendar" layoutY="225.0" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" />
 	</AnchorPane>
 	<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
 		<Button fx:id="dodajRow" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#dodajRow" text="dodaj red" />
 	</VBox>
-	<VBox fx:id="dole" fillWidth="false" maxHeight="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.vgrow="NEVER" />
-	<Label fx:id="comboInfo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+	<VBox fx:id="dole" alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+	<Label fx:id="comboInfo" alignment="TOP_LEFT" lineSpacing="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" text="Combo Info" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding></Label>
 </GridPane>

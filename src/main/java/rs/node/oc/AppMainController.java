@@ -62,7 +62,12 @@ public class AppMainController implements Initializable {
 			
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-				if (newValue == butterfly) {
+				if (newValue == vertical) {
+					combo = new Combo();
+					combo.add(new Leg(1, new Put(397), 1));
+					combo.add(new Leg(-1, new Put(398), 1.5));
+					
+				} else if (newValue == butterfly) {
 					combo = new Combo();
 					combo.add(new Leg(1, new Put(397), 1));
 					combo.add(new Leg(-2, new Put(398), 1.5));
@@ -74,10 +79,6 @@ public class AppMainController implements Initializable {
 					combo.add(new Leg(-2, new Put(398), 1.5));
 					combo.add(new Leg(1, new Put(402), 2));
 				
-				} else if (newValue == vertical) {
-					combo = new Combo();
-					combo.add(new Leg(1, new Put(397), 1));
-					combo.add(new Leg(-1, new Put(398), 1.5));
 				
 				} else if (newValue == condor) {
 					combo = new Combo();
@@ -87,11 +88,13 @@ public class AppMainController implements Initializable {
 					combo.add(new Leg(1, new Call(403), 1));
 					
 				} else if (newValue == calendar) {
+					combo = new Combo();
+					// not implemented
 				
 				}
 				
 				dole.getChildren().clear();
-				onPrikaziKomboClick();
+				
 				for (int i = 0; i < combo.getPnLPoints().size(); i++) {
 					ContractRowController ctrl = dodajRow(null);
 					
@@ -119,6 +122,15 @@ public class AppMainController implements Initializable {
 				sb.append("max loss " + combo.getMaxLoss() + "\n");
 				comboInfo.setText(sb.toString());
 				
+				TreeMap<Double, Double> pl = combo.getPnLPoints();
+				XYChart.Series<String, Double> series = new XYChart.Series<>();
+				series.setName("legenda si");
+				for (Map.Entry<Double, Double> tacka : pl.entrySet()) {
+					series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
+				}
+				
+				onPrikaziKomboClick();
+				
 			}
 			
 		});
@@ -140,7 +152,7 @@ public class AppMainController implements Initializable {
 		    series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 	    }
 		grafikoncic.getData().clear();
-		grafikoncic.getData().add(series);
+	    grafikoncic.getData().add(series);
 		
     }
 	

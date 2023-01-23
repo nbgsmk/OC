@@ -45,13 +45,12 @@ public class AppMain extends Application {
 	
 	private void kreni(Combo combo){
 		
-		Map<Integer, Double> data = DemoData.getDemoData();
-
-		data = new TreeMap<>();
+		// random data on start
+		Map<Integer, Double> randomData = DemoData.getDemoData();
+		randomData = new TreeMap<>();
 		for (var entry : combo.getPnLPoints().entrySet()) {
-			data.put((int) Math.round(entry.getKey()), entry.getValue());
+			randomData.put((int) Math.round(entry.getKey()), entry.getValue());
 		}
-		System.out.println(data);
 		
 		
 	}

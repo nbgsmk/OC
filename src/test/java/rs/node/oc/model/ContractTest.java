@@ -18,37 +18,39 @@ public class ContractTest {
 	}
 	
 	@Test
-	private void testGetIntrinsic() {
+	private void testComboKalkulator() {
 		Combo combo;
 		double a;
 		TreeMap<Double, Double> karakteristicneTacke;
 		
-		Leg pc = new Leg(1, new Call(398), 1.5);
+		Leg lc = new Leg(2, new Call(400), 1.5);
 		combo = new Combo();
-		combo.add(pc);
-		a = pc.getOpenPrice();
-		a = pc.getExpirationPriceAt(399);
-		a = pc.getExpirationPriceAt(400);
-		a = pc.getExpirationPriceAt(403);
+		combo.add(lc);
+		a = lc.getOpenPrice();
+		a = lc.getExpirationPriceAt(398);
+		a = lc.getExpirationPriceAt(399);
+		a = lc.getExpirationPriceAt(400);
+		a = lc.getExpirationPriceAt(403);
 		a = combo.getComboOpenPrice();
+		a = combo.getExpirationPriceAt(398);
 		a = combo.getExpirationPriceAt(399);
 		a = combo.getExpirationPriceAt(400);
 		a = combo.getExpirationPriceAt(402.7);
 		
 		
-		Leg pp = new Leg(-1, new Put(401), 0.5);
+		Leg lp = new Leg(-1, new Put(401), 0.5);
 		combo = new Combo();
-		combo.add(pp);
-		a = pp.getOpenPrice();
-		a = pp.getExpirationPriceAt(399);
-		a = pp.getExpirationPriceAt(400);
-		a = pp.getExpirationPriceAt(403);
+		combo.add(lp);
+		a = lp.getOpenPrice();
+		a = lp.getExpirationPriceAt(399);
+		a = lp.getExpirationPriceAt(400);
+		a = lp.getExpirationPriceAt(403);
 		a = combo.getComboOpenPrice();
 		a = combo.getExpirationPriceAt(399);
 		a = combo.getExpirationPriceAt(400);
 		a = combo.getExpirationPriceAt(402.7);
 		
-		combo.add(pc);
+		combo.add(lc);
 		a = combo.getComboOpenPrice();
 		a = combo.getExpirationPriceAt(399);
 		a = combo.getExpirationPriceAt(400);

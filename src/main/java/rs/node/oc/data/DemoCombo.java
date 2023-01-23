@@ -43,7 +43,7 @@ public class DemoCombo {
 		a = combo.getPnlAt(402);
 		a = combo.getPnlAt(410);
 
-		System.out.println("do yaya");
+		System.out.println(getClass().getSimpleName() + ": do yaya");
 
 		return combo;
 	}
