@@ -28,9 +28,6 @@ public class ContractRowController implements Initializable {
 	
 	Combo combo;
 	
-	public ContractRowController(Combo combo) {
-		this.combo = combo;
-	}
 	
 	public ContractRowController() {
 	}

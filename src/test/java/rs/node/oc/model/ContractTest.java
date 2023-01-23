@@ -23,7 +23,7 @@ public class ContractTest {
 		double a;
 		TreeMap<Double, Double> karakteristicneTacke;
 		
-		Pozicija pc = new Pozicija(1, new Call(398), 1.5);
+		Leg pc = new Leg(1, new Call(398), 1.5);
 		combo = new Combo();
 		combo.add(pc);
 		a = pc.getOpenPrice();
@@ -36,7 +36,7 @@ public class ContractTest {
 		a = combo.getExpirationPriceAt(402.7);
 		
 		
-		Pozicija pp = new Pozicija(-1, new Put(401), 0.5);
+		Leg pp = new Leg(-1, new Put(401), 0.5);
 		combo = new Combo();
 		combo.add(pp);
 		a = pp.getOpenPrice();
@@ -57,13 +57,13 @@ public class ContractTest {
 		
 		a = combo.getExpirationPriceAt(110);
 		
-		combo.add(new Pozicija(-1, new Put(399), 4.3));
+		combo.add(new Leg(-1, new Put(399), 4.3));
 		karakteristicneTacke = combo.getPnLPoints();
 		
 		combo = new Combo();
-		combo.add(new Pozicija(1, new Call(398), 1.5));
-		combo.add(new Pozicija(-2, new Call(401), 0.5));
-		combo.add(new Pozicija(1, new Call(402), 0.35));
+		combo.add(new Leg(1, new Call(398), 1.5));
+		combo.add(new Leg(-2, new Call(401), 0.5));
+		combo.add(new Leg(1, new Call(402), 0.35));
 		karakteristicneTacke = combo.getPnLPoints();
 		
 		a = combo.getComboOpenPrice();

@@ -8,11 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextFlow;
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
 import rs.node.oc.model.*;
@@ -42,6 +40,7 @@ public class AppMainController implements Initializable {
 	public RadioButton condor;
 	public RadioButton calendar;
 	public Button randomData;
+	public Label comboInfo;
 	
 	private Combo combo;
 	private List<Combo> history;
@@ -65,27 +64,27 @@ public class AppMainController implements Initializable {
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 				if (newValue == butterfly) {
 					combo = new Combo();
-					combo.add(new Pozicija(1, new Put(397), 1.5));
-					combo.add(new Pozicija(-2, new Put(398), 1));
-					combo.add(new Pozicija(1, new Put(402), 1.5));
+					combo.add(new Leg(1, new Put(397), 1));
+					combo.add(new Leg(-2, new Put(398), 1.5));
+					combo.add(new Leg(1, new Put(402), 2));
 				
 				} else if (newValue == unbal) {
 					combo = new Combo();
-					combo.add(new Pozicija(3, new Put(397), 1.5));
-					combo.add(new Pozicija(-2, new Put(398), 1));
-					combo.add(new Pozicija(1, new Put(402), 1.5));
+					combo.add(new Leg(3, new Put(397), 1));
+					combo.add(new Leg(-2, new Put(398), 1.5));
+					combo.add(new Leg(1, new Put(402), 2));
 				
 				} else if (newValue == vertical) {
 					combo = new Combo();
-					combo.add(new Pozicija(1, new Put(397), 1.5));
-					combo.add(new Pozicija(-1, new Put(398), 1));
+					combo.add(new Leg(1, new Put(397), 1));
+					combo.add(new Leg(-1, new Put(398), 1.5));
 				
 				} else if (newValue == condor) {
 					combo = new Combo();
-					combo.add(new Pozicija(1, new Put(397), 1.5));
-					combo.add(new Pozicija(-1, new Put(398), 1));
-					combo.add(new Pozicija(-1, new Call(402), 1.5));
-					combo.add(new Pozicija(1, new Call(403), 1));
+					combo.add(new Leg(1, new Put(397), 1));
+					combo.add(new Leg(-1, new Put(398), 1.5));
+					combo.add(new Leg(-1, new Call(402), 1.5));
+					combo.add(new Leg(1, new Call(403), 1));
 					
 				} else if (newValue == calendar) {
 				
@@ -96,22 +95,29 @@ public class AppMainController implements Initializable {
 				for (int i = 0; i < combo.getPnLPoints().size(); i++) {
 					ContractRowController ctrl = dodajRow(null);
 					
-					Integer amt = combo.getPozicije().get(i).getAmount();
+					Integer amt = combo.getLegs().get(i).getAmount();
 					ctrl.amount.getValueFactory().setValue(amt);
 					
-					Contract contract = combo.getPozicije().get(i).getContract();
+					Contract contract = combo.getLegs().get(i).getContract();
 					ctrl.call_put.setText(contract.getShortName());
 					
-					Double strajk = combo.getPozicije().get(i).getContract().getStrajk();
+					Double strajk = combo.getLegs().get(i).getContract().getStrajk();
 					ctrl.strajk.getValueFactory().setValue(strajk);
 					
-					Double avgpx = combo.getPozicije().get(i).getOpenPrice();
+					Double avgpx = combo.getLegs().get(i).getOpenPrice();
 					ctrl.avg_px.getValueFactory().setValue(avgpx);
 					
-					Double delta = combo.getPozicije().get(i).getDelta();
+					Double delta = combo.getLegs().get(i).getDelta();
 					ctrl.delta.getValueFactory().setValue(delta);
 					
 				}
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append("open  " + combo.getComboOpenPrice() + "\n") ;
+				sb.append("delta " + combo.getDelta() + "\n");
+				sb.append("max prof " + combo.getMaxProfit() + "\n");
+				sb.append("max loss " + combo.getMaxLoss() + "\n");
+				comboInfo.setText(sb.toString());
 				
 			}
 			

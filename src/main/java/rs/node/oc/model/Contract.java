@@ -2,24 +2,54 @@ package rs.node.oc.model;
 
 public class Contract {
 	
-	protected int amount;
-	protected final double strajk;
-	
-	protected double bid;
-	protected double ask;
-	private double intrinsic;
-	private double extrinsic;
+	private String ticker;
+	private final double strajk;
 	private String shortName;
 	private String description;
+	private double multiplier = 100;
 
 	
 	public Contract(double strajk) {
 		this.strajk = strajk;
 	}
-
+	
+	public Contract(String ticker, double strajk) {
+		this.ticker = ticker;
+		this.strajk = strajk;
+	}
+	
+	public void setTicker(String ticker) {
+		this.ticker = ticker;
+	}
+	
 	public double getStrajk() {
 		return strajk;
 	}
+	
+	public String getShortName() {
+		return shortName;
+	}
+	
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public double getMultiplier() {
+		return multiplier;
+	}
+	
+	public void setMultiplier(double multiplier) {
+		this.multiplier = multiplier;
+	}
+	
 	
 	public double getTimeValue(double underl){
 		if (this instanceof Call) {
@@ -40,21 +70,9 @@ public class Contract {
 		}
 	}
 	
-	public String getShortName() {
-		return shortName;
-	}
+
 	
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
+
 	
 	/*
 	public double getIntrinsic(double last){
