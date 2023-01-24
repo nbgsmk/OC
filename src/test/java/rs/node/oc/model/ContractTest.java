@@ -32,10 +32,10 @@ public class ContractTest {
 		a = lc.getExpirationPriceAt(400);
 		a = lc.getExpirationPriceAt(403);
 		a = combo.getComboOpenPrice();
-		a = combo.getExpirationPriceAt(398);
-		a = combo.getExpirationPriceAt(399);
-		a = combo.getExpirationPriceAt(400);
-		a = combo.getExpirationPriceAt(402.7);
+		a = combo.getExpiredPriceAt(398);
+		a = combo.getExpiredPriceAt(399);
+		a = combo.getExpiredPriceAt(400);
+		a = combo.getExpiredPriceAt(402.7);
 		
 		
 		Leg lp = new Leg(-1, new Put(401), 0.5);
@@ -46,18 +46,18 @@ public class ContractTest {
 		a = lp.getExpirationPriceAt(400);
 		a = lp.getExpirationPriceAt(403);
 		a = combo.getComboOpenPrice();
-		a = combo.getExpirationPriceAt(399);
-		a = combo.getExpirationPriceAt(400);
-		a = combo.getExpirationPriceAt(402.7);
+		a = combo.getExpiredPriceAt(399);
+		a = combo.getExpiredPriceAt(400);
+		a = combo.getExpiredPriceAt(402.7);
 		
 		combo.add(lc);
 		a = combo.getComboOpenPrice();
-		a = combo.getExpirationPriceAt(399);
-		a = combo.getExpirationPriceAt(400);
-		a = combo.getExpirationPriceAt(402.7);
+		a = combo.getExpiredPriceAt(399);
+		a = combo.getExpiredPriceAt(400);
+		a = combo.getExpiredPriceAt(402.7);
 		
 		
-		a = combo.getExpirationPriceAt(110);
+		a = combo.getExpiredPriceAt(110);
 		
 		combo.add(new Leg(-1, new Put(399), 4.3));
 		karakteristicneTacke = combo.getPnLPoints();
@@ -69,9 +69,9 @@ public class ContractTest {
 		karakteristicneTacke = combo.getPnLPoints();
 		
 		a = combo.getComboOpenPrice();
-		a = combo.getExpirationPriceAt(390);
-		a = combo.getExpirationPriceAt(400);
-		a = combo.getExpirationPriceAt(410);
+		a = combo.getExpiredPriceAt(390);
+		a = combo.getExpiredPriceAt(400);
+		a = combo.getExpiredPriceAt(410);
 		
 		
 		

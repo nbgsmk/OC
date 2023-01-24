@@ -23,7 +23,7 @@ public class Combo {
 		return val;
 	}
 	
-	public double getExpirationPriceAt(double underl){
+	public double getExpiredPriceAt(double underl){
 		double val = 0d;
 		for (Leg leg : legs){
 			val += leg.getAmount() * leg.getExpirationPriceAt(underl);

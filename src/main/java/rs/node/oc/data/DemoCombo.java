@@ -32,9 +32,9 @@ public class DemoCombo {
 		karakteristicneTacke = combo.getPnLPoints();
 
 		a = combo.getComboOpenPrice();
-		a = combo.getExpirationPriceAt(390);
-		a = combo.getExpirationPriceAt(400);
-		a = combo.getExpirationPriceAt(410);
+		a = combo.getExpiredPriceAt(390);
+		a = combo.getExpiredPriceAt(400);
+		a = combo.getExpiredPriceAt(410);
 
 		a = combo.getPnlAt(390);
 		a = combo.getPnlAt(398);
