@@ -10,12 +10,12 @@ public class Contract {
 
 	
 	public Contract(double strajk) {
-		this.strajk = strajk;
+		this.strajk = (double) strajk;
 	}
 	
 	public Contract(String ticker, double strajk) {
 		this.ticker = ticker;
-		this.strajk = strajk;
+		this.strajk = (double) strajk;
 	}
 	
 	public void setTicker(String ticker) {
@@ -47,26 +47,26 @@ public class Contract {
 	}
 	
 	public void setMultiplier(double multiplier) {
-		this.multiplier = multiplier;
+		this.multiplier = (double) multiplier;
 	}
 	
 	
 	public double getTimeValue(double underl){
 		if (this instanceof Call) {
-			// return px - Math.max((underl - strajk), 0);
-			return Math.max((underl - strajk), 0);
+			// return px - Math.max((underl - strajk), 0d);
+			return Math.max(((double) underl - strajk), 0d);
 		} else {
-			// return px - Math.max((strajk - underl), 0);
-			return Math.max((strajk - underl), 0);
+			// return px - Math.max((strajk - underl), 0d);
+			return Math.max((strajk - (double) underl), 0d);
 		}
 	}
 	
 	public double getExpirationPriceAt(double underl){
 		if (this instanceof Call) {
-			return Math.max(strajk - underl, 0);
+			return Math.max(strajk - (double) underl, 0d);
 		} else {
 			// return Math.max(underl - strajk, 0);
-			return Math.max(strajk - underl, 0);
+			return Math.max(strajk - (double) underl, 0d);
 		}
 	}
 	

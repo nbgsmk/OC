@@ -24,7 +24,7 @@ public class Combo {
 	}
 	
 	public double getExpirationPriceAt(double underl){
-		double val = 0;
+		double val = 0d;
 		for (Leg leg : legs){
 			val += leg.getAmount() * leg.getExpirationPriceAt(underl);
 		}
@@ -32,7 +32,7 @@ public class Combo {
 	}
 	
 	public double getPnlAt(double underl){
-		double pnl = 0;
+		double pnl = 0d;
 		for (Leg leg : legs) {
 			pnl += leg.getAmount() * leg.getPnlAt(underl);
 		}
