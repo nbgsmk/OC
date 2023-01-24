@@ -49,14 +49,13 @@ public class AppMainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		Map<Integer, Double> data = DemoData.getDemoData();
-		XYChart.Series<String, Double> series2 = new XYChart.Series<>();
-		series2.setName("inišalajz рандом дата");
+		XYChart.Series<String, Double> bzvz = new XYChart.Series<>();
+		bzvz.setName("inišalajz рандом дата");
 		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
-			series2.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
+			bzvz.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 		}
 		
-		grafikoncic.getData().add(series2);
-		grafikoncic.setLegendVisible(true);
+		grafikoncic.getData().add(bzvz);
 		
 		comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			
@@ -84,12 +83,14 @@ public class AppMainController implements Initializable {
 					combo = new Combo();
 					combo.add(new Leg(1, new Put(397), 1));
 					combo.add(new Leg(-1, new Put(398), 1.5));
-					combo.add(new Leg(-1, new Call(402), 1.5));
 					combo.add(new Leg(1, new Call(403), 1));
+					combo.add(new Leg(-1, new Call(402), 1.5));
 					
 				} else if (newValue == calendar) {
 					combo = new Combo();
-					// not implemented
+					combo.add(new Leg(1, new Call(398), 1.5));
+					combo.add(new Leg(-2, new Call(401), 0.5));
+					combo.add(new Leg(1, new Call(402), 0.35));
 				
 				}
 				

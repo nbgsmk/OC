@@ -40,15 +40,27 @@ public class Combo {
 	}
 	
 	public TreeMap<Double, Double> getPnLPoints() {
+		double minStrajk = Double.MAX_VALUE;
+		double maxStrajk = Double.MIN_VALUE;
+		
 		TreeMap<Double, Double> tm = new TreeMap<>();
 		for (Leg leg : legs) {
 			double strajk = leg.getContract().getStrajk();
-			double pnl = leg.getPnlAt(strajk);
+			
+			minStrajk = Math.min(minStrajk, strajk);
+			maxStrajk = Math.max(maxStrajk, strajk);
+			
+			double pnleg = leg.getPnlAt(strajk);
 			if (tm.containsKey(strajk)) {
-				pnl += leg.getAmount() * leg.getPnlAt(strajk);
+				double prev = tm.get(strajk);
+				pnleg = prev + leg.getAmount() * leg.getPnlAt(strajk);
 			}
-			tm.put(strajk, pnl);
+			tm.put(strajk, pnleg);
+			
+
 		}
+		minStrajk = minStrajk * 0.95;
+		maxStrajk = maxStrajk * 1.05;
 		return tm;
 	}
 	

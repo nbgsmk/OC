@@ -19,7 +19,7 @@
 	</rowConstraints>
 	<Button fx:id="prikaziKombo" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#onPrikaziKomboClick" text="Prikazi combo" />
 	<Button fx:id="randomData" mnemonicParsing="false" onAction="#dajRandomData" text="random data" GridPane.columnIndex="1" />
-	<LineChart fx:id="grafikoncic" animated="false" legendSide="RIGHT" prefHeight="247.0" prefWidth="338.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+	<LineChart fx:id="grafikoncic" animated="false" prefHeight="247.0" prefWidth="338.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
 		<xAxis>
 			<CategoryAxis side="BOTTOM" />
 		</xAxis>
