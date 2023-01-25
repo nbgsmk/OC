@@ -10,12 +10,12 @@ public class Contract {
 
 	
 	public Contract(double strajk) {
-		this.strajk = (double) strajk;
+		this.strajk = strajk;
 	}
 	
 	public Contract(String ticker, double strajk) {
 		this.ticker = ticker;
-		this.strajk = (double) strajk;
+		this.strajk = strajk;
 	}
 	
 	public void setTicker(String ticker) {
@@ -54,22 +54,36 @@ public class Contract {
 	public double getTimeValue(double underl){
 		if (this instanceof Call) {
 			// return px - Math.max((underl - strajk), 0d);
-			return Math.max(((double) underl - strajk), 0d);
+			return Math.max((underl - strajk), 0d);
 		} else {
 			// return px - Math.max((strajk - underl), 0d);
-			return Math.max((strajk - (double) underl), 0d);
+			return Math.max((strajk - underl), 0d);
 		}
 	}
 	
 	public double getExpirationPriceAt(double underl){
-		if (this instanceof Call) {
-			return Math.max(strajk - (double) underl, 0d);
+		// if (this instanceof Call) {
+		// 	return Math.max(underl - strajk, 0d);
+		// } else {
+		// 	// return Math.max(underl - strajk, 0);
+		// 	return Math.max(strajk - underl, 0d);
+		// }
+		if (this.isITMaAt(underl)) {
+			return Math.abs(strajk - underl);
 		} else {
-			// return Math.max(underl - strajk, 0);
-			return Math.max(strajk - (double) underl, 0d);
+			return 0;
 		}
 	}
 	
+	public boolean isITMaAt(double underl){
+		if ((this instanceof Call) && (strajk < underl)) {
+			return true;
+		} else if ((this instanceof Put) && (strajk > underl)){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	
 

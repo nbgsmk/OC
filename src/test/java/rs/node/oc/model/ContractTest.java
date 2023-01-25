@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 
 import java.util.TreeMap;
 
+import static org.testng.Assert.*;
+
 public class ContractTest {
 	
 	Call call;
@@ -13,8 +15,8 @@ public class ContractTest {
 	
 	@BeforeMethod
 	public void setUp() {
-		call = new Call(100d);
-		put = new Put(100d);
+		call = new Call(400);
+		put = new Put(400);
 	}
 	
 	@Test
@@ -77,5 +79,15 @@ public class ContractTest {
 		
 	}
 	
-
+	
+	@Test
+	public void testIsITM() {
+		assertFalse(call.isITMaAt(399));
+		assertFalse(call.isITMaAt(400));
+		assertTrue(call.isITMaAt(401));       // in the money
+		
+		assertTrue(put.isITMaAt(399));         // in the money
+		assertFalse(put.isITMaAt(400));
+		assertFalse(put.isITMaAt(401));
+	}
 }

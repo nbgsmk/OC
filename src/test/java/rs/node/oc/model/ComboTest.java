@@ -3,22 +3,35 @@ package rs.node.oc.model;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
+
 import static org.testng.Assert.*;
 
 public class ComboTest {
-	Combo long_call = new Combo();
-	Combo long_put = new Combo();
-	Combo short_call = new Combo();
-	Combo short_put = new Combo();
-	Combo call_vertical = new Combo();
-	Combo put_vertical = new Combo();
-
+	private final double err = 0.000000001;
+	
+	Combo long_call;
+	Combo long_put;
+	Combo short_call;
+	Combo short_put;
+	Combo call_vertical;
+	Combo put_vertical;
+	
 	private final double co = 1.5d;
 	private final double po = 1.2d;
 	private final double dd = 0.35d;
 
 	@BeforeMethod
 	public void setUp() {
+		
+		long_call = new Combo();
+		long_put = new Combo();
+		short_call = new Combo();
+		short_put = new Combo();
+		call_vertical = new Combo();
+		put_vertical = new Combo();
+		
 		// 1 x long call
 		long_call.add(1, new Call(400), co);
 
@@ -48,6 +61,13 @@ public class ComboTest {
 		final int amt = 3;
 		
 		// priprema
+		long_call = new Combo();
+		long_put = new Combo();
+		short_call = new Combo();
+		short_put = new Combo();
+		call_vertical = new Combo();
+		put_vertical = new Combo();
+		
 		long_call.add(amt, new Call(400), co);
 		long_put.add(amt, new Put(400), po);
 		
@@ -61,104 +81,121 @@ public class ComboTest {
 		put_vertical.add(amt, new Put(399), dd);
 		
 		// long call i put
-		assertEquals(long_call.getComboOpenPrice(), amt*co);
-		assertEquals(long_put.getComboOpenPrice(), amt*po);
+		assertEquals(long_call.getComboOpenPrice(), amt*co, err);
+		assertEquals(long_put.getComboOpenPrice(), amt*po, err);
 		// short call i put
-		assertEquals(short_call.getComboOpenPrice(), (-amt)*co);
-		assertEquals(short_put.getComboOpenPrice(), (-amt)*po);
+		assertEquals(short_call.getComboOpenPrice(), (-amt)*co, err);
+		assertEquals(short_put.getComboOpenPrice(), (-amt)*po, err);
 		// call i put vertical
-		assertEquals(call_vertical.getComboOpenPrice(), amt*(-co+dd));
-		assertEquals(put_vertical.getComboOpenPrice(), amt*(-po+dd));
+		assertEquals(call_vertical.getComboOpenPrice(), amt*(-co+dd), err);
+		assertEquals(put_vertical.getComboOpenPrice(), amt*(-po+dd), err);
 	}
 	
 	
 	@Test
 	public void testGetComboOpenPrice() {
-		assertEquals(long_call.getComboOpenPrice(), co);
-		assertEquals(long_put.getComboOpenPrice(), po);
+		assertEquals(long_call.getComboOpenPrice(), co, err);
+		assertEquals(long_put.getComboOpenPrice(), po, err);
 
-		assertEquals(short_call.getComboOpenPrice(), (-1)*co);
-		assertEquals(short_put.getComboOpenPrice(), (-1)*po);
+		assertEquals(short_call.getComboOpenPrice(), (-1)*co, err);
+		assertEquals(short_put.getComboOpenPrice(), (-1)*po, err);
 
-		assertEquals(call_vertical.getComboOpenPrice(), (-co)+dd);
-		assertEquals(put_vertical.getComboOpenPrice(), (-po)+dd);
+		assertEquals(call_vertical.getComboOpenPrice(), (-co)+dd, err);
+		assertEquals(put_vertical.getComboOpenPrice(), (-po)+dd, err);
 	}
 	
 	@Test
 	public void testGetExpirationPriceAt() {
 		// price of combo at expiration, at given underlying
-		assertEquals(long_call.getExpiredPriceAt(399), 1);
-		assertEquals(long_call.getExpiredPriceAt(400), 0);
-		assertEquals(long_call.getExpiredPriceAt(401), 0);
+		assertEquals(long_call.getExpiredPriceAt(399), 0, err);
+		assertEquals(long_call.getExpiredPriceAt(400), 0, err);
+		assertEquals(long_call.getExpiredPriceAt(401), 1, err);
 
-		assertEquals(long_put.getExpiredPriceAt(399), 1);
-		assertEquals(long_put.getExpiredPriceAt(400), 0);
-		assertEquals(long_put.getExpiredPriceAt(401), 0);
+		assertEquals(long_put.getExpiredPriceAt(399), 1, err);
+		assertEquals(long_put.getExpiredPriceAt(400), 0, err);
+		assertEquals(long_put.getExpiredPriceAt(401), 0, err);
 
-		assertEquals(short_call.getExpiredPriceAt(399), 0);
-		assertEquals(short_call.getExpiredPriceAt(400), 0);
-		assertEquals(short_call.getExpiredPriceAt(401), -1);
+		assertEquals(short_call.getExpiredPriceAt(399), 0, err);
+		assertEquals(short_call.getExpiredPriceAt(400), 0, err);
+		assertEquals(short_call.getExpiredPriceAt(401), -1, err);
 
-		assertEquals(short_put.getExpiredPriceAt(399), -1);
-		assertEquals(short_put.getExpiredPriceAt(400), 0);
-		assertEquals(short_put.getExpiredPriceAt(401), 0);
+		assertEquals(short_put.getExpiredPriceAt(399), -1, err);
+		assertEquals(short_put.getExpiredPriceAt(400), 0, err);
+		assertEquals(short_put.getExpiredPriceAt(401), 0, err);
 
-		assertEquals(call_vertical.getExpiredPriceAt(399), 0);
-		assertEquals(call_vertical.getExpiredPriceAt(400), 0);
-		assertEquals(call_vertical.getExpiredPriceAt(401), -1);
-		assertEquals(call_vertical.getExpiredPriceAt(402), -1);
-		assertEquals(call_vertical.getExpiredPriceAt(403), -1);
+		assertEquals(call_vertical.getExpiredPriceAt(399), 0, err);
+		assertEquals(call_vertical.getExpiredPriceAt(400), 0, err);
+		assertEquals(call_vertical.getExpiredPriceAt(401), -1, err);
+		assertEquals(call_vertical.getExpiredPriceAt(402), -1, err);
+		assertEquals(call_vertical.getExpiredPriceAt(403), -1, err);
 
-		assertEquals(put_vertical.getExpiredPriceAt(398), -1);
-		assertEquals(put_vertical.getExpiredPriceAt(399), -1);
-		assertEquals(put_vertical.getExpiredPriceAt(400), -1);
-		assertEquals(put_vertical.getExpiredPriceAt(401), 0);
-		assertEquals(put_vertical.getExpiredPriceAt(402), 0);
+		assertEquals(put_vertical.getExpiredPriceAt(398), -1, err);
+		assertEquals(put_vertical.getExpiredPriceAt(399), -1, err);
+		assertEquals(put_vertical.getExpiredPriceAt(400), -1, err);
+		assertEquals(put_vertical.getExpiredPriceAt(401), 0, err);
+		assertEquals(put_vertical.getExpiredPriceAt(402), 0, err);
 
 	}
 	
 	@Test
 	public void testGetPnlAt() {
-		assertEquals(long_call.getPnlAt(399), -co);
-		assertEquals(long_call.getPnlAt(400), -co);
-		assertEquals(long_call.getPnlAt(401), 1-co);
+		assertEquals(long_call.getPnlAt(399), -co, err);
+		assertEquals(long_call.getPnlAt(400), -co, err);
+		assertEquals(long_call.getPnlAt(401), 1-co, err);
 
-		assertEquals(long_put.getPnlAt(399), 1-po);
-		assertEquals(long_put.getPnlAt(400), -po);
-		assertEquals(long_put.getPnlAt(401), -po);
+		assertEquals(long_put.getPnlAt(399), 1-po, err);
+		assertEquals(long_put.getPnlAt(400), -po, err);
+		assertEquals(long_put.getPnlAt(401), -po, err);
 
-		assertEquals(short_call.getPnlAt(399), co);
-		assertEquals(short_call.getPnlAt(400), co);
-		assertEquals(short_call.getPnlAt(401), -1+co);
+		assertEquals(short_call.getPnlAt(399), co, err);
+		assertEquals(short_call.getPnlAt(400), co, err);
+		assertEquals(short_call.getPnlAt(401), -1+co, err);
 
-		assertEquals(short_put.getPnlAt(399), -1+po);
-		assertEquals(short_put.getPnlAt(400), po);
-		assertEquals(short_put.getPnlAt(401), po);
+		assertEquals(short_put.getPnlAt(399), -1+po, err);
+		assertEquals(short_put.getPnlAt(400), po, err);
+		assertEquals(short_put.getPnlAt(401), po, err);
 
-		assertEquals(call_vertical.getPnlAt(399), (co-dd));
-		assertEquals(call_vertical.getPnlAt(400), (co-dd));
-		assertEquals(call_vertical.getPnlAt(401), -1+(co-dd));
-		assertEquals(call_vertical.getPnlAt(402), -2+1-(co-dd));
-		assertEquals(call_vertical.getPnlAt(403), -3+2-(co-dd));
+		assertEquals(call_vertical.getPnlAt(399), (co-dd), err);
+		assertEquals(call_vertical.getPnlAt(400), (co-dd), err);
+		assertEquals(call_vertical.getPnlAt(401), -1+(co-dd), err);
+		assertEquals(call_vertical.getPnlAt(402), -2+1+(co-dd), err);
+		assertEquals(call_vertical.getPnlAt(403), -3+2+(co-dd), err);
 
-		assertEquals(put_vertical.getPnlAt(398), -3+2+(po-dd));
-		assertEquals(put_vertical.getPnlAt(399), -2+1-(po-dd));
-		assertEquals(put_vertical.getPnlAt(400), -1+(po-dd));
-		assertEquals(put_vertical.getPnlAt(401), (po-dd));
-		assertEquals(put_vertical.getPnlAt(402), (po-dd));
+		assertEquals(put_vertical.getPnlAt(398), -3+2+(po-dd), err);
+		assertEquals(put_vertical.getPnlAt(399), -2+1+(po-dd), err);
+		assertEquals(put_vertical.getPnlAt(400), -1+(po-dd), err);
+		assertEquals(put_vertical.getPnlAt(401), (po-dd), err);
+		assertEquals(put_vertical.getPnlAt(402), (po-dd), err);
 
 	}
 	
 	@Test
 	public void testGetPnLPoints() {
+		assertEquals(long_call.getPnLPoints().size(), 1, err);
+		assertEquals(long_put.getPnLPoints().size(), 1, err);
+		
+		assertEquals(call_vertical.getPnLPoints().size(), 2, err);
+		assertEquals(put_vertical.getPnLPoints().size(), 2, err);
 	}
 	
 	@Test
 	public void testGetLegs() {
+		assertNotNull(long_call.getLegs());
+		assertEquals(long_call.getLegs().size(), 1, err);
+		assertEquals(call_vertical.getLegs().size(), 2, err);
 	}
 	
 	@Test
 	public void testGetDelta() {
+		Combo combo = new Combo();
+		Leg c = new Leg(1, new Call(400), 1.5);
+		Leg p = new Leg(1, new Call(400), 1.5);
+		c.setDelta(0.5);
+		p.setDelta(0.5);
+		combo.add(c);
+		combo.add(p);
+	
+		// TODO kako se racuna delta od celog comba?
 	}
 	
 	@Test
