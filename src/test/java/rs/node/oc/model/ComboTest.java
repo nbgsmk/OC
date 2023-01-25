@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.TreeMap;
+import java.util.concurrent.locks.Condition;
 
 import static org.testng.Assert.*;
 
@@ -176,6 +178,24 @@ public class ComboTest {
 		
 		assertEquals(call_vertical.getPnLPoints().size(), 2, err);
 		assertEquals(put_vertical.getPnLPoints().size(), 2, err);
+		
+		TreeMap<Double, Double> pnlp = new TreeMap<>();
+		
+		pnlp = long_call.getPnLPoints();
+		
+		Combo vert = new Combo();
+		vert.add(-1, new Call(400), 1.5);
+		vert.add(1, new Call(401), 1.5);
+		pnlp = vert.getPnLPoints();
+		
+		Combo condor = new Combo();
+		condor.add(1, new Put(398), 1.5);
+		condor.add(-1, new Put(399), 1);
+		condor.add(-1, new Call(401), 1);
+		condor.add(1, new Call(402), 1);
+		pnlp = vert.getPnLPoints();
+		
+		
 	}
 	
 	@Test

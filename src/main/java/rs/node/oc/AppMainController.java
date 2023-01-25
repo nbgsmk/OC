@@ -83,8 +83,8 @@ public class AppMainController implements Initializable {
 					combo = new Combo();
 					combo.add(new Leg(1, new Put(397), 1));
 					combo.add(new Leg(-1, new Put(398), 1.5));
-					combo.add(new Leg(1, new Call(403), 1));
 					combo.add(new Leg(-1, new Call(402), 1.5));
+					combo.add(new Leg(1, new Call(403), 1));
 					
 				} else if (newValue == calendar) {
 					combo = new Combo();

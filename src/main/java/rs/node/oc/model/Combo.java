@@ -56,8 +56,6 @@ public class Combo {
 				pnleg = prev + leg.getAmount() * leg.getPnlAt(strajk);
 			}
 			tm.put(strajk, pnleg);
-			
-
 		}
 		minStrajk = minStrajk * 0.95;
 		maxStrajk = maxStrajk * 1.05;
