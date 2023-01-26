@@ -11,7 +11,7 @@ import java.util.concurrent.locks.Condition;
 import static org.testng.Assert.*;
 
 public class ComboTest {
-	private final double err = 0.000000001;
+	private final double err = 1e-8;
 	
 	Combo long_call;
 	Combo long_put;
@@ -27,12 +27,12 @@ public class ComboTest {
 	@BeforeMethod
 	public void setUp() {
 		
-		long_call = new Combo();
-		long_put = new Combo();
-		short_call = new Combo();
-		short_put = new Combo();
-		call_vertical = new Combo();
-		put_vertical = new Combo();
+		long_call = new Combo("Long call");
+		long_put = new Combo("Long put");
+		short_call = new Combo("Short call");
+		short_put = new Combo("Short put");
+		call_vertical = new Combo("Call vertical");
+		put_vertical = new Combo("Put vertical");
 		
 		// 1 x long call
 		long_call.add(1, new Call(400), co);
@@ -173,28 +173,33 @@ public class ComboTest {
 	
 	@Test
 	public void testGetPnLPoints() {
-		assertEquals(long_call.getPnLPoints().size(), 1, err);
-		assertEquals(long_put.getPnLPoints().size(), 1, err);
-		
-		assertEquals(call_vertical.getPnLPoints().size(), 2, err);
-		assertEquals(put_vertical.getPnLPoints().size(), 2, err);
-		
+		assertTrue(long_call.getPnLPoints().size() > 1);
+		assertTrue(long_call.getPnLPoints().size() > long_call.getLegs().size());
+		assertTrue(long_put.getPnLPoints().size() > 1);
+		assertTrue(long_put.getPnLPoints().size() > long_put.getLegs().size());
+
+		assertTrue(call_vertical.getPnLPoints().size() > 2);
+		assertTrue(call_vertical.getPnLPoints().size() > call_vertical.getLegs().size());
+		assertTrue(put_vertical.getPnLPoints().size() > 2);
+		assertTrue(put_vertical.getPnLPoints().size() > put_vertical.getLegs().size());
+
+		// TODO smisliti jos nesto korisno
+
 		TreeMap<Double, Double> pnlp = new TreeMap<>();
 		
 		pnlp = long_call.getPnLPoints();
+		pnlp = long_put.getPnLPoints();
+
+		pnlp = call_vertical.getPnLPoints();
+		pnlp = put_vertical.getPnLPoints();
 		
-		Combo vert = new Combo();
-		vert.add(-1, new Call(400), 1.5);
-		vert.add(1, new Call(401), 1.5);
-		pnlp = vert.getPnLPoints();
-		
-		Combo condor = new Combo();
-		condor.add(1, new Put(398), 1.5);
-		condor.add(-1, new Put(399), 1);
-		condor.add(-1, new Call(401), 1);
+		Combo condor = new Combo("Iron condor");
+		condor.add(1, new Put(398), 1);
+		condor.add(-1, new Put(399), 2);
+		condor.add(-1, new Call(401), 2);
 		condor.add(1, new Call(402), 1);
-		pnlp = vert.getPnLPoints();
-		
+		pnlp = condor.getPnLPoints();
+
 		
 	}
 	

@@ -1,23 +1,49 @@
 package rs.node.oc.model;
 
+import rs.node.oc.pnlcalc.PnLmajstor;
+
+import java.awt.image.PackedColorModel;
 import java.util.*;
 
 public class Combo {
 
+	private String comboName = "";
+	private String comboDescription = "";
 	private final List<Leg> legs = new ArrayList<>();
 	private TreeMap<Double, Double> pnlPoints = new TreeMap<>();
-	
+
+	public Combo() {
+	}
+
+	public Combo(String comboName) {
+		this.comboName = comboName;
+	}
+
+	public Combo(String comboName, String comboDescription) {
+		this.comboName = comboName;
+		this.comboDescription = comboDescription;
+	}
+
+
+	public String getComboName() {
+		return comboName;
+	}
+
+	public String getComboDescription() {
+		return comboDescription;
+	}
+
 	public void add(Leg p){
-		legs.add(p);
+		this.legs.add(p);
 	}
 	
 	public void add(int amount, Contract contract, double px){
-		legs.add(new Leg(amount, contract, px));
+		this.legs.add(new Leg(amount, contract, px));
 	}
 	
 	public double getComboOpenPrice(){
 		double val = 0;
-		for (Leg leg : legs){
+		for (Leg leg : this.legs){
 			val += leg.getAmount() * leg.getOpenPrice();
 		}
 		return val;
@@ -25,7 +51,7 @@ public class Combo {
 	
 	public double getExpiredPriceAt(double underl){
 		double val = 0d;
-		for (Leg leg : legs){
+		for (Leg leg : this.legs){
 			val += leg.getAmount() * leg.getExpirationPriceAt(underl);
 		}
 		return val;
@@ -33,35 +59,41 @@ public class Combo {
 	
 	public double getPnlAt(double underl){
 		double pnl = 0d;
-		for (Leg leg : legs) {
+		for (Leg leg : this.legs) {
 			pnl += leg.getAmount() * leg.getPnlAt(underl);
 		}
 		return pnl;
 	}
 	
 	public TreeMap<Double, Double> getPnLPoints() {
-		double minStrajk = Double.MAX_VALUE;
-		double maxStrajk = Double.MIN_VALUE;
-		
-		TreeMap<Double, Double> tm = new TreeMap<>();
-		for (Leg leg : legs) {
-			double strajk = leg.getContract().getStrajk();
-			
-			minStrajk = Math.min(minStrajk, strajk);
-			maxStrajk = Math.max(maxStrajk, strajk);
-			
-			double pnleg = leg.getPnlAt(strajk);
-			if (tm.containsKey(strajk)) {
-				double prev = tm.get(strajk);
-				pnleg = prev + leg.getAmount() * leg.getPnlAt(strajk);
+		PnLmajstor pm = new PnLmajstor(this.getLegs());
+		List<Double> expandedStrajkovi = pm.getExpandedStrajkovi();
+
+		TreeMap<Double, Double> tmp = new TreeMap<>();
+
+		System.out.println("Combo " + getComboName());
+
+		for (Double strajk : expandedStrajkovi){
+			double y = 0;
+			for (Leg leg : legs){
+				y += leg.getPnlAt(strajk);
+				System.out.print("\t" + leg.getAmount() + "\t" + leg.getContract().toString() + "\t" + "@ " + leg.getOpenPrice() +  " PnL at " + strajk + " = " + leg.getPnlAt(strajk));
 			}
-			tm.put(strajk, pnleg);
+
+			if (tmp.containsKey(strajk)) {
+				double prev = tmp.get(strajk);
+				y += prev;
+				System.out.print(" prev" + prev + " new y " + y);
+			}
+			tmp.put(strajk, y);
+			System.out.println("\t ->> combo total at strajk " + strajk + " pnl=" + y);
+
 		}
-		minStrajk = minStrajk * 0.95;
-		maxStrajk = maxStrajk * 1.05;
-		return tm;
+		return tmp;
 	}
-	
+
+
+
 	public List<Leg> getLegs() {
 		return legs;
 	}

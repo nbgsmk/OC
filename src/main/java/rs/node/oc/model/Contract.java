@@ -106,4 +106,12 @@ public class Contract {
 		}
 	};
 	*/
+
+	@Override
+	public String toString() {
+		// String s = super.toString();
+		String s = getClass().getSimpleName();
+		s += " " + Double.toString(strajk);
+		return s;
+	}
 }

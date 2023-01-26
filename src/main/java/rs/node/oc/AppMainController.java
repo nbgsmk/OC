@@ -96,7 +96,7 @@ public class AppMainController implements Initializable {
 				
 				dole.getChildren().clear();
 				
-				for (int i = 0; i < combo.getPnLPoints().size(); i++) {
+				for (int i = 0; i < combo.getLegs().size(); i++) {
 					ContractRowController ctrl = dodajRow(null);
 					
 					Integer amt = combo.getLegs().get(i).getAmount();
