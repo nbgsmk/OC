@@ -62,34 +62,34 @@ public class AppMainController implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 				if (newValue == vertical) {
-					combo = new Combo("vertical");
+					combo = new Combo("Vertical Spread");
 					combo.add(new Leg(1, new Put(397), 0.68));
 					combo.add(new Leg(-1, new Put(399), 1.12));
 					// combo.add(new Leg(-1, new Put(397), 0.66));
 					// combo.add(new Leg(1, new Put(399), 1.15));
 					
 				} else if (newValue == butterfly) {
-					combo = new Combo("butterfly");
+					combo = new Combo("Butterfly");
 					combo.add(new Leg(1, new Put(397), 1));
 					combo.add(new Leg(-2, new Put(398), 1.5));
 					combo.add(new Leg(1, new Put(402), 2));
 				
 				} else if (newValue == unbal) {
-					combo = new Combo("unbalanced");
+					combo = new Combo("Unbalanced Butterfly");
 					combo.add(new Leg(2, new Put(398), 0.89));
 					combo.add(new Leg(-3, new Put(401), 1.81));
 					combo.add(new Leg(1, new Put(403), 2.81));
 				
 				
 				} else if (newValue == condor) {
-					combo = new Combo("condor");
+					combo = new Combo("Iron Condor");
 					combo.add(new Leg(1, new Put(401), 1.8));
 					combo.add(new Leg(-1, new Put(403), 2.74));
 					combo.add(new Leg(-1, new Call(405), 0.96));
 					combo.add(new Leg(1, new Call(407), 0.5));
 					
 				} else if (newValue == calendar) {
-					combo = new Combo("condor");
+					combo = new Combo("Iron Condor");
 					combo.add(new Leg(1, new Put(401), 1.8));
 					combo.add(new Leg(-1, new Put(403), 2.74));
 					combo.add(new Leg(-1, new Call(405), 0.96));
@@ -137,7 +137,7 @@ public class AppMainController implements Initializable {
 				
 				onPrikaziKomboClick();
 				Snimac snimac = new Snimac();
-				snimac.saveOos("tekuci.cmb", combo);
+				snimac.writeXml("default.combo.xml", combo);
 				
 			}
 			

@@ -28,24 +28,26 @@ public class SnimacTest {
 	}
 	
 	@Test
-	public void testSaveOos() {
-		snimac.saveOos("rajl", combo);
+	public void testSaveObj() {
+		snimac.writeObj("rajl", combo);
 	}
 	
 	@Test
-	public void testReadOos() {
+	public void testReadObj() {
 		Combo getted = new Combo();
-		Object i = snimac.readOos("rajl");
+		Object i = snimac.readObj("rajl");
 		getted = (Combo) i;
 	}
 	
 	
 	@Test
-	public void testDoXe() {
-		snimac.doXe("rajl", combo);
+	public void testWriteXml() {
+		snimac.writeXml("rajl", combo);
 	}
 	
 	@Test
-	public void testGetXE() {
+	public void testReadXml() {
+		Object c = snimac.readXml("rajl");
+		combo = (Combo) c;
 	}
 }
