@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
+import rs.node.oc.data.Snimac;
 import rs.node.oc.model.*;
 
 import java.io.IOException;
@@ -135,6 +136,8 @@ public class AppMainController implements Initializable {
 				}
 				
 				onPrikaziKomboClick();
+				Snimac snimac = new Snimac();
+				snimac.saveOos("tekuci.cmb", combo);
 				
 			}
 			

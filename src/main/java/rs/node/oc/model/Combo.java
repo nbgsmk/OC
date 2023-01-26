@@ -2,14 +2,15 @@ package rs.node.oc.model;
 
 import rs.node.oc.pnlcalc.PnLmajstor;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Combo {
+public class Combo implements Serializable {
 	
 	private String comboName = "";
 	private String comboDescription = "";
-	private final List<Leg> legs = new ArrayList<>();
-	// private TreeMap<Double, Double> pnlPoints = new TreeMap<>();
+	private List<Leg> legs = new ArrayList<>();
+	
 	
 	public Combo() {
 	}
@@ -64,32 +65,7 @@ public class Combo {
 		return pnl;
 	}
 	
-	// public TreeMap<Double, Double> getExtendedPnLPoints() {
-	// 	PnLmajstor pm = new PnLmajstor(this.getLegs());
-	// 	List<Double> expandedStrajkovi = pm.getExpandedStrajkovi();
-	//
-	// 	TreeMap<Double, Double> tmp = new TreeMap<>();
-	//
-	// 	System.out.println("Combo " + getComboName());
-	//
-	// 	for (Double strajk : expandedStrajkovi){
-	// 		double y = 0;
-	// 		for (Leg leg : legs){
-	// 			y += leg.getPnlAt(strajk);
-	// 			System.out.print("\t" + leg.getAmount() + "\t" + leg.getContract().toString() + "\t" + "@ " + leg.getOpenPrice() +  " PnL at " + strajk + " = " + leg.getPnlAt(strajk));
-	// 		}
-	//
-	// 		if (tmp.containsKey(strajk)) {
-	// 			double prev = tmp.get(strajk);
-	// 			y += prev;
-	// 			System.out.print(" prev" + prev + " new y " + y);
-	// 		}
-	// 		tmp.put(strajk, y);
-	// 		System.out.println("\t ->> combo total at strajk " + strajk + " pnl=" + y);
-	//
-	// 	}
-	// 	return tmp;
-	// }
+
 	
 	public TreeMap<Double, Double> getExtendedPnLPoints() {
 		PnLmajstor pm = new PnLmajstor(this.getLegs());
@@ -157,4 +133,24 @@ public class Combo {
 			}
 			return maxL;
 		}
+		
+		
+		
+		
+		
+	/*
+	* NE KORISTITI ovo ispod. Sluzi samo za XMLEncoder / XMLDecoder
+	* */
+	
+	public void setComboName(String comboName) {
+		this.comboName = comboName;
+	}
+	
+	public void setComboDescription(String comboDescription) {
+		this.comboDescription = comboDescription;
+	}
+	
+	public void setLegs(List<Leg> legs) {
+		this.legs = legs;
+	}
 }

@@ -1,7 +1,11 @@
 package rs.node.oc.model;
 
-public class Put extends Contract{
+import java.io.Serializable;
+
+public class Put extends Contract implements Serializable {
 	
+	public Put() {
+	}
 	
 	public Put(double strajk) {
 		super(strajk);

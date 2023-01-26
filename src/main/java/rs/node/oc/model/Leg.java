@@ -1,14 +1,18 @@
 package rs.node.oc.model;
 
-public class Leg {
+import java.io.Serializable;
+
+public class Leg implements Serializable {
 	
 	private static int redniBr;
 	private int amount;
-	private final Contract contract;
+	private Contract contract;
 	private double bid;
 	private double ask;
 	private double openPrice;
 	private double delta = 0;
+	
+	
 	
 	public Leg(int amount, Contract contract, double openPrice) {
 		redniBr++;
@@ -75,5 +79,17 @@ public class Leg {
 	
 	public double getPnlAt(double underl){
 		return getAmount() * (getExpirationPriceAt(underl) - getOpenPrice());
+	}
+	
+	
+	/*
+	 * NE KORISTITI ovo ispod. Sluzi samo za XMLEncoder / XMLDecoder
+	 * */
+	
+	public Leg() {
+	}
+	
+	public void setContract(Contract contract) {
+		this.contract = contract;
 	}
 }

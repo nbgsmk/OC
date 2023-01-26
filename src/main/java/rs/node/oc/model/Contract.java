@@ -1,13 +1,16 @@
 package rs.node.oc.model;
 
+
 public class Contract {
 	
 	private String ticker;
-	private final double strajk;
+	private double strajk;
 	private String shortName;
 	private String description;
 	private double multiplier = 100;
-
+	
+	public Contract() {
+	}
 	
 	public Contract(double strajk) {
 		this.strajk = strajk;
@@ -62,12 +65,6 @@ public class Contract {
 	}
 	
 	public double getExpirationPriceAt(double underl){
-		// if (this instanceof Call) {
-		// 	return Math.max(underl - strajk, 0d);
-		// } else {
-		// 	// return Math.max(underl - strajk, 0);
-		// 	return Math.max(strajk - underl, 0d);
-		// }
 		if (this.isITMaAt(underl)) {
 			return Math.abs(strajk - underl);
 		} else {
@@ -113,5 +110,20 @@ public class Contract {
 		String s = getClass().getSimpleName();
 		s += " " + Double.toString(strajk);
 		return s;
+	}
+	
+	
+	
+	/*
+	 * NE KORISTITI ovo ispod. Sluzi samo za XMLEncoder / XMLDecoder
+	 * */
+	
+	
+	public String getTicker() {
+		return ticker;
+	}
+	
+	public void setStrajk(double strajk) {
+		this.strajk = strajk;
 	}
 }
