@@ -10,7 +10,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.TextFlow;
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
 import rs.node.oc.model.*;
@@ -50,7 +49,7 @@ public class AppMainController implements Initializable {
 		
 		Map<Integer, Double> data = DemoData.getDemoData();
 		XYChart.Series<String, Double> bzvz = new XYChart.Series<>();
-		bzvz.setName("inišalajz рандом дата");
+		bzvz.setName("Рандом дата он апликејшон старт!");
 		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
 			bzvz.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 		}
@@ -62,40 +61,44 @@ public class AppMainController implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 				if (newValue == vertical) {
-					combo = new Combo();
-					combo.add(new Leg(1, new Put(397), 1));
-					combo.add(new Leg(-1, new Put(398), 1.5));
+					combo = new Combo("vertical");
+					combo.add(new Leg(1, new Put(397), 0.68));
+					combo.add(new Leg(-1, new Put(399), 1.12));
+					// combo.add(new Leg(-1, new Put(397), 0.66));
+					// combo.add(new Leg(1, new Put(399), 1.15));
 					
 				} else if (newValue == butterfly) {
-					combo = new Combo();
+					combo = new Combo("butterfly");
 					combo.add(new Leg(1, new Put(397), 1));
 					combo.add(new Leg(-2, new Put(398), 1.5));
 					combo.add(new Leg(1, new Put(402), 2));
 				
 				} else if (newValue == unbal) {
-					combo = new Combo();
-					combo.add(new Leg(3, new Put(397), 1));
-					combo.add(new Leg(-2, new Put(398), 1.5));
-					combo.add(new Leg(1, new Put(402), 2));
+					combo = new Combo("unbalanced");
+					combo.add(new Leg(2, new Put(398), 0.89));
+					combo.add(new Leg(-3, new Put(401), 1.81));
+					combo.add(new Leg(1, new Put(403), 2.81));
 				
 				
 				} else if (newValue == condor) {
-					combo = new Combo();
-					combo.add(new Leg(1, new Put(397), 1));
-					combo.add(new Leg(-1, new Put(398), 1.5));
-					combo.add(new Leg(-1, new Call(402), 1.5));
-					combo.add(new Leg(1, new Call(403), 1));
+					combo = new Combo("condor");
+					combo.add(new Leg(1, new Put(401), 1.8));
+					combo.add(new Leg(-1, new Put(403), 2.74));
+					combo.add(new Leg(-1, new Call(405), 0.96));
+					combo.add(new Leg(1, new Call(407), 0.5));
 					
 				} else if (newValue == calendar) {
-					combo = new Combo();
-					combo.add(new Leg(1, new Call(398), 1.5));
-					combo.add(new Leg(-2, new Call(401), 0.5));
-					combo.add(new Leg(1, new Call(402), 0.35));
-				
+					combo = new Combo("condor");
+					combo.add(new Leg(1, new Put(401), 1.8));
+					combo.add(new Leg(-1, new Put(403), 2.74));
+					combo.add(new Leg(-1, new Call(405), 0.96));
+					combo.add(new Leg(1, new Call(407), 0.5));
+
 				}
 				
 				dole.getChildren().clear();
 				
+				// Legs - popuniti tabelu
 				for (int i = 0; i < combo.getLegs().size(); i++) {
 					ContractRowController ctrl = dodajRow(null);
 					
@@ -117,15 +120,16 @@ public class AppMainController implements Initializable {
 				}
 				
 				StringBuilder sb = new StringBuilder();
-				sb.append("open  " + combo.getComboOpenPrice() + "\n") ;
-				sb.append("delta " + combo.getDelta() + "\n");
-				sb.append("max prof " + combo.getMaxProfit() + "\n");
-				sb.append("max loss " + combo.getMaxLoss() + "\n");
+				sb.append("probability " + String.format("%.2f", combo.getDelta()) + "\n");
+				sb.append("max profit  " + String.format("%.2f", Math.abs(combo.getMaxProfit())) + "\n");
+				sb.append("max loss    " + String.format("%.2f", Math.abs(combo.getMaxLoss())) + "\n");
+				sb.append("min invest  " + String.format("%.2f", combo.getComboOpenPrice()) + "\n") ;
 				comboInfo.setText(sb.toString());
 				
-				TreeMap<Double, Double> pl = combo.getPnLPoints();
+				// popuni grafikon sa extended tackama (vise tacaka nego sto ima Leg-ova)
+				TreeMap<Double, Double> pl = combo.getExtendedPnLPoints();
 				XYChart.Series<String, Double> series = new XYChart.Series<>();
-				series.setName("legenda si");
+				series.setName("inišalajz рандом дата");
 				for (Map.Entry<Double, Double> tacka : pl.entrySet()) {
 					series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 				}
@@ -146,22 +150,21 @@ public class AppMainController implements Initializable {
 		    DemoCombo dc = new DemoCombo();
 		    combo = dc.getDemoCombo();
 	    }
-	    TreeMap<Double, Double> pl = combo.getPnLPoints();
+	    TreeMap<Double, Double> pl = combo.getExtendedPnLPoints();
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
-	    series.setName("legenda si");
+	    series.setName(combo.getComboName());
 	    for (Map.Entry<Double, Double> tacka : pl.entrySet()) {
 		    series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 	    }
 		grafikoncic.getData().clear();
 	    grafikoncic.getData().add(series);
-		
     }
 	
 	@FXML
 	protected void dajRandomData() {
 		Map<Integer, Double> data = DemoData.getDemoData();
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
-		series.setName("dabl trabl");
+		series.setName("Шта се деси, деси");
 		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
 			series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 		}

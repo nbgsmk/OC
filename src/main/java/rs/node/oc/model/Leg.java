@@ -74,7 +74,6 @@ public class Leg {
 	}
 	
 	public double getPnlAt(double underl){
-		double pnlat = getExpirationPriceAt(underl) - getOpenPrice();
-		return         getExpirationPriceAt(underl) - getOpenPrice();
+		return getAmount() * (getExpirationPriceAt(underl) - getOpenPrice());
 	}
 }

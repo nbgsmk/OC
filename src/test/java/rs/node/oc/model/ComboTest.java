@@ -3,10 +3,7 @@ package rs.node.oc.model;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.awt.*;
-import java.awt.geom.Line2D;
 import java.util.TreeMap;
-import java.util.concurrent.locks.Condition;
 
 import static org.testng.Assert.*;
 
@@ -173,32 +170,32 @@ public class ComboTest {
 	
 	@Test
 	public void testGetPnLPoints() {
-		assertTrue(long_call.getPnLPoints().size() > 1);
-		assertTrue(long_call.getPnLPoints().size() > long_call.getLegs().size());
-		assertTrue(long_put.getPnLPoints().size() > 1);
-		assertTrue(long_put.getPnLPoints().size() > long_put.getLegs().size());
+		assertTrue(long_call.getExtendedPnLPoints().size() > 1);
+		assertTrue(long_call.getExtendedPnLPoints().size() > long_call.getLegs().size());
+		assertTrue(long_put.getExtendedPnLPoints().size() > 1);
+		assertTrue(long_put.getExtendedPnLPoints().size() > long_put.getLegs().size());
 
-		assertTrue(call_vertical.getPnLPoints().size() > 2);
-		assertTrue(call_vertical.getPnLPoints().size() > call_vertical.getLegs().size());
-		assertTrue(put_vertical.getPnLPoints().size() > 2);
-		assertTrue(put_vertical.getPnLPoints().size() > put_vertical.getLegs().size());
+		assertTrue(call_vertical.getExtendedPnLPoints().size() > 2);
+		assertTrue(call_vertical.getExtendedPnLPoints().size() > call_vertical.getLegs().size());
+		assertTrue(put_vertical.getExtendedPnLPoints().size() > 2);
+		assertTrue(put_vertical.getExtendedPnLPoints().size() > put_vertical.getLegs().size());
 
 		// TODO smisliti jos nesto korisno
 
 		TreeMap<Double, Double> pnlp = new TreeMap<>();
 		
-		pnlp = long_call.getPnLPoints();
-		pnlp = long_put.getPnLPoints();
+		pnlp = long_call.getExtendedPnLPoints();
+		pnlp = long_put.getExtendedPnLPoints();
 
-		pnlp = call_vertical.getPnLPoints();
-		pnlp = put_vertical.getPnLPoints();
+		pnlp = call_vertical.getExtendedPnLPoints();
+		pnlp = put_vertical.getExtendedPnLPoints();
 		
 		Combo condor = new Combo("Iron condor");
 		condor.add(1, new Put(398), 1);
 		condor.add(-1, new Put(399), 2);
 		condor.add(-1, new Call(401), 2);
 		condor.add(1, new Call(402), 1);
-		pnlp = condor.getPnLPoints();
+		pnlp = condor.getExtendedPnLPoints();
 
 		
 	}

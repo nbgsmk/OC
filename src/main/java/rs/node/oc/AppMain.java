@@ -8,8 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -48,7 +46,7 @@ public class AppMain extends Application {
 		// random data on start
 		Map<Integer, Double> randomData = DemoData.getDemoData();
 		randomData = new TreeMap<>();
-		for (var entry : combo.getPnLPoints().entrySet()) {
+		for (var entry : combo.getExtendedPnLPoints().entrySet()) {
 			randomData.put((int) Math.round(entry.getKey()), entry.getValue());
 		}
 		

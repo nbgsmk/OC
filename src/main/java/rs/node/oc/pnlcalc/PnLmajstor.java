@@ -17,7 +17,7 @@ public class PnLmajstor {
 		this.legs = legs;
 	}
 
-	public List<Double> getCharacteristicPoints(){
+	public List<Double> getExactStrajkovi(){
 		List<Double> strajkovi = new ArrayList<>();
 		for (Leg leg : this.legs){
 			strajkovi.add(leg.getContract().getStrajk());
@@ -33,12 +33,9 @@ public class PnLmajstor {
 
 		double bottom = (int) (min * (1-procenat/100));
 		double top = (int) (max * (1+procenat/100));
-
-		List<Double> tmp = new ArrayList<>();
+		
+		List<Double> tmp = new ArrayList<>(getExactStrajkovi());
 		tmp.add(bottom);
-		for (Leg leg : this.legs){
-			tmp.add(leg.getContract().getStrajk());
-		}
 		tmp.add(top);
 		return tmp;
 	}

@@ -62,13 +62,13 @@ public class ContractTest {
 		a = combo.getExpiredPriceAt(110);
 		
 		combo.add(new Leg(-1, new Put(399), 4.3));
-		karakteristicneTacke = combo.getPnLPoints();
+		karakteristicneTacke = combo.getExtendedPnLPoints();
 		
 		combo = new Combo();
 		combo.add(new Leg(1, new Call(398), 1.5));
 		combo.add(new Leg(-2, new Call(401), 0.5));
 		combo.add(new Leg(1, new Call(402), 0.35));
-		karakteristicneTacke = combo.getPnLPoints();
+		karakteristicneTacke = combo.getExtendedPnLPoints();
 		
 		a = combo.getComboOpenPrice();
 		a = combo.getExpiredPriceAt(390);

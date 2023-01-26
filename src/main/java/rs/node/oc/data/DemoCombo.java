@@ -20,7 +20,7 @@ public class DemoCombo {
 		combo.add(pcall);
 		combo.add(pput);
 		// combo.add(new Leg(-1, new Put(399), 4.3));
-		karakteristicneTacke = combo.getPnLPoints();
+		karakteristicneTacke = combo.getExtendedPnLPoints();
 
 		combo = new Combo();
 		combo.add(new Leg(1, new Put(397), 1.5));
@@ -29,7 +29,7 @@ public class DemoCombo {
 		combo.add(new Leg(1, new Call(403), 1));
 		// combo.add(new Leg(1, new Call(400), 1.3));
 		// combo.add(new Leg(1, new Put(400), 1.3));
-		karakteristicneTacke = combo.getPnLPoints();
+		karakteristicneTacke = combo.getExtendedPnLPoints();
 
 		a = combo.getComboOpenPrice();
 		a = combo.getExpiredPriceAt(390);
