@@ -136,6 +136,7 @@ public class AppMainController implements Initializable {
 				}
 				
 				onPrikaziKomboClick();
+				// pre nego sto krenes dalje, snimi dosadasnji default
 				Snimac snimac = new Snimac();
 				snimac.writeXml("default.combo.xml", combo);
 				

@@ -54,4 +54,3 @@ public class AppMain extends Application {
 	}
 }
 
-// TODO Prosiriti xSpan +/- nekoliko strajkova
