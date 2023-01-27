@@ -3,17 +3,17 @@ package rs.node.oc;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
 import rs.node.oc.model.Combo;
+import rs.node.oc.model.Leg;
 
 import javax.swing.plaf.PanelUI;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,20 +31,23 @@ public class ContractRowController implements Initializable {
 	
 	public ContractRowController() {
 	}
+
+	
+
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
 		amount.getValueFactory().setWrapAround(false);
-		
+
 		strajk.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000, 400, 1));
 		strajk.getValueFactory().setWrapAround(false);
 
 		avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 5, 0, 0.05));
 		avg_px.getValueFactory().setWrapAround(true);
-		
+
 		delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
 		delta.getValueFactory().setWrapAround(true);
-
+		
 	}
 	
 	
@@ -80,9 +83,6 @@ public class ContractRowController implements Initializable {
 		}
 	}
 	
-	public void setCombo(Combo combo){
-		this.combo = combo;
-	}
-	
+
 
 }

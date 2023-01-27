@@ -27,20 +27,25 @@
 			<NumberAxis side="LEFT" />
 		</yAxis>
 	</LineChart>
-	<AnchorPane GridPane.rowIndex="1">
-		<RadioButton fx:id="vertical" layoutX="1.0" layoutY="157.0" mnemonicParsing="false" text="Vertical">
-			<toggleGroup>
-				<ToggleGroup fx:id="comboTip" />
-			</toggleGroup>
-		</RadioButton>
-		<RadioButton fx:id="butterfly" layoutY="174.0" mnemonicParsing="false" text="Butterfly" toggleGroup="$comboTip" />
-		<RadioButton fx:id="unbal" layoutY="191.0" mnemonicParsing="false" text="Unbal" toggleGroup="$comboTip" />
-		<RadioButton fx:id="condor" layoutY="208.0" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" />
-		<RadioButton fx:id="calendar" layoutY="225.0" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" />
+	<AnchorPane maxHeight="1.7976931348623157E308" GridPane.rowIndex="1">
+		<VBox layoutY="157.0" maxHeight="1.7976931348623157E308" style="-fx-background-color: ff0000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+			<RadioButton fx:id="vertical" mnemonicParsing="false" text="Vertical">
+				<toggleGroup>
+					<ToggleGroup fx:id="comboTip" />
+				</toggleGroup>
+			</RadioButton>
+			<RadioButton fx:id="butterfly" mnemonicParsing="false" text="Butterfly" toggleGroup="$comboTip" />
+			<RadioButton fx:id="unbal" mnemonicParsing="false" text="Unbal" toggleGroup="$comboTip" />
+			<RadioButton fx:id="condor" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" />
+			<RadioButton fx:id="calendar" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" />
+		</VBox>
+      <ListView fx:id="lv_comboHist" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="153.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 	</AnchorPane>
 	<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
-		<Button fx:id="dodajRow" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#dodajRow" text="dodaj red" />
+		<Button fx:id="saveToHistory" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveToHistory" text="to history" />
+      <Button fx:id="dodajRow1" layoutX="10.0" layoutY="58.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dodajRow" text="dodaj red" />
 	</VBox>
+   <!--<ListView fx:id="lv_legs" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />-->
 	<VBox fx:id="dole" alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
 	<Label fx:id="comboInfo" alignment="TOP_LEFT" lineSpacing="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" text="Combo Info" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
       <padding>

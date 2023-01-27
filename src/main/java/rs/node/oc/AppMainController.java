@@ -2,6 +2,8 @@ package rs.node.oc;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
 import rs.node.oc.data.Snimac;
@@ -17,10 +20,7 @@ import rs.node.oc.model.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.TreeMap;
+import java.util.*;
 
 public class AppMainController implements Initializable {
 
@@ -28,8 +28,8 @@ public class AppMainController implements Initializable {
 	public LineChart<String, Double> grafikoncic;
 	@FXML
 	public Button prikaziKombo;
-	@FXML
-	public VBox dole;
+	// @FXML
+	// public VBox dole;
 	
 	@FXML
 	public Button dodajRow;
@@ -41,12 +41,27 @@ public class AppMainController implements Initializable {
 	public RadioButton calendar;
 	public Button randomData;
 	public Label comboInfo;
+	public VBox dole;
+	
 	
 	private Combo combo;
-	private List<Combo> history;
+	
+	@FXML
+	public ListView<Leg> lv_legs;
+	ObservableList<Leg> obs_legs;
+	
+	@FXML
+	public ListView<Combo> lv_comboHist;
+	ObservableList<Combo> obs_comboHist;
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// obs_legs = FXCollections.observableArrayList();
+		// lv_legs.setItems(obs_legs);
+		
+		obs_comboHist = FXCollections.observableArrayList();
+		lv_comboHist.setItems(obs_comboHist);
 		
 		Map<Integer, Double> data = DemoData.getDemoData();
 		XYChart.Series<String, Double> bzvz = new XYChart.Series<>();
@@ -98,6 +113,7 @@ public class AppMainController implements Initializable {
 				}
 				
 				dole.getChildren().clear();
+				// lv_legs.getItems().clear();
 				
 				// Legs - popuniti tabelu
 				for (int i = 0; i < combo.getLegs().size(); i++) {
@@ -147,6 +163,9 @@ public class AppMainController implements Initializable {
 
 	}
 	
+
+	
+	
 	
     @FXML
     protected void onPrikaziKomboClick() {
@@ -183,10 +202,15 @@ public class AppMainController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(AppMain.class.getResource("contract-row.fxml"));
 			dole.getChildren().add(loader.load());
+			// lv_legs.getItems().add(loader.load());
 			return loader.getController();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public void saveToHistory(ActionEvent actionEvent) {
+		obs_comboHist.add(combo);
 	}
 	
 }
