@@ -19,15 +19,37 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ContractRowController extends ListCell<Leg> implements Initializable {
+	@FXML
 	public CheckBox enable;
 	
+	@FXML
 	public Spinner<Integer> amount;
+	@FXML
 	public Spinner<Double> strajk;
+	@FXML
 	public Spinner<Double> avg_px;
+	@FXML
 	public Spinner<Double> delta;
+	@FXML
 	public Label call_put;
 	
 	public ContractRowController() {
+		// amount = new Spinner<>();
+		// amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
+		// amount.getValueFactory().setWrapAround(false);
+		//
+		// strajk = new Spinner<>();
+		// strajk.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000, 400, 1));
+		// strajk.getValueFactory().setWrapAround(false);
+		//
+		// avg_px = new Spinner<>();
+		// avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 5, 0, 0.05));
+		// avg_px.getValueFactory().setWrapAround(true);
+		//
+		// delta = new Spinner<>();
+		// delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
+		// delta.getValueFactory().setWrapAround(true);
+		
 	}
 
 	
@@ -48,11 +70,11 @@ public class ContractRowController extends ListCell<Leg> implements Initializabl
 	
 	
 	public void setAmount(int amount) {
-		this.amount.getEditor().setText(String.valueOf(amount));
+		this.amount.getValueFactory().setValue(amount);
 	}
 	
-	public void setStrajk(Spinner<Double> strajk) {
-		this.strajk = strajk;
+	public void setStrajk(Double strajk) {
+		this.strajk.getValueFactory().setValue(strajk);
 	}
 	
 	public void setAvg_px(Spinner<Double> avg_px) {

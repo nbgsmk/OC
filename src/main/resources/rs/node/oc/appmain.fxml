@@ -51,5 +51,5 @@
       <padding>
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </padding></Label>
-	<ListView fx:id="lv_legs" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavenderblush;" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
+	<ListView fx:id="lv_legs" prefHeight="200.0" prefWidth="290.0" style="-fx-background-color: lavenderblush;" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
 </GridPane>

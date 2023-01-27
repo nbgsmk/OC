@@ -73,34 +73,99 @@ public class AppMainController implements Initializable {
 		}
 		
 		
-		lv_legs.setCellFactory(lv_legs -> new ListCell<Leg>() {
-			private GridPane gridPane ;
-			private ContractRowController crc ;
-			
-			{
-				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("contract-row.fxml"));
-					loader.load();
-					crc = loader.getController();
-				} catch (IOException exc) {
-					throw new RuntimeException(exc);
-				}
+		
+		/*
+		https://code.makery.ch/library/javafx-tutorial/part1/
+		
+		https://docs.oracle.com/javafx/2/fxml_get_started/fxml_tutorial_intermediate.htm
+		
+		
+		https://stackoverflow.com/questions/36985517/how-to-download-fxml-with-custom-cell-in-a-listview
+		https://stackoverflow.com/questions/34838341/javafx-custom-cell-factory-with-custom-objects
+		https://stackoverflow.com/questions/62697712/javafx-listview-custom-cells
+		https://stackoverflow.com/questions/19588029/customize-listview-in-javafx-with-fxml
+		https://stackoverflow.com/questions/47434239/tableview-observablelist-change-row-style
+		
+		 */
+		// ++++++++++++++++++++++++++++++++
+		// ++++++++++++++++++++++++++++++++
+		// ++++++++++ VERZIJA 1
+		// ++++++++++++++++++++++++++++++++
+		// ++++++++++++++++++++++++++++++++
+		lv_legs.setCellFactory(new Callback<ListView<Leg>, ListCell<Leg>>() {
+			@Override
+			public ListCell<Leg> call(ListView<Leg> param) {
+				ListCell<Leg> listCell = new ListCell<Leg>() {
+					@Override
+					protected void updateItem(Leg item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty || item == null) {
+							setText(null);
+							setGraphic(null);
+						} else {
+							//This method does not work download
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("contract-row.fxml"));
+							ContractRowController crc = new ContractRowController();
+							fxmlLoader.setController(crc);
+							// crc.amount.increment();
+						}
+					}
+				};
+				return listCell;
 			}
 			
-			@Override
-			protected void updateItem(Leg leg, boolean empty) {
-				super.updateItem(leg, empty);
-				if (empty) {
-					setGraphic(null);
-				} else {
-					crc.setAmount(-1);
-					// controller.setStatus(contact.getStatus());
-					// controller.setSense(contact.getSense());
-					// controller.setAvatarImage(contact.getImage());
-					// setGraphic(graphic);
+		});
+		
+		
+		
+		
+		// ++++++++++++++++++++++++++++++++
+		// ++++++++++++++++++++++++++++++++
+		// ++++++++++ VERZIJA 2
+		// ++++++++++++++++++++++++++++++++
+		// ++++++++++++++++++++++++++++++++
+		lv_legs.setCellFactory(lv_legs -> {
+			return new ListCell<Leg>() {
+				private GridPane gridPane;
+				private ContractRowController crc;
+				
+				{
+					try {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("contract-row.fxml"));
+						gridPane = loader.load();
+						crc = loader.getController();
+					} catch (IOException exc) {
+						throw new RuntimeException(exc);
+					}
 				}
+				
+				@Override
+				protected void updateItem(Leg leg, boolean empty) {
+					super.updateItem(leg, empty);
+					if (empty) {
+						setGraphic(null);
+					} else {
+						crc.strajk.getValueFactory().setValue(3d);
+						// controller.setStatus(contact.getStatus());
+						// controller.setSense(contact.getSense());
+						// controller.setAvatarImage(contact.getImage());
+						// setGraphic(graphic);
+					}
+				}
+				
+				
+			};
+		});
+		
+		
+		lv_comboHist.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				System.out.println("stari " + oldValue + " novi " + newValue);
+			
 			}
 		});
+		
 		
 		grafikoncic.getData().add(bzvz);
 		
@@ -151,8 +216,8 @@ public class AppMainController implements Initializable {
 				for (Leg leg : combo.getLegs()) {
 					ContractRowController ctrl = dodajRow(null);
 					
-					Integer amt = leg.getAmount();
-					ctrl.amount.getValueFactory().setValue(amt);
+					// Integer amt = leg.getAmount();
+					// ctrl.amount.getValueFactory().setValue(amt);
 					
 					Contract contract = leg.getContract();
 					ctrl.call_put.setText(contract.getShortName());

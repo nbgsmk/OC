@@ -13,6 +13,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+/*
+https://docs.oracle.com/javafx/2/ui_controls/list-view.htm
+
+ */
 public class ListViewSample extends Application {
 	
 	ListView<String> list = new ListView<String>();
