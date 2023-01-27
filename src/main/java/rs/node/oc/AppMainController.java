@@ -140,6 +140,7 @@ public class AppMainController implements Initializable {
 				Snimac snimac = new Snimac();
 				snimac.writeXml("default.combo.xml", combo);
 				
+				
 			}
 			
 		});
