@@ -15,9 +15,10 @@ import rs.node.oc.model.Leg;
 import javax.swing.plaf.PanelUI;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class ContractRowController implements Initializable {
+public class ContractRowController extends ListCell<Leg> implements Initializable {
 	public CheckBox enable;
 	
 	public Spinner<Integer> amount;
@@ -26,13 +27,8 @@ public class ContractRowController implements Initializable {
 	public Spinner<Double> delta;
 	public Label call_put;
 	
-	Combo combo;
-	
-	
 	public ContractRowController() {
 	}
-
-	
 
 	
 	public void initialize(URL location, ResourceBundle resources) {
@@ -50,6 +46,22 @@ public class ContractRowController implements Initializable {
 		
 	}
 	
+	
+	public void setAmount(int amount) {
+		this.amount.getEditor().setText(String.valueOf(amount));
+	}
+	
+	public void setStrajk(Spinner<Double> strajk) {
+		this.strajk = strajk;
+	}
+	
+	public void setAvg_px(Spinner<Double> avg_px) {
+		this.avg_px = avg_px;
+	}
+	
+	public void setDelta(Spinner<Double> delta) {
+		this.delta = delta;
+	}
 	
 	public void amountWheel(ScrollEvent scrollEvent) {
 		if (scrollEvent.getDeltaY() > 0) {

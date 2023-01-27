@@ -11,8 +11,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.controlsfx.control.GridView;
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
 import rs.node.oc.data.Snimac;
@@ -57,8 +59,8 @@ public class AppMainController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// obs_legs = FXCollections.observableArrayList();
-		// lv_legs.setItems(obs_legs);
+		obs_legs = FXCollections.observableArrayList();
+		lv_legs.setItems(obs_legs);
 		
 		obs_comboHist = FXCollections.observableArrayList();
 		lv_comboHist.setItems(obs_comboHist);
@@ -70,10 +72,39 @@ public class AppMainController implements Initializable {
 			bzvz.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 		}
 		
+		
+		lv_legs.setCellFactory(lv_legs -> new ListCell<Leg>() {
+			private GridPane gridPane ;
+			private ContractRowController crc ;
+			
+			{
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("contract-row.fxml"));
+					loader.load();
+					crc = loader.getController();
+				} catch (IOException exc) {
+					throw new RuntimeException(exc);
+				}
+			}
+			
+			@Override
+			protected void updateItem(Leg leg, boolean empty) {
+				super.updateItem(leg, empty);
+				if (empty) {
+					setGraphic(null);
+				} else {
+					crc.setAmount(-1);
+					// controller.setStatus(contact.getStatus());
+					// controller.setSense(contact.getSense());
+					// controller.setAvatarImage(contact.getImage());
+					// setGraphic(graphic);
+				}
+			}
+		});
+		
 		grafikoncic.getData().add(bzvz);
 		
 		comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-			
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 				if (newValue == vertical) {
@@ -112,27 +143,30 @@ public class AppMainController implements Initializable {
 
 				}
 				
+				lv_legs.getItems().clear();
 				dole.getChildren().clear();
-				// lv_legs.getItems().clear();
+				
 				
 				// Legs - popuniti tabelu
-				for (int i = 0; i < combo.getLegs().size(); i++) {
+				for (Leg leg : combo.getLegs()) {
 					ContractRowController ctrl = dodajRow(null);
 					
-					Integer amt = combo.getLegs().get(i).getAmount();
+					Integer amt = leg.getAmount();
 					ctrl.amount.getValueFactory().setValue(amt);
 					
-					Contract contract = combo.getLegs().get(i).getContract();
+					Contract contract = leg.getContract();
 					ctrl.call_put.setText(contract.getShortName());
 					
-					Double strajk = combo.getLegs().get(i).getContract().getStrajk();
+					Double strajk = leg.getContract().getStrajk();
 					ctrl.strajk.getValueFactory().setValue(strajk);
 					
-					Double avgpx = combo.getLegs().get(i).getOpenPrice();
+					Double avgpx = leg.getOpenPrice();
 					ctrl.avg_px.getValueFactory().setValue(avgpx);
 					
-					Double delta = combo.getLegs().get(i).getDelta();
+					Double delta = leg.getDelta();
 					ctrl.delta.getValueFactory().setValue(delta);
+					
+					obs_legs.add(leg);
 					
 				}
 				
@@ -160,7 +194,6 @@ public class AppMainController implements Initializable {
 			}
 			
 		});
-
 	}
 	
 
@@ -210,7 +243,15 @@ public class AppMainController implements Initializable {
 	}
 	
 	public void saveToHistory(ActionEvent actionEvent) {
-		obs_comboHist.add(combo);
+		if ( obs_comboHist.contains(combo)) {
+			obs_comboHist.remove(combo);
+			obs_comboHist.add(combo);
+			System.out.println("vec sadrzi");
+		} else if (! (combo== null)) {
+			obs_comboHist.add(combo);
+		} else {
+			System.out.println("null je bre!");
+		}
 	}
 	
 }
