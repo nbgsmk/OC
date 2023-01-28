@@ -75,6 +75,10 @@ public class AppMainController implements Initializable {
 		
 		
 		/*
+
+		https://quotes.freerealtime.com/quotes/NDX/Options
+
+
 		https://code.makery.ch/library/javafx-tutorial/part1/
 		
 		https://docs.oracle.com/javafx/2/fxml_get_started/fxml_tutorial_intermediate.htm
@@ -162,6 +166,7 @@ public class AppMainController implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				System.out.println("stari " + oldValue + " novi " + newValue);
+
 			
 			}
 		});
