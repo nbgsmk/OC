@@ -75,6 +75,9 @@ public class AppMainController implements Initializable {
 		
 		
 		/*
+		
+		https://stackoverflow.com/questions/27438629/listview-with-custom-content-in-javafx
+
 
 		https://quotes.freerealtime.com/quotes/NDX/Options
 
