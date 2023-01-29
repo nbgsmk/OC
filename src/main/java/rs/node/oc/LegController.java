@@ -1,24 +1,15 @@
 package rs.node.oc;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.GridPane;
-import rs.node.oc.model.Combo;
 import rs.node.oc.model.Leg;
 
-import javax.swing.plaf.PanelUI;
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
-public class ContractRowController extends ListCell<Leg> implements Initializable {
+public class LegController extends ListCell<Leg> implements Initializable {
 	@FXML
 	public CheckBox enable;
 	
@@ -33,7 +24,7 @@ public class ContractRowController extends ListCell<Leg> implements Initializabl
 	@FXML
 	public Label call_put;
 	
-	public ContractRowController() {
+	public LegController() {
 		// amount = new Spinner<>();
 		// amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
 		// amount.getValueFactory().setWrapAround(false);
