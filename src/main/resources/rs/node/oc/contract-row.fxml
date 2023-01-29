@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.LegController">
+<GridPane alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.ContractRowController">
 	<columnConstraints>
 		<ColumnConstraints fx:id="en" hgrow="SOMETIMES" minWidth="50.0" />
 		<ColumnConstraints fx:id="amt" hgrow="SOMETIMES" minWidth="50.0" />

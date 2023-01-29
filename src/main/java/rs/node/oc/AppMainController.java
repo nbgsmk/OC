@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.controlsfx.control.GridView;
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
 import rs.node.oc.data.Snimac;
@@ -108,7 +109,7 @@ public class AppMainController implements Initializable {
 						} else {
 							//This method does not work download
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("contract-row.fxml"));
-							LegController crc = new LegController();
+							ContractRowController crc = new ContractRowController();
 							fxmlLoader.setController(crc);
 							// crc.amount.increment();
 						}
@@ -130,7 +131,7 @@ public class AppMainController implements Initializable {
 		lv_legs.setCellFactory(lv_legs -> {
 			return new ListCell<Leg>() {
 				private GridPane gridPane;
-				private LegController crc;
+				private ContractRowController crc;
 				
 				{
 					try {
@@ -164,8 +165,9 @@ public class AppMainController implements Initializable {
 		lv_comboHist.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				combo = obs_comboHist.get((Integer) newValue);
-				onPrikaziKomboClick();
+				System.out.println("stari " + oldValue + " novi " + newValue);
+
+			
 			}
 		});
 		
@@ -217,7 +219,7 @@ public class AppMainController implements Initializable {
 				
 				// Legs - popuniti tabelu
 				for (Leg leg : combo.getLegs()) {
-					LegController ctrl = dodajRow(null);
+					ContractRowController ctrl = dodajRow(null);
 					
 					// Integer amt = leg.getAmount();
 					// ctrl.amount.getValueFactory().setValue(amt);
@@ -299,7 +301,7 @@ public class AppMainController implements Initializable {
 	}
 
 
-	public LegController dodajRow(ActionEvent actionEvent){
+	public ContractRowController dodajRow(ActionEvent actionEvent){
 		try {
 			FXMLLoader loader = new FXMLLoader(AppMain.class.getResource("contract-row.fxml"));
 			dole.getChildren().add(loader.load());
