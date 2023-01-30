@@ -1,0 +1,25 @@
+
+
+
+
+		/*
+
+		https://stackoverflow.com/questions/27438629/listview-with-custom-content-in-javafx
+
+
+		https://quotes.freerealtime.com/quotes/NDX/Options
+
+
+		https://code.makery.ch/library/javafx-tutorial/part1/
+
+		https://docs.oracle.com/javafx/2/fxml_get_started/fxml_tutorial_intermediate.htm
+
+
+		https://stackoverflow.com/questions/36985517/how-to-download-fxml-with-custom-cell-in-a-listview
+		https://stackoverflow.com/questions/34838341/javafx-custom-cell-factory-with-custom-objects
+		https://stackoverflow.com/questions/62697712/javafx-listview-custom-cells
+		https://stackoverflow.com/questions/19588029/customize-listview-in-javafx-with-fxml
+		https://stackoverflow.com/questions/47434239/tableview-observablelist-change-row-style
+
+		 */
+

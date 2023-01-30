@@ -9,7 +9,7 @@ public class Put extends Contract implements Serializable {
 	
 	public Put(double strajk) {
 		super(strajk);
-		setShortName("P");
+		setSkr("P");
 	}
 
 }

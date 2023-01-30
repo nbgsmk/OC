@@ -14,17 +14,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import org.controlsfx.control.GridView;
 import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
 import rs.node.oc.data.Snimac;
+import rs.node.oc.gui.ListCell_Combo;
+import rs.node.oc.gui.ListCell_Leg;
 import rs.node.oc.model.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class AppMainController implements Initializable {
+public class AppController implements Initializable {
 
 	@FXML
 	public LineChart<String, Double> grafikoncic;
@@ -53,17 +54,40 @@ public class AppMainController implements Initializable {
 	ObservableList<Leg> obs_legs;
 	
 	@FXML
-	public ListView<Combo> lv_comboHist;
-	ObservableList<Combo> obs_comboHist;
+	public ListView<Combo> lv_combo;
+	ObservableList<Combo> obs_combo;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		obs_combo = FXCollections.observableArrayList();
+		lv_combo.setItems(obs_combo);
+		lv_combo.setCellFactory(new Callback<ListView<Combo>, ListCell<Combo>>() {
+			@Override
+			public ListCell<Combo> call(ListView<Combo> param) {
+				return new ListCell_Combo();
+			}
+		});
+		
+		
 		obs_legs = FXCollections.observableArrayList();
 		lv_legs.setItems(obs_legs);
+		lv_legs.setCellFactory(new Callback<ListView<Leg>, ListCell<Leg>>() {
+			@Override
+			public ListCell<Leg> call(ListView<Leg> param) {
+				return new ListCell_Leg();
+			}
+		});
 		
-		obs_comboHist = FXCollections.observableArrayList();
-		lv_comboHist.setItems(obs_comboHist);
+		lv_combo.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				Combo c = obs_combo.get((Integer) newValue);
+				obs_legs.clear();
+				obs_legs.addAll(c.getLegs());
+			}
+		});
+		
 		
 		Map<Integer, Double> data = DemoData.getDemoData();
 		XYChart.Series<String, Double> bzvz = new XYChart.Series<>();
@@ -72,107 +96,6 @@ public class AppMainController implements Initializable {
 			bzvz.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 		}
 		
-		
-		
-		/*
-		
-		https://stackoverflow.com/questions/27438629/listview-with-custom-content-in-javafx
-
-
-		https://quotes.freerealtime.com/quotes/NDX/Options
-
-
-		https://code.makery.ch/library/javafx-tutorial/part1/
-		
-		https://docs.oracle.com/javafx/2/fxml_get_started/fxml_tutorial_intermediate.htm
-		
-		
-		https://stackoverflow.com/questions/36985517/how-to-download-fxml-with-custom-cell-in-a-listview
-		https://stackoverflow.com/questions/34838341/javafx-custom-cell-factory-with-custom-objects
-		https://stackoverflow.com/questions/62697712/javafx-listview-custom-cells
-		https://stackoverflow.com/questions/19588029/customize-listview-in-javafx-with-fxml
-		https://stackoverflow.com/questions/47434239/tableview-observablelist-change-row-style
-		
-		 */
-		// ++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++
-		// ++++++++++ VERZIJA 1
-		// ++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++
-		lv_legs.setCellFactory(new Callback<ListView<Leg>, ListCell<Leg>>() {
-			@Override
-			public ListCell<Leg> call(ListView<Leg> param) {
-				ListCell<Leg> listCell = new ListCell<Leg>() {
-					@Override
-					protected void updateItem(Leg item, boolean empty) {
-						super.updateItem(item, empty);
-						if (empty || item == null) {
-							setText(null);
-							setGraphic(null);
-						} else {
-							//This method does not work download
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("contract-row.fxml"));
-							ContractRowController crc = new ContractRowController();
-							fxmlLoader.setController(crc);
-							// crc.amount.increment();
-						}
-					}
-				};
-				return listCell;
-			}
-			
-		});
-		
-		
-		
-		
-		// ++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++
-		// ++++++++++ VERZIJA 2
-		// ++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++
-		lv_legs.setCellFactory(lv_legs -> {
-			return new ListCell<Leg>() {
-				private GridPane gridPane;
-				private ContractRowController crc;
-				
-				{
-					try {
-						FXMLLoader loader = new FXMLLoader(getClass().getResource("contract-row.fxml"));
-						gridPane = loader.load();
-						crc = loader.getController();
-					} catch (IOException exc) {
-						throw new RuntimeException(exc);
-					}
-				}
-				
-				@Override
-				protected void updateItem(Leg leg, boolean empty) {
-					super.updateItem(leg, empty);
-					if (empty) {
-						setGraphic(null);
-					} else {
-						crc.strajk.getValueFactory().setValue(3d);
-						// controller.setStatus(contact.getStatus());
-						// controller.setSense(contact.getSense());
-						// controller.setAvatarImage(contact.getImage());
-						// setGraphic(graphic);
-					}
-				}
-				
-				
-			};
-		});
-		
-		
-		lv_comboHist.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				System.out.println("stari " + oldValue + " novi " + newValue);
-
-			
-			}
-		});
 		
 		
 		grafikoncic.getData().add(bzvz);
@@ -228,7 +151,7 @@ public class AppMainController implements Initializable {
 					// ctrl.amount.getValueFactory().setValue(amt);
 					
 					Contract contract = leg.getContract();
-					ctrl.call_put.setText(contract.getShortName());
+					ctrl.call_put.setText(contract.getSkr());
 					
 					Double strajk = leg.getContract().getStrajk();
 					ctrl.strajk.getValueFactory().setValue(strajk);
@@ -306,7 +229,7 @@ public class AppMainController implements Initializable {
 
 	public ContractRowController dodajRow(ActionEvent actionEvent){
 		try {
-			FXMLLoader loader = new FXMLLoader(AppMain.class.getResource("contract-row.fxml"));
+			FXMLLoader loader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
 			dole.getChildren().add(loader.load());
 			// lv_legs.getItems().add(loader.load());
 			return loader.getController();
@@ -316,12 +239,12 @@ public class AppMainController implements Initializable {
 	}
 	
 	public void saveToHistory(ActionEvent actionEvent) {
-		if ( obs_comboHist.contains(combo)) {
-			obs_comboHist.remove(combo);
-			obs_comboHist.add(combo);
+		if ( obs_combo.contains(combo)) {
+			obs_combo.remove(combo);
+			obs_combo.add(combo);
 			System.out.println("vec sadrzi");
 		} else if (! (combo== null)) {
-			obs_comboHist.add(combo);
+			obs_combo.add(combo);
 		} else {
 			System.out.println("null je bre!");
 		}

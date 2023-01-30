@@ -13,11 +13,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-/*
-https://docs.oracle.com/javafx/2/ui_controls/list-view.htm
 
+/*
+ *
+ * https://docs.oracle.com/javafx/2/ui_controls/list-view.htm
+ *
  */
-public class ListViewSample extends Application {
+public class ListViewSample_Oracle extends Application {
 	
 	ListView<String> list = new ListView<String>();
 	ObservableList<String> data = FXCollections.observableArrayList(
@@ -30,7 +32,7 @@ public class ListViewSample extends Application {
 		VBox box = new VBox();
 		Scene scene = new Scene(box, 200, 200);
 		stage.setScene(scene);
-		stage.setTitle("ListViewSample");
+		stage.setTitle("ListViewSample_Oracle");
 		box.getChildren().addAll(list);
 		VBox.setVgrow(list, Priority.ALWAYS);
 		

@@ -30,7 +30,14 @@ public class Combo implements Serializable {
 	}
 	
 	public String getComboDescription() {
-		return comboDescription;
+		StringBuilder sb = new StringBuilder();
+		for (Leg l : legs){
+			sb.append(l.getContract().getSkr());
+			sb.append(" ");
+			sb.append(l.getContract().getStrajk());
+			sb.append(" ");
+		}
+		return sb.toString().trim();
 	}
 	
 	public void add(Leg p) {

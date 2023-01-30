@@ -5,7 +5,7 @@ public class Contract {
 	
 	private String ticker;
 	private double strajk;
-	private String shortName;
+	private String skr;
 	private String description;
 	private double multiplier = 100;
 	
@@ -29,12 +29,12 @@ public class Contract {
 		return strajk;
 	}
 	
-	public String getShortName() {
-		return shortName;
+	public String getSkr() {
+		return skr;
 	}
 	
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
+	public void setSkr(String skr) {
+		this.skr = skr;
 	}
 	
 	public String getDescription() {
@@ -50,7 +50,7 @@ public class Contract {
 	}
 	
 	public void setMultiplier(double multiplier) {
-		this.multiplier = (double) multiplier;
+		this.multiplier = multiplier;
 	}
 	
 	

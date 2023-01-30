@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class AppMain extends Application {
+public class App extends Application {
 	private String appTitle = "OC";
 	
 	
 	@Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(AppMain.class.getResource("appmain.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("app.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(appTitle);
         stage.setScene(scene);
@@ -33,7 +33,7 @@ public class AppMain extends Application {
     }
 
     public static void main(String[] args) {
-        // Application.launch(AppMain.class, args);
+        // Application.launch(App.class, args);
 		launch(args);
 
     }

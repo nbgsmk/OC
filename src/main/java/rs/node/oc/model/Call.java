@@ -9,7 +9,7 @@ public class Call extends Contract implements Serializable {
 	
 	public Call(double strajk) {
 		super(strajk);
-		setShortName("C");
+		setSkr("C");
 	}
 	
 	
