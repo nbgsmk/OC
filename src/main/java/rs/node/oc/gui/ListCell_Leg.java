@@ -2,20 +2,22 @@ package rs.node.oc.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import rs.node.oc.App;
 import rs.node.oc.model.Leg;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ListCell_Leg extends ListCell<Leg> {
+public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 
 	@FXML
-	public HBox hb_content;
+	public HBox leg_row_content;
 	
 	@FXML
 	public CheckBox enable;
@@ -54,18 +56,20 @@ public class ListCell_Leg extends ListCell<Leg> {
 			setGraphic(null);
 		} else {
 			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("legr.fxml"));
-				loader.setController(this);
+				FXMLLoader loader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
+				if (loader.getController() == null) {
+					loader.setController(this);
+				}
 				loader.load();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-			// t_amt.setText(String.valueOf(leg.getAmount()));
-			// t_tip.setText(leg.getContract().getSkr() + " " + leg.getContract().getStrajk());
-			// t_px.setText(String.format(" @ %.2f", leg.getOpenPrice()));
-			// call_put.setText("RADI");
-			setGraphic(hb_content);
-			
+			setAmount(leg.getAmount());
+			call_put.setText(leg.getContract().getSkr());
+			setStrajk(leg.getContract().getStrajk());
+			setAvg_px(leg.getOpenPrice());
+			setDelta(leg.getDelta());
+			setGraphic(leg_row_content);
 		}
 	}
 	
@@ -78,12 +82,12 @@ public class ListCell_Leg extends ListCell<Leg> {
 		this.strajk.getValueFactory().setValue(strajk);
 	}
 	
-	public void setAvg_px(Spinner<Double> avg_px) {
-		this.avg_px = avg_px;
+	public void setAvg_px(double avg_px) {
+		this.avg_px.getValueFactory().setValue(avg_px);
 	}
 	
-	public void setDelta(Spinner<Double> delta) {
-		this.delta = delta;
+	public void setDelta(double delta) {
+		this.delta.getValueFactory().setValue(delta);
 	}
 	
 	
@@ -120,7 +124,7 @@ public class ListCell_Leg extends ListCell<Leg> {
 	}
 	
 	
-	public void initialize_PATKA(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources) {
 		amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
 		amount.getValueFactory().setWrapAround(false);
 		

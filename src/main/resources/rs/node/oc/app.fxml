@@ -13,10 +13,9 @@
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 	</columnConstraints>
 	<rowConstraints>
-		<RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-		<RowConstraints maxHeight="241.0" minHeight="10.0" prefHeight="214.0" vgrow="SOMETIMES" />
+		<RowConstraints maxHeight="134.0" minHeight="76.0" prefHeight="76.0" vgrow="SOMETIMES" />
+		<RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="305.0" vgrow="SOMETIMES" />
 		<RowConstraints fillHeight="false" maxHeight="136.0" minHeight="10.0" prefHeight="130.0" />
-      <RowConstraints fillHeight="false" maxHeight="111.0" minHeight="10.0" prefHeight="111.0" />
 	</rowConstraints>
 	<LineChart fx:id="grafikoncic" animated="false" prefHeight="247.0" prefWidth="338.0" title="PnL" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
 		<xAxis>
@@ -26,20 +25,22 @@
 			<NumberAxis side="LEFT" />
 		</yAxis>
 	</LineChart>
-	<AnchorPane maxHeight="1.7976931348623157E308" GridPane.rowIndex="1">
-		<VBox layoutY="157.0" maxHeight="1.7976931348623157E308" style="-fx-background-color: gold;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-			<RadioButton fx:id="vertical" mnemonicParsing="false" text="Vertical">
-				<toggleGroup>
-					<ToggleGroup fx:id="comboTip" />
-				</toggleGroup>
-			</RadioButton>
-			<RadioButton fx:id="butterfly" mnemonicParsing="false" text="Butterfly" toggleGroup="$comboTip" />
-			<RadioButton fx:id="unbal" mnemonicParsing="false" text="Unbal" toggleGroup="$comboTip" />
-			<RadioButton fx:id="condor" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" />
-			<RadioButton fx:id="calendar" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" />
-		</VBox>
-      <ListView fx:id="lv_combo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="153.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-	</AnchorPane>
+   <VBox GridPane.rowIndex="1">
+      <children>
+         <ListView fx:id="lv_combo" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+   		<VBox style="-fx-background-color: gold;" VBox.vgrow="ALWAYS">
+   			<RadioButton fx:id="vertical" mnemonicParsing="false" text="Vertical">
+   				<toggleGroup>
+   					<ToggleGroup fx:id="comboTip" />
+   				</toggleGroup>
+   			</RadioButton>
+   			<RadioButton fx:id="butterfly" mnemonicParsing="false" text="Butterfly" toggleGroup="$comboTip" />
+   			<RadioButton fx:id="unbal" mnemonicParsing="false" text="Unbal" toggleGroup="$comboTip" />
+   			<RadioButton fx:id="condor" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" />
+   			<RadioButton fx:id="calendar" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" />
+   		</VBox>
+      </children>
+   </VBox>
 	<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
 		<Button fx:id="saveToHistory" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveToHistory" text="to history" />
    	<Button fx:id="randomData" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dodajRandomDataPaStaBude" text="random data" />
