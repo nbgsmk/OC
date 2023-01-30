@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="hb_content" alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.gui.ListCell_Leg">
+	<CheckBox fx:id="enable" mnemonicParsing="false" text="en"/>
+	<Spinner fx:id="amount" onScroll="#amountWheel"/>
+	<Label fx:id="call_put" text="C/P"/>
+	<Spinner fx:id="strajk" editable="true" onScroll="#strajkWheel"/>
+	<Label alignment="CENTER" text="\@"/>
+	<Spinner fx:id="avg_px" editable="true" onScroll="#avgPxWheel"/>
+	<Label alignment="CENTER" text="Δ="/>
+	<Spinner fx:id="delta" editable="true" onScroll="#deltaWheel"/>
+</HBox>

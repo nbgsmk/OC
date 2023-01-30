@@ -45,7 +45,7 @@ public class AppController implements Initializable {
 	@FXML
 	public Button randomData;
 	@FXML
-	public VBox dole;
+	public Button saveToHistory;
 	
 	
 	private Combo combo;
@@ -135,29 +135,29 @@ public class AppController implements Initializable {
 				updatujGui();
 				
 				
-				// Legs - popuniti tabelu
-				dole.getChildren().clear();
-				for (Leg leg : combo.getLegs()) {
-					ContractRowController ctrl = dodajRow(null);
-					
-					Integer amt = leg.getAmount();
-					ctrl.amount.getValueFactory().setValue(amt);
-					
-					Contract contract = leg.getContract();
-					ctrl.call_put.setText(contract.getSkr());
-					
-					Double strajk = leg.getContract().getStrajk();
-					ctrl.strajk.getValueFactory().setValue(strajk);
-					
-					Double avgpx = leg.getOpenPrice();
-					ctrl.avg_px.getValueFactory().setValue(avgpx);
-					
-					Double delta = leg.getDelta();
-					ctrl.delta.getValueFactory().setValue(delta);
-					
-					
-				}
-				
+				// // Legs - popuniti tabelu
+				// dole.getChildren().clear();
+				// for (Leg leg : combo.getLegs()) {
+				// 	ContractRowController ctrl = dodajRow(null);
+				//
+				// 	Integer amt = leg.getAmount();
+				// 	ctrl.amount.getValueFactory().setValue(amt);
+				//
+				// 	Contract contract = leg.getContract();
+				// 	ctrl.call_put.setText(contract.getSkr());
+				//
+				// 	Double strajk = leg.getContract().getStrajk();
+				// 	ctrl.strajk.getValueFactory().setValue(strajk);
+				//
+				// 	Double avgpx = leg.getOpenPrice();
+				// 	ctrl.avg_px.getValueFactory().setValue(avgpx);
+				//
+				// 	Double delta = leg.getDelta();
+				// 	ctrl.delta.getValueFactory().setValue(delta);
+				//
+				//
+				// }
+				//
 				// snimi trenutni default
 				snimiToXML("default.combo", combo);
 				
@@ -201,17 +201,7 @@ public class AppController implements Initializable {
 		}
 		grafikoncic.getData().add(series);
 	}
-
-
-	public ContractRowController dodajRow(ActionEvent actionEvent){
-		try {
-			FXMLLoader loader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
-			dole.getChildren().add(loader.load());
-			return loader.getController();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+	
 	
 	public void saveToHistory(ActionEvent actionEvent) {
 		if ( obs_combo.contains(combo)) {

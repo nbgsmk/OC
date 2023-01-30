@@ -22,12 +22,12 @@ public class ListCell_Combo extends ListCell<Combo> {
 	@Override
 	protected void updateItem(Combo combo, boolean empty) {
 		super.updateItem(combo, empty);
-		if (combo != null && !empty) { // <== test for null combo and empty parameter
-			txt.setText(combo.getComboDescription());
-			setGraphic(content);
-		} else {
+		if (combo == null || empty) {       // <== test for null combo and empty parameter
 			setGraphic(null);
 			setText(null);
+		} else {
+			txt.setText(combo.getComboDescription());
+			setGraphic(content);
 		}
 	}
 }
