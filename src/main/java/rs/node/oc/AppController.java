@@ -11,10 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import rs.node.oc.data.DemoCombo;
 import rs.node.oc.data.DemoData;
 import rs.node.oc.data.Snimac;
 import rs.node.oc.gui.ListCell_Combo;
@@ -28,26 +26,29 @@ import java.util.*;
 public class AppController implements Initializable {
 
 	@FXML
-	public LineChart<String, Double> grafikoncic;
-	@FXML
-	public Button prikaziKombo;
-	// @FXML
-	// public VBox dole;
-	
-	@FXML
-	public Button dodajRow;
 	public ToggleGroup comboTip;
+	@FXML
 	public RadioButton butterfly;
+	@FXML
 	public RadioButton unbal;
+	@FXML
 	public RadioButton vertical;
+	@FXML
 	public RadioButton condor;
+	@FXML
 	public RadioButton calendar;
+	@FXML
 	public Button randomData;
+	@FXML
 	public Label comboInfo;
+	@FXML
 	public VBox dole;
 	
 	
 	private Combo combo;
+
+	@FXML
+	public LineChart<String, Double> grafikoncic;
 	
 	@FXML
 	public ListView<Leg> lv_legs;
@@ -60,12 +61,20 @@ public class AppController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		obs_combo = FXCollections.observableArrayList();
 		lv_combo.setItems(obs_combo);
 		lv_combo.setCellFactory(new Callback<ListView<Combo>, ListCell<Combo>>() {
 			@Override
 			public ListCell<Combo> call(ListView<Combo> param) {
 				return new ListCell_Combo();
+			}
+		});
+		lv_combo.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				combo = obs_combo.get((Integer) newValue);
+				updatujGui();
 			}
 		});
 		
@@ -79,27 +88,6 @@ public class AppController implements Initializable {
 			}
 		});
 		
-		lv_combo.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				Combo c = obs_combo.get((Integer) newValue);
-				obs_legs.clear();
-				obs_legs.addAll(c.getLegs());
-			}
-		});
-		
-		
-		Map<Integer, Double> data = DemoData.getDemoData();
-		XYChart.Series<String, Double> bzvz = new XYChart.Series<>();
-		bzvz.setName("Рандом дата он апликејшон старт!");
-		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
-			bzvz.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
-		}
-		
-		
-		
-		grafikoncic.getData().add(bzvz);
-		
 		comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
@@ -107,8 +95,6 @@ public class AppController implements Initializable {
 					combo = new Combo("Vertical Spread");
 					combo.add(new Leg(1, new Put(397), 0.68));
 					combo.add(new Leg(-1, new Put(399), 1.12));
-					// combo.add(new Leg(-1, new Put(397), 0.66));
-					// combo.add(new Leg(1, new Put(399), 1.15));
 					
 				} else if (newValue == butterfly) {
 					combo = new Combo("Butterfly");
@@ -139,16 +125,15 @@ public class AppController implements Initializable {
 
 				}
 				
-				lv_legs.getItems().clear();
-				dole.getChildren().clear();
+				updatujGui();
 				
 				
 				// Legs - popuniti tabelu
 				for (Leg leg : combo.getLegs()) {
 					ContractRowController ctrl = dodajRow(null);
 					
-					// Integer amt = leg.getAmount();
-					// ctrl.amount.getValueFactory().setValue(amt);
+					Integer amt = leg.getAmount();
+					ctrl.amount.getValueFactory().setValue(amt);
 					
 					Contract contract = leg.getContract();
 					ctrl.call_put.setText(contract.getSkr());
@@ -162,9 +147,9 @@ public class AppController implements Initializable {
 					Double delta = leg.getDelta();
 					ctrl.delta.getValueFactory().setValue(delta);
 					
-					obs_legs.add(leg);
 					
 				}
+				
 				
 				StringBuilder sb = new StringBuilder();
 				sb.append("probability " + String.format("%.2f", combo.getDelta()) + "\n");
@@ -173,16 +158,8 @@ public class AppController implements Initializable {
 				sb.append("min invest  " + String.format("%.2f", combo.getComboOpenPrice()) + "\n") ;
 				comboInfo.setText(sb.toString());
 				
-				// popuni grafikon sa extended tackama (vise tacaka nego sto ima Leg-ova)
-				TreeMap<Double, Double> pl = combo.getExtendedPnLPoints();
-				XYChart.Series<String, Double> series = new XYChart.Series<>();
-				series.setName("inišalajz рандом дата");
-				for (Map.Entry<Double, Double> tacka : pl.entrySet()) {
-					series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
-				}
 				
-				onPrikaziKomboClick();
-				// pre nego sto krenes dalje, snimi dosadasnji default
+				// snimi dosadasnji default
 				Snimac snimac = new Snimac();
 				snimac.writeXml("default.combo.xml", combo);
 				
@@ -196,34 +173,29 @@ public class AppController implements Initializable {
 	
 	
 	
-    @FXML
-    protected void onPrikaziKomboClick() {
+    protected void updatujGui() {
 	
-	    if (combo == null) {
-		    DemoCombo dc = new DemoCombo();
-		    combo = dc.getDemoCombo();
-	    }
+	    // popuni grafikon sa extended tackama (vise tacaka nego sto ima Leg-ova)
 	    TreeMap<Double, Double> pl = combo.getExtendedPnLPoints();
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
 	    series.setName(combo.getComboName());
 	    for (Map.Entry<Double, Double> tacka : pl.entrySet()) {
 		    series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 	    }
-		grafikoncic.getData().clear();
-	    grafikoncic.getData().add(series);
+	    grafikoncic.getData().clear();
+		grafikoncic.getData().add(series);
+		obs_legs.setAll(combo.getLegs());
     }
 	
 	@FXML
-	protected void dajRandomData() {
-		Map<Integer, Double> data = DemoData.getDemoData();
+	protected void dodajRandomDataPaStaBude() {
+		Map<Integer, Double> data = DemoData.getRandomData();
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
 		series.setName("Шта се деси, деси");
 		for (Map.Entry<Integer, Double> tacka : data.entrySet()) {
 			series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
 		}
-		
 		grafikoncic.getData().add(series);
-		
 	}
 
 
@@ -231,7 +203,6 @@ public class AppController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
 			dole.getChildren().add(loader.load());
-			// lv_legs.getItems().add(loader.load());
 			return loader.getController();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -242,11 +213,11 @@ public class AppController implements Initializable {
 		if ( obs_combo.contains(combo)) {
 			obs_combo.remove(combo);
 			obs_combo.add(combo);
-			System.out.println("vec sadrzi");
-		} else if (! (combo== null)) {
+			System.out.println("vec sadrzi, samo updatujem");
+		} else if (combo != null) {
 			obs_combo.add(combo);
 		} else {
-			System.out.println("null je bre!");
+			System.out.println("null je, nikom nista");
 		}
 	}
 	

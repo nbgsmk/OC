@@ -1,13 +1,12 @@
 package rs.node.oc.data;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
 public class DemoData {
 	
-	public static Map<Integer, Double> getDemoData(){
+	public static Map<Integer, Double> getRandomData(){
 		Map<Integer, Double> tacke = new TreeMap<>();
 		Random randomX = new Random();
 		Random randomY = new Random();
