@@ -24,6 +24,9 @@ public class Snimac {
 		return subfolder + "/" + fn;
 	}
 	public void writeXml(String fileName, Object o){
+		if (! fileName.endsWith(".xml")) {
+			fileName += ".xml";
+		}
 		try {
 			XMLEncoder xe;
 			xe = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(getAbsFileName(fileName))));

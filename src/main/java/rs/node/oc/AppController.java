@@ -1,5 +1,6 @@
 package rs.node.oc;
 
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -7,6 +8,7 @@ import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -156,10 +158,8 @@ public class AppController implements Initializable {
 					
 				}
 				
-				// snimi dosadasnji default
-				Snimac snimac = new Snimac();
-				snimac.writeXml("default.combo.xml", combo);
-				
+				// snimi trenutni default
+				snimiToXML("default.combo", combo);
 				
 			}
 			
@@ -223,6 +223,20 @@ public class AppController implements Initializable {
 		} else {
 			System.out.println("null je, nikom nista");
 		}
+		if ((obs_combo.size() > 0) && (obs_combo != null)) {
+			for (int i = 0; i < obs_combo.size(); i++) {
+				snimiToXML(String.valueOf(i), obs_combo.get(i));
+			}
+			// for (Combo c : obs_combo) {
+			// 	snimiToXML(c.getComboName(), c);
+			// }
+		}
+	}
+	
+	
+	private void snimiToXML(String fileName, Object o){
+		Snimac snimac = new Snimac();
+		snimac.writeXml(fileName, o);
 	}
 	
 }
