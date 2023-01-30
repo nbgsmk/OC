@@ -1,6 +1,9 @@
 package rs.node.oc;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,8 +43,6 @@ public class AppController implements Initializable {
 	@FXML
 	public Button randomData;
 	@FXML
-	public Label comboInfo;
-	@FXML
 	public VBox dole;
 	
 	
@@ -57,6 +58,9 @@ public class AppController implements Initializable {
 	@FXML
 	public ListView<Combo> lv_combo;
 	ObservableList<Combo> obs_combo;
+	
+	@FXML
+	public Label lbl_comboInfo;
 	
 	
 	@Override
@@ -88,6 +92,7 @@ public class AppController implements Initializable {
 			}
 		});
 		
+		
 		comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
@@ -118,10 +123,10 @@ public class AppController implements Initializable {
 					
 				} else if (newValue == calendar) {
 					combo = new Combo("Iron Condor");
-					combo.add(new Leg(1, new Put(401), 1.8));
-					combo.add(new Leg(-1, new Put(403), 2.74));
-					combo.add(new Leg(-1, new Call(405), 0.96));
-					combo.add(new Leg(1, new Call(407), 0.5));
+					combo.add(new Leg(1, new Put(409), 1.8));
+					combo.add(new Leg(-1, new Put(410), 2.74));
+					combo.add(new Leg(-1, new Call(415), 0.96));
+					combo.add(new Leg(1, new Call(417), 0.5));
 
 				}
 				
@@ -129,6 +134,7 @@ public class AppController implements Initializable {
 				
 				
 				// Legs - popuniti tabelu
+				dole.getChildren().clear();
 				for (Leg leg : combo.getLegs()) {
 					ContractRowController ctrl = dodajRow(null);
 					
@@ -149,15 +155,6 @@ public class AppController implements Initializable {
 					
 					
 				}
-				
-				
-				StringBuilder sb = new StringBuilder();
-				sb.append("probability " + String.format("%.2f", combo.getDelta()) + "\n");
-				sb.append("max profit  " + String.format("%.2f", Math.abs(combo.getMaxProfit())) + "\n");
-				sb.append("max loss    " + String.format("%.2f", Math.abs(combo.getMaxLoss())) + "\n");
-				sb.append("min invest  " + String.format("%.2f", combo.getComboOpenPrice()) + "\n") ;
-				comboInfo.setText(sb.toString());
-				
 				
 				// snimi dosadasnji default
 				Snimac snimac = new Snimac();
@@ -185,6 +182,13 @@ public class AppController implements Initializable {
 	    grafikoncic.getData().clear();
 		grafikoncic.getData().add(series);
 		obs_legs.setAll(combo.getLegs());
+	
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("probability " + String.format("%.2f", combo.getDelta()) + "\n");
+	    sb.append("max profit  " + String.format("%.2f", Math.abs(combo.getMaxProfit())) + "\n");
+	    sb.append("max loss    " + String.format("%.2f", Math.abs(combo.getMaxLoss())) + "\n");
+	    sb.append("min invest  " + String.format("%.2f", combo.getComboOpenPrice()) + "\n") ;
+		lbl_comboInfo.setText(sb.toString());
     }
 	
 	@FXML

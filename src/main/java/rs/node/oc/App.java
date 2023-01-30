@@ -23,34 +23,12 @@ public class App extends Application {
         stage.setTitle(appTitle);
         stage.setScene(scene);
         stage.show();
-		
-	    DemoCombo dc = new DemoCombo();
-		Combo combo = dc.getDemoCombo();
-
-		kreni(combo);
-		
 
     }
 
     public static void main(String[] args) {
-        // Application.launch(App.class, args);
 		launch(args);
-
     }
 	
-	
-	
-	
-	private void kreni(Combo combo){
-		
-		// random data on start
-		Map<Integer, Double> randomData = DemoData.getRandomData();
-		randomData = new TreeMap<>();
-		for (var entry : combo.getExtendedPnLPoints().entrySet()) {
-			randomData.put((int) Math.round(entry.getKey()), entry.getValue());
-		}
-		
-		
-	}
 }
 
