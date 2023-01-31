@@ -7,7 +7,7 @@
 
 <GridPane minWidth="-Infinity" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.AppController">
 	<columnConstraints>
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="120.0" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,7 +28,7 @@
    <VBox GridPane.rowIndex="1">
       <children>
          <ListView fx:id="lv_combo" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
-   		<VBox style="-fx-background-color: gold;" VBox.vgrow="ALWAYS">
+   		<VBox VBox.vgrow="ALWAYS">
    			<RadioButton fx:id="vertical" mnemonicParsing="false" text="Vertical">
    				<toggleGroup>
    					<ToggleGroup fx:id="comboTip" />
@@ -45,7 +45,7 @@
 		<Button fx:id="saveToHistory" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveToHistory" text="to history" />
    	<Button fx:id="randomData" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dodajRandomDataPaStaBude" text="random data" />
 	</VBox>
-	<ListView fx:id="lv_legs" minHeight="100.0" minWidth="350.0" style="-fx-background-color: lavenderblush;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER" />
+	<ListView fx:id="lv_legs" minHeight="100.0" minWidth="350.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER" />
 	<Label fx:id="lbl_comboInfo" alignment="TOP_LEFT" lineSpacing="2.0" prefWidth="200.0" text="Combo Info" GridPane.columnIndex="3" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
       <padding>
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

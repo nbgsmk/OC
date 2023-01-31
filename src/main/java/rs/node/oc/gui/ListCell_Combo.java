@@ -3,20 +3,22 @@ package rs.node.oc.gui;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import rs.node.oc.model.Combo;
 
 public class ListCell_Combo extends ListCell<Combo> {
-	private final HBox content;
-	private final Text txt;
+	private final VBox content;
+	private final Text naziv;
+	private final Text detail;
 	
 	
 	public ListCell_Combo() {
 		super();
-		this.txt = new Text();
-		HBox hBox = new HBox(txt);
-		content = new HBox(new Label(""), hBox);
-		content.setSpacing(10);
+		naziv = new Text();
+		detail = new Text();
+		content = new VBox(naziv, detail);
+		content.setSpacing(1);
 	}
 	
 	@Override
@@ -26,7 +28,8 @@ public class ListCell_Combo extends ListCell<Combo> {
 			setGraphic(null);
 			setText(null);
 		} else {
-			txt.setText(combo.getComboDescription());
+			naziv.setText(combo.getComboName());
+			detail.setText(combo.getComboDescription());
 			setGraphic(content);
 		}
 	}
