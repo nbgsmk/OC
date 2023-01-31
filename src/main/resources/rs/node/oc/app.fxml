@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane minWidth="-Infinity" prefHeight="511.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.AppController">
+<GridPane minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.AppController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -13,9 +13,9 @@
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 	</columnConstraints>
 	<rowConstraints>
-		<RowConstraints maxHeight="134.0" minHeight="76.0" prefHeight="76.0" vgrow="SOMETIMES" />
-		<RowConstraints maxHeight="305.0" minHeight="10.0" prefHeight="305.0" vgrow="SOMETIMES" />
-		<RowConstraints fillHeight="false" maxHeight="136.0" minHeight="10.0" prefHeight="130.0" />
+		<RowConstraints minHeight="30.0" vgrow="NEVER" />
+		<RowConstraints maxHeight="329.0" minHeight="10.0" prefHeight="329.0" vgrow="ALWAYS" />
+		<RowConstraints maxHeight="187.0" minHeight="141.0" prefHeight="141.0" valignment="TOP" vgrow="NEVER" />
 	</rowConstraints>
 	<LineChart fx:id="grafikoncic" animated="false" prefHeight="247.0" prefWidth="338.0" title="PnL" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
 		<xAxis>
@@ -41,12 +41,12 @@
    		</VBox>
       </children>
    </VBox>
-	<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+	<VBox alignment="CENTER_LEFT" minHeight="100.0" minWidth="100.0" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
 		<Button fx:id="saveToHistory" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveToHistory" text="to history" />
    	<Button fx:id="randomData" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dodajRandomDataPaStaBude" text="random data" />
 	</VBox>
-	<ListView fx:id="lv_legs" prefHeight="200.0" prefWidth="290.0" style="-fx-background-color: lavenderblush;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-	<Label fx:id="lbl_comboInfo" alignment="TOP_LEFT" lineSpacing="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" text="Combo Info" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+	<ListView fx:id="lv_legs" minHeight="100.0" minWidth="320.0" style="-fx-background-color: lavenderblush;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER" />
+	<Label fx:id="lbl_comboInfo" alignment="TOP_LEFT" lineSpacing="2.0" prefWidth="200.0" text="Combo Info" GridPane.columnIndex="3" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
       <padding>
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </padding></Label>
