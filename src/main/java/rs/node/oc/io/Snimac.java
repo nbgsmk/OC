@@ -1,4 +1,4 @@
-package rs.node.oc.data;
+package rs.node.oc.io;
 
 import rs.node.oc.model.Combo;
 
@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 public class Snimac {
 	
 	private final String subfolder = "userdata";
+	public static final String defCombo = "default.combo.xml";
+	public static final String presetList = "combo.presets.xml";
 	
 	public Snimac() {
 		try {

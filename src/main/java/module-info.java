@@ -16,4 +16,6 @@ module cc.kostic.oc {
 	opens rs.node.oc.data to javafx.fxml;
 	
 	exports rs.node.oc.model;
+	exports rs.node.oc.io;
+	opens rs.node.oc.io to javafx.fxml;
 }
