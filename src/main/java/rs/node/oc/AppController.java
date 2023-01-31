@@ -10,12 +10,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import rs.node.oc.data.DemoData;
@@ -83,7 +86,13 @@ public class AppController implements Initializable {
 				updatujGui();
 			}
 		});
-		
+		lv_combo.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				updatujGui();
+			}
+		});
+
 		
 		obs_legs = FXCollections.observableArrayList();
 		lv_legs.setItems(obs_legs);
@@ -91,6 +100,12 @@ public class AppController implements Initializable {
 			@Override
 			public ListCell<Leg> call(ListView<Leg> param) {
 				return new ListCell_Leg();
+			}
+		});
+		lv_legs.setOnScroll(new EventHandler<ScrollEvent>() {
+			@Override
+			public void handle(ScrollEvent event) {
+				updatujGui();
 			}
 		});
 		

@@ -1,8 +1,10 @@
 package rs.node.oc.gui;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
@@ -32,6 +34,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 	@FXML
 	public Spinner<Double> delta;
 	
+	private Leg leg;
 	
 	@Override
 	protected void updateItem(Leg leg, boolean empty) {
@@ -40,6 +43,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 			setText(null);
 			setGraphic(null);
 		} else {
+			this.leg = leg;
 			try {
 				FXMLLoader loader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
 				if (loader.getController() == null) {
@@ -82,6 +86,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 		} else {
 			amount.decrement();
 		}
+		leg.setAmount(amount.getValue());
 	}
 	
 	public void strajkWheel(ScrollEvent scrollEvent) {
@@ -90,6 +95,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 		} else {
 			strajk.decrement();
 		}
+		leg.getContract().setStrajk(strajk.getValue());
 	}
 	
 	public void avgPxWheel(ScrollEvent scrollEvent) {
@@ -98,6 +104,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 		} else {
 			avg_px.decrement();
 		}
+		leg.setOpenPrice(avg_px.getValue());
 	}
 	
 	public void deltaWheel(ScrollEvent scrollEvent) {
@@ -106,6 +113,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 		} else {
 			delta.decrement();
 		}
+		leg.setDelta(delta.getValue());
 	}
 	
 	
