@@ -7,7 +7,7 @@
 
 <HBox fx:id="leg_row_content" alignment="CENTER_LEFT" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
 	<CheckBox fx:id="enable" mnemonicParsing="false" text="en" HBox.hgrow="NEVER" />
-	<Spinner fx:id="amount" minWidth="50.0" onScroll="#amountWheel" prefWidth="50.0" HBox.hgrow="NEVER" />
+	<Spinner fx:id="amount" editable="true" minWidth="50.0" onScroll="#amountWheel" prefWidth="50.0" HBox.hgrow="NEVER" />
 	<Label fx:id="call_put" text="C/P" HBox.hgrow="NEVER" />
 	<Spinner fx:id="strajk" editable="true" minWidth="70.0" onScroll="#strajkWheel" prefWidth="70.0" HBox.hgrow="NEVER" />
 	<Label alignment="CENTER" text="\@" HBox.hgrow="NEVER" />

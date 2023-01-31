@@ -89,7 +89,9 @@ public class AppController implements Initializable {
 		lv_combo.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				updatujGui();
+				if (combo != null) {
+					updatujGui();
+				}
 			}
 		});
 
@@ -105,6 +107,11 @@ public class AppController implements Initializable {
 		lv_legs.setOnScroll(new EventHandler<ScrollEvent>() {
 			@Override
 			public void handle(ScrollEvent event) {
+				// try {
+				// 	Thread.sleep(20);
+				// } catch (InterruptedException e) {
+				// 	throw new RuntimeException(e);
+				// }
 				updatujGui();
 			}
 		});
