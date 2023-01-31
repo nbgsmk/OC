@@ -33,21 +33,6 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 	public Spinner<Double> delta;
 	
 	
-	private HBox content;
-	private Text t_amt;
-	private Text t_tip;
-	private Text t_px;
-	
-	// public ListCell_Leg() {
-	// 	super();
-	// 	t_amt = new Text();
-	// 	t_tip = new Text();
-	// 	t_px = new Text();
-	// 	HBox hBox = new HBox(t_amt, t_tip, t_px);
-	// 	content = new HBox(new Label("[Graphic]"), new CheckBox("izaberi"), hBox);
-	// 	content.setSpacing(10);
-	// }
-	
 	@Override
 	protected void updateItem(Leg leg, boolean empty) {
 		super.updateItem(leg, empty);

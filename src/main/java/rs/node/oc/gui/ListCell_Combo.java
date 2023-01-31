@@ -15,7 +15,7 @@ public class ListCell_Combo extends ListCell<Combo> {
 		super();
 		this.txt = new Text();
 		HBox hBox = new HBox(txt);
-		content = new HBox(new Label("combo je: "), hBox);
+		content = new HBox(new Label(""), hBox);
 		content.setSpacing(10);
 	}
 	
