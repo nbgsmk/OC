@@ -134,31 +134,6 @@ public class AppController implements Initializable {
 				
 				updatujGui();
 				
-				
-				// // Legs - popuniti tabelu
-				// dole.getChildren().clear();
-				// for (Leg leg : combo.getLegs()) {
-				// 	ContractRowController ctrl = dodajRow(null);
-				//
-				// 	Integer amt = leg.getAmount();
-				// 	ctrl.amount.getValueFactory().setValue(amt);
-				//
-				// 	Contract contract = leg.getContract();
-				// 	ctrl.call_put.setText(contract.getSkr());
-				//
-				// 	Double strajk = leg.getContract().getStrajk();
-				// 	ctrl.strajk.getValueFactory().setValue(strajk);
-				//
-				// 	Double avgpx = leg.getOpenPrice();
-				// 	ctrl.avg_px.getValueFactory().setValue(avgpx);
-				//
-				// 	Double delta = leg.getDelta();
-				// 	ctrl.delta.getValueFactory().setValue(delta);
-				//
-				//
-				// }
-				//
-				// snimi trenutni default
 				snimiToXML("default.combo", combo);
 				
 			}
