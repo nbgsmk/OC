@@ -28,20 +28,33 @@
    <VBox GridPane.rowIndex="1">
       <children>
          <ListView fx:id="lv_comboPresets" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
-   		<VBox VBox.vgrow="ALWAYS">
-   			<RadioButton fx:id="vert_call" mnemonicParsing="false" text="Vertical Call">
-   				<toggleGroup>
-   					<ToggleGroup fx:id="comboTip" />
-   				</toggleGroup>
-   			</RadioButton>
-			<RadioButton fx:id="vert_put" mnemonicParsing="false" text="Vertical Put" toggleGroup="$comboTip" />
-			<RadioButton fx:id="butterfly_call" mnemonicParsing="false" text="Butterfly Call" toggleGroup="$comboTip" />
-			<RadioButton fx:id="butterfly_put" mnemonicParsing="false" text="Butterfly Put" toggleGroup="$comboTip" />
-   			<RadioButton fx:id="unbal_call" mnemonicParsing="false" text="Unbal. Call" toggleGroup="$comboTip" />
-   			<RadioButton fx:id="unbal_put" mnemonicParsing="false" text="Unbal. Put" toggleGroup="$comboTip" />
-   			<RadioButton fx:id="condor" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" />
-   			<RadioButton fx:id="calendar" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" />
-   		</VBox>
+         <GridPane minHeight="-Infinity" prefHeight="100.0" VBox.vgrow="NEVER">
+            <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="95.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="79.0" minWidth="10.0" prefWidth="61.0" />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+      			<RadioButton fx:id="vert_call" mnemonicParsing="false" text="Vertical Call">
+      				<toggleGroup>
+      					<ToggleGroup fx:id="comboTip" />
+      				</toggleGroup>
+      			</RadioButton>
+   			<RadioButton fx:id="vert_put" mnemonicParsing="false" text="Put" toggleGroup="$comboTip" GridPane.columnIndex="1" />
+   			<RadioButton fx:id="butterfly_call" mnemonicParsing="false" text="Butterfly Call" toggleGroup="$comboTip" GridPane.rowIndex="1" />
+   			<RadioButton fx:id="butterfly_put" mnemonicParsing="false" text="Put" toggleGroup="$comboTip" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      			<RadioButton fx:id="unbal_call" mnemonicParsing="false" text="Unbal. Call" toggleGroup="$comboTip" GridPane.rowIndex="2" />
+      			<RadioButton fx:id="unbal_put" mnemonicParsing="false" text="Put" toggleGroup="$comboTip" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      			<RadioButton fx:id="condor" mnemonicParsing="false" text="Condor" toggleGroup="$comboTip" GridPane.rowIndex="3" />
+      			<RadioButton fx:id="calendar" mnemonicParsing="false" text="Calendar" toggleGroup="$comboTip" GridPane.rowIndex="4" />
+            </children>
+         </GridPane>
       </children>
    </VBox>
 	<VBox alignment="CENTER_LEFT" minHeight="100.0" minWidth="100.0" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
