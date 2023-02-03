@@ -38,23 +38,69 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 	
 	private Leg leg;
 	
+	public ListCell_Leg() {
+		// App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
+
+		amount = new Spinner<>();
+		amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
+		amount.getValueFactory().setWrapAround(false);
+
+		call_put = new Label();
+		
+		strajk = new Spinner<>();
+		strajk.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000, 400, 1));
+		strajk.getValueFactory().setWrapAround(false);
+		strajk.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				strajk.getValueFactory().setValue(Double.valueOf(newValue));
+			}
+		});
+		
+		
+		avg_px = new Spinner<>();
+		avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 5, 0, 0.02));
+		avg_px.getValueFactory().setWrapAround(true);
+		avg_px.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
+				
+				avg_px.getValueFactory().setValue(Double.valueOf(newValue));
+			}
+		});
+
+		delta = new Spinner<>();
+		delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
+		delta.getValueFactory().setWrapAround(true);
+		delta.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				delta.getValueFactory().setValue(Double.valueOf(newValue));
+			}
+		});
+		
+		
+	}
+	
 	@Override
 	protected void updateItem(Leg leg, boolean empty) {
 		super.updateItem(leg, empty);
+		App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
 		if (leg == null || empty) {     // <== test for null leg and empty parameter
 			setText(null);
 			setGraphic(null);
 		} else {
 			this.leg = leg;
-			try {
-				FXMLLoader loader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
-				if (loader.getController() == null) {
-					loader.setController(this);
-				}
-				loader.load();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			// try {
+			// 	FXMLLoader loader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
+			// 	if (loader.getController() == null) {
+			// 		loader.setController(this);
+			// 	}
+			// 	loader.load();
+			// } catch (IOException e) {
+			// 	throw new RuntimeException(e);
+			// }
 			setAmount(leg.getAmount());
 			call_put.setText(leg.getContract().getSkr());
 			setStrajk(leg.getContract().getStrajk());
@@ -120,17 +166,19 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 	
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
-		amount.getValueFactory().setWrapAround(false);
+		App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
 		
-		strajk.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000, 400, 1));
-		strajk.getValueFactory().setWrapAround(false);
-		
-		avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 5, 0, 0.02));
-		avg_px.getValueFactory().setWrapAround(true);
-		
-		delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
-		delta.getValueFactory().setWrapAround(true);
-		
+		// amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
+		// amount.getValueFactory().setWrapAround(false);
+		//
+		// strajk.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000, 400, 1));
+		// strajk.getValueFactory().setWrapAround(false);
+		//
+		// avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 5, 0, 0.02));
+		// avg_px.getValueFactory().setWrapAround(true);
+		//
+		// delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
+		// delta.getValueFactory().setWrapAround(true);
+		//
 	}
 }

@@ -9,11 +9,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.System.Logger;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class App extends Application {
 	private String appTitle = "OC";
+	public static Logger LOG = System.getLogger("nesto");
 	
 	
 	@Override
