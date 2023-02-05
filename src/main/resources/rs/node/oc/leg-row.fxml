@@ -3,9 +3,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!--<HBox fx:id="leg_row_content" alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="5.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.node.oc.gui.ListCell_Leg">-->
+<!--
+<HBox fx:id="leg_row_content"
+	  alignment="CENTER_LEFT"
+	  spacing="10.0"
+	  xmlns="http://javafx.com/javafx/17.0.2-ea"
+	  xmlns:fx="http://javafx.com/fxml/1"
+>
+-->
+<!--
+	  fx:controller="rs.node.oc.gui.ListCell_Leg"
+	-->
 
-<HBox fx:id="leg_row_content" alignment="CENTER_LEFT" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="leg_row_content" alignment="CENTER_LEFT" spacing="5.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+	<!--
+  	fx:controller="rs.node.oc.gui.ListCell_Leg"
+	-->
+
 	<CheckBox fx:id="enable" mnemonicParsing="false" text="en" HBox.hgrow="NEVER" />
 	<Spinner fx:id="amount" editable="true" minWidth="50.0" onScroll="#amountWheel" prefWidth="50.0" HBox.hgrow="NEVER" />
 	<Label fx:id="call_put" text="C/P" HBox.hgrow="NEVER" />
@@ -14,4 +28,4 @@
 	<Spinner fx:id="avg_px" editable="true" minWidth="70.0" onScroll="#avgPxWheel" prefWidth="70.0" HBox.hgrow="NEVER" />
 	<Label alignment="CENTER" text="Δ=" HBox.hgrow="NEVER" />
 	<Spinner fx:id="delta" editable="true" minWidth="65.0" onScroll="#deltaWheel" prefWidth="65.0" HBox.hgrow="NEVER" />
-</HBox>
+</fx:root>

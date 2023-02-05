@@ -63,12 +63,12 @@ public class AppController implements Initializable {
 	public LineChart<String, Double> grafikoncic;
 	
 	@FXML
-	public ListView<Leg> lv_legs;
-	ObservableList<Leg> obs_legs;
-	
-	@FXML
 	public ListView<Combo> lv_comboPresets;
 	ObservableList<Combo> obs_comboPresets;
+	
+	@FXML
+	public ListView<ListCell_Leg> lv_legs;
+	ObservableList<ListCell_Leg> obs_legs;
 	
 	@FXML
 	public Label lbl_comboInfo;
@@ -92,42 +92,43 @@ public class AppController implements Initializable {
 				updatujGui();
 			}
 		});
-		lv_comboPresets.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (combo != null) {
-					updatujGui();
-				}
-			}
-		});
+		// lv_comboPresets.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		// 	@Override
+		// 	public void handle(MouseEvent event) {
+		// 		if (combo != null) {
+		// 			updatujGui();
+		// 		}
+		// 	}
+		// });
 		lv_comboPresets.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 			@Override
 			public void handle(ContextMenuEvent event) {
 				Combo sel = lv_comboPresets.getSelectionModel().getSelectedItem();
 				lv_comboPresets.getItems().remove(sel);
+				savePreset(null);
 			}
 		});
 
 		
 		obs_legs = FXCollections.observableArrayList();
 		lv_legs.setItems(obs_legs);
-		lv_legs.setCellFactory(new Callback<ListView<Leg>, ListCell<Leg>>() {
-			@Override
-			public ListCell<Leg> call(ListView<Leg> param) {
-				return new ListCell_Leg();
-			}
-		});
-		lv_legs.setOnScroll(new EventHandler<ScrollEvent>() {
-			@Override
-			public void handle(ScrollEvent event) {
-				// try {
-				// 	Thread.sleep(20);
-				// } catch (InterruptedException e) {
-				// 	throw new RuntimeException(e);
-				// }
-				updatujGui();
-			}
-		});
+		// lv_legs.setCellFactory(new Callback<ListView<Leg>, ListCell<Leg>>() {
+		// 	@Override
+		// 	public ListCell<Leg> call(ListView<Leg> param) {
+		// 		return new ListCell_Leg();
+		// 	}
+		// });
+		// lv_legs.setOnScroll(new EventHandler<ScrollEvent>() {
+		// 	@Override
+		// 	public void handle(ScrollEvent event) {
+		// 		// try {
+		// 		// 	Thread.sleep(20);
+		// 		// } catch (InterruptedException e) {
+		// 		// 	throw new RuntimeException(e);
+		// 		// }
+		// 		updatujGui();
+		// 	}
+		// });
 		
 		readPreset();
 		
@@ -203,7 +204,13 @@ public class AppController implements Initializable {
 	    }
 	    grafikoncic.getData().clear();
 		grafikoncic.getData().add(series);
-		obs_legs.setAll(combo.getLegs());
+		
+		// obs_legs.setAll(combo.getLegs());
+	    obs_legs.clear();
+	    for (Leg l : combo.getLegs()) {
+			obs_legs.add(new ListCell_Leg(l));
+	    }
+		
 	
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("probability " + String.format("%.2f", combo.getDelta()) + "\n");
@@ -255,5 +262,6 @@ public class AppController implements Initializable {
 		Snimac snimac = new Snimac();
 		snimac.writeXml(fileName, o);
 	}
+	
 	
 }

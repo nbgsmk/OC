@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ListCell_Leg extends ListCell<Leg> implements Initializable {
+public class ListCell_Leg extends HBox implements Initializable {
 
 	@FXML
 	public HBox leg_row_content;
@@ -38,77 +38,43 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 	
 	private Leg leg;
 	
-	public ListCell_Leg() {
-		// App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
+	public ListCell_Leg(Leg leg) {
+		App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
 
-		amount = new Spinner<>();
-		amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
-		amount.getValueFactory().setWrapAround(false);
+		this.leg = leg;
 
-		call_put = new Label();
-		
-		strajk = new Spinner<>();
-		strajk.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000, 400, 1));
-		strajk.getValueFactory().setWrapAround(false);
-		strajk.getEditor().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				strajk.getValueFactory().setValue(Double.valueOf(newValue));
-			}
-		});
-		
-		
-		avg_px = new Spinner<>();
-		avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 5, 0, 0.02));
-		avg_px.getValueFactory().setWrapAround(true);
-		avg_px.getEditor().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
-				
-				avg_px.getValueFactory().setValue(Double.valueOf(newValue));
-			}
-		});
-
-		delta = new Spinner<>();
-		delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
-		delta.getValueFactory().setWrapAround(true);
-		delta.getEditor().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				delta.getValueFactory().setValue(Double.valueOf(newValue));
-			}
-		});
-		
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
+		fxmlLoader.setController(this);
+		fxmlLoader.setRoot(this);
+		try {
+			fxmlLoader.load();
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
 		
 	}
 	
-	@Override
-	protected void updateItem(Leg leg, boolean empty) {
-		super.updateItem(leg, empty);
-		App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
-		if (leg == null || empty) {     // <== test for null leg and empty parameter
-			setText(null);
-			setGraphic(null);
-		} else {
-			this.leg = leg;
-			// try {
-			// 	FXMLLoader loader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
-			// 	if (loader.getController() == null) {
-			// 		loader.setController(this);
-			// 	}
-			// 	loader.load();
-			// } catch (IOException e) {
-			// 	throw new RuntimeException(e);
-			// }
-			setAmount(leg.getAmount());
-			call_put.setText(leg.getContract().getSkr());
-			setStrajk(leg.getContract().getStrajk());
-			setAvg_px(leg.getOpenPrice());
-			setDelta(leg.getDelta());
-			setGraphic(leg_row_content);
-		}
-	}
+	// @Override
+	// protected void updateItem(Leg leg, boolean empty) {
+	// 	super.updateItem(leg, empty);
+	// 	App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
+	// 	if (leg == null || empty) {     // <== test for null leg and empty parameter
+	// 		setText(null);
+	// 		setGraphic(null);
+	// 	} else {
+	// 		this.leg = leg;
+	// 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("leg-row.fxml"));
+	// 		fxmlLoader.setController(this);
+	// 		fxmlLoader.setRoot(this);
+	//
+	// 		setAmount(leg.getAmount());
+	// 		call_put.setText(leg.getContract().getSkr());
+	// 		setStrajk(leg.getContract().getStrajk());
+	// 		setAvg_px(leg.getOpenPrice());
+	// 		setDelta(leg.getDelta());
+	// 		setGraphic(leg_row_content);
+	// 	}
+	// }
 	
 	
 	public void setAmount(int amount) {
@@ -127,7 +93,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 		this.delta.getValueFactory().setValue(delta);
 	}
 	
-	
+	@FXML
 	public void amountWheel(ScrollEvent scrollEvent) {
 		if (scrollEvent.getDeltaY() > 0) {
 			amount.increment();
@@ -137,6 +103,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 		leg.setAmount(amount.getValue());
 	}
 	
+	@FXML
 	public void strajkWheel(ScrollEvent scrollEvent) {
 		if (scrollEvent.getDeltaY() > 0) {
 			strajk.increment();
@@ -146,6 +113,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 		leg.getContract().setStrajk(strajk.getValue());
 	}
 	
+	@FXML
 	public void avgPxWheel(ScrollEvent scrollEvent) {
 		if (scrollEvent.getDeltaY() > 0) {
 			avg_px.increment();
@@ -155,6 +123,7 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 		leg.setOpenPrice(avg_px.getValue());
 	}
 	
+	@FXML
 	public void deltaWheel(ScrollEvent scrollEvent) {
 		if (scrollEvent.getDeltaY() > 0) {
 			delta.increment();
@@ -168,17 +137,42 @@ public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
 		
-		// amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
-		// amount.getValueFactory().setWrapAround(false);
-		//
-		// strajk.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000, 400, 1));
-		// strajk.getValueFactory().setWrapAround(false);
-		//
-		// avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 5, 0, 0.02));
-		// avg_px.getValueFactory().setWrapAround(true);
-		//
-		// delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
-		// delta.getValueFactory().setWrapAround(true);
-		//
+		amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
+		amount.getValueFactory().setWrapAround(false);
+		setAmount(leg.getAmount());
+		
+		call_put.setText(leg.getContract().getSkr());
+		
+		strajk.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000, 400, 1));
+		strajk.getValueFactory().setWrapAround(false);
+		setStrajk(leg.getContract().getStrajk());
+		strajk.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				strajk.getValueFactory().setValue(Double.valueOf(newValue));
+			}
+		});
+		
+		avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-20, 20, 0, 0.02));
+		avg_px.getValueFactory().setWrapAround(false);
+		setAvg_px(leg.getOpenPrice());
+		avg_px.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
+				avg_px.getValueFactory().setValue(Double.valueOf(newValue));
+			}
+		});
+		
+
+		delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
+		delta.getValueFactory().setWrapAround(true);
+		delta.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				delta.getValueFactory().setValue(Double.valueOf(newValue));
+			}
+		});
+		
 	}
 }
