@@ -2,15 +2,12 @@ package rs.node.oc.gui;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import rs.node.oc.App;
 import rs.node.oc.model.Leg;
 
@@ -120,7 +117,7 @@ public class ListCell_Leg extends HBox implements Initializable {
 		} else {
 			avg_px.decrement();
 		}
-		leg.setOpenPrice(avg_px.getValue());
+		leg.setAvgPx(avg_px.getValue());
 	}
 	
 	@FXML
@@ -140,6 +137,13 @@ public class ListCell_Leg extends HBox implements Initializable {
 		amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-3, 3, 0, 1));
 		amount.getValueFactory().setWrapAround(false);
 		setAmount(leg.getAmount());
+		amount.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				App.LOG.log(System.Logger.Level.INFO, oldValue + " -> " + newValue);
+				amount.getValueFactory().setValue(Integer.valueOf(newValue));
+			}
+		});
 		
 		call_put.setText(leg.getContract().getSkr());
 		
@@ -149,20 +153,22 @@ public class ListCell_Leg extends HBox implements Initializable {
 		strajk.getEditor().textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				App.LOG.log(System.Logger.Level.INFO, oldValue + " -> " + newValue);
 				strajk.getValueFactory().setValue(Double.valueOf(newValue));
 			}
 		});
 		
 		avg_px.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-20, 20, 0, 0.02));
 		avg_px.getValueFactory().setWrapAround(false);
-		setAvg_px(leg.getOpenPrice());
+		setAvg_px(leg.getAvgPx());
 		avg_px.getEditor().textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
+				App.LOG.log(System.Logger.Level.INFO, oldValue + " -> " + newValue);
 				avg_px.getValueFactory().setValue(Double.valueOf(newValue));
 			}
 		});
+		
 		
 
 		delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
@@ -170,6 +176,7 @@ public class ListCell_Leg extends HBox implements Initializable {
 		delta.getEditor().textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				App.LOG.log(System.Logger.Level.INFO, oldValue + " -> " + newValue);
 				delta.getValueFactory().setValue(Double.valueOf(newValue));
 			}
 		});

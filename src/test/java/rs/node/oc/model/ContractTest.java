@@ -28,7 +28,7 @@ public class ContractTest {
 		Leg lc = new Leg(2, new Call(400), 1.5);
 		combo = new Combo();
 		combo.add(lc);
-		a = lc.getOpenPrice();
+		a = lc.getAvgPx();
 		a = lc.getExpirationPriceAt(398);
 		a = lc.getExpirationPriceAt(399);
 		a = lc.getExpirationPriceAt(400);
@@ -43,7 +43,7 @@ public class ContractTest {
 		Leg lp = new Leg(-1, new Put(401), 0.5);
 		combo = new Combo();
 		combo.add(lp);
-		a = lp.getOpenPrice();
+		a = lp.getAvgPx();
 		a = lp.getExpirationPriceAt(399);
 		a = lp.getExpirationPriceAt(400);
 		a = lp.getExpirationPriceAt(403);
