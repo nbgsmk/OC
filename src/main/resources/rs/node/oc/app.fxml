@@ -58,7 +58,7 @@
       </children>
    </VBox>
 	<VBox alignment="CENTER_LEFT" minHeight="100.0" minWidth="100.0" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
-		<Button fx:id="savePreset" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#savePreset" text="save preset" />
+		<Button fx:id="saveTmpToPreset" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveTmpToPreset" text="save preset" />
    	<Button fx:id="randomData" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dodajRandomDataPaStaBude" text="random data" />
 	</VBox>
 	<ListView fx:id="lv_legs" minHeight="100.0" minWidth="350.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER" />

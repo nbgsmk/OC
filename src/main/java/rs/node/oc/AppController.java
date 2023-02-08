@@ -1,10 +1,7 @@
 package rs.node.oc;
 
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,14 +10,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.util.Callback;
 import rs.node.oc.data.DemoData;
-import rs.node.oc.io.Snimac;
 import rs.node.oc.gui.ListCell_Combo;
-import rs.node.oc.gui.ListCell_Leg;
 import rs.node.oc.model.*;
 
 import java.net.URL;
@@ -54,31 +46,36 @@ public class AppController implements Initializable {
 	@FXML
 	public Button randomData;
 	@FXML
-	public Button savePreset;
+	public Button saveTmpToPreset;
 	
 	
-	private Combo combo;
+	private Combo comboTmp;
 
 	@FXML
 	public LineChart<String, Double> grafikoncic;
 	
 	@FXML
 	public ListView<Combo> lv_comboPresets;
-	ObservableList<Combo> obs_comboPresets;
+	// ObservableList<Combo> obs_comboPresets;
 	
 	@FXML
-	public ListView<ListCell_Leg> lv_legs;
-	ObservableList<ListCell_Leg> obs_legs;
+	public ListView<Leg> lv_legs;
+	// public ListView<ListCell_Leg> lv_legs;
+	// ObservableList<ListCell_Leg> obs_legs;
 	
 	@FXML
 	public Label lbl_comboInfo;
+	
+	private DataModel model;
+	private final DataSource dataSource = new DataSource();
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		obs_comboPresets = FXCollections.observableArrayList();
-		lv_comboPresets.setItems(obs_comboPresets);
+		model = new DataModel();
+		
+		lv_comboPresets.setItems(model.getComboPresets());
 		lv_comboPresets.setCellFactory(new Callback<ListView<Combo>, ListCell<Combo>>() {
 			@Override
 			public ListCell<Combo> call(ListView<Combo> param) {
@@ -88,8 +85,8 @@ public class AppController implements Initializable {
 		lv_comboPresets.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				combo = obs_comboPresets.get((Integer) newValue);
-				updatujGui();
+				model.setCurrentCombo( model.getComboPresets().get((Integer) newValue) );
+				// updatujGui();
 			}
 		});
 		// lv_comboPresets.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -104,14 +101,14 @@ public class AppController implements Initializable {
 			@Override
 			public void handle(ContextMenuEvent event) {
 				Combo sel = lv_comboPresets.getSelectionModel().getSelectedItem();
-				lv_comboPresets.getItems().remove(sel);
-				savePreset(null);
+				model.getComboPresets().remove(sel);
+				dataSource.savePresets(model.getComboPresets());
 			}
 		});
 
 		
-		obs_legs = FXCollections.observableArrayList();
-		lv_legs.setItems(obs_legs);
+		// obs_legs = FXCollections.observableArrayList();
+		// lv_legs.setItems(model.getCurrentCombo().getLegs());
 		// lv_legs.setCellFactory(new Callback<ListView<Leg>, ListCell<Leg>>() {
 		// 	@Override
 		// 	public ListCell<Leg> call(ListView<Leg> param) {
@@ -130,95 +127,80 @@ public class AppController implements Initializable {
 		// 	}
 		// });
 		
-		readPreset();
 		
 		comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 				if (newValue == vert_call) {
-					combo = new Combo("Vertical Call Spread");
-					combo.add(new Leg(1, new Call(397), 0.68));
-					combo.add(new Leg(-1, new Call(399), 1.12));
+					comboTmp = new Combo("Vertical Call Spread");
+					comboTmp.add(new Leg(1, new Call(397), 0.68));
+					comboTmp.add(new Leg(-1, new Call(399), 1.12));
 				} else if (newValue == vert_put) {
-					combo = new Combo("Vertical Put Spread");
-					combo.add(new Leg(1, new Put(397), 0.68));
-					combo.add(new Leg(-1, new Put(399), 1.12));
+					comboTmp = new Combo("Vertical Put Spread");
+					comboTmp.add(new Leg(1, new Put(397), 0.68));
+					comboTmp.add(new Leg(-1, new Put(399), 1.12));
 					
 				} else if (newValue == butterfly_call) {
-					combo = new Combo("Butterfly Call");
-					combo.add(new Leg(1, new Call(397), 1));
-					combo.add(new Leg(-2, new Call(398), 1.5));
-					combo.add(new Leg(1, new Call(402), 2));
+					comboTmp = new Combo("Butterfly Call");
+					comboTmp.add(new Leg(1, new Call(397), 1));
+					comboTmp.add(new Leg(-2, new Call(398), 1.5));
+					comboTmp.add(new Leg(1, new Call(402), 2));
 				} else if (newValue == butterfly_put) {
-					combo = new Combo("Butterfly Put");
-					combo.add(new Leg(1, new Put(397), 1));
-					combo.add(new Leg(-2, new Put(398), 1.5));
-					combo.add(new Leg(1, new Put(402), 2));
+					comboTmp = new Combo("Butterfly Put");
+					comboTmp.add(new Leg(1, new Put(397), 1));
+					comboTmp.add(new Leg(-2, new Put(398), 1.5));
+					comboTmp.add(new Leg(1, new Put(402), 2));
 					
 				} else if (newValue == unbal_call) {
-					combo = new Combo("Unbal. Call Butterfly");
-					combo.add(new Leg(2, new Call(398), 0.89));
-					combo.add(new Leg(-3, new Call(401), 1.81));
-					combo.add(new Leg(1, new Call(403), 2.81));
+					comboTmp = new Combo("Unbal. Call Butterfly");
+					comboTmp.add(new Leg(2, new Call(398), 0.89));
+					comboTmp.add(new Leg(-3, new Call(401), 1.81));
+					comboTmp.add(new Leg(1, new Call(403), 2.81));
 				} else if (newValue == unbal_put) {
-					combo = new Combo("Unbal. Put Butterfly");
-					combo.add(new Leg(2, new Put(398), 0.89));
-					combo.add(new Leg(-3, new Put(401), 1.81));
-					combo.add(new Leg(1, new Put(403), 2.81));
+					comboTmp = new Combo("Unbal. Put Butterfly");
+					comboTmp.add(new Leg(2, new Put(398), 0.89));
+					comboTmp.add(new Leg(-3, new Put(401), 1.81));
+					comboTmp.add(new Leg(1, new Put(403), 2.81));
 					
 				} else if (newValue == condor) {
-					combo = new Combo("Iron Condor");
-					combo.add(new Leg(1, new Put(401), 1.8));
-					combo.add(new Leg(-1, new Put(403), 2.74));
-					combo.add(new Leg(-1, new Call(405), 0.96));
-					combo.add(new Leg(1, new Call(407), 0.5));
+					comboTmp = new Combo("Iron Condor");
+					comboTmp.add(new Leg(1, new Put(401), 1.8));
+					comboTmp.add(new Leg(-1, new Put(403), 2.74));
+					comboTmp.add(new Leg(-1, new Call(405), 0.96));
+					comboTmp.add(new Leg(1, new Call(407), 0.5));
 					
 				} else if (newValue == calendar) {
-					combo = new Combo("Iron Condor");
-					combo.add(new Leg(1, new Put(409), 1.8));
-					combo.add(new Leg(-1, new Put(410), 2.74));
-					combo.add(new Leg(-1, new Call(415), 0.96));
-					combo.add(new Leg(1, new Call(417), 0.5));
+					comboTmp = new Combo("Iron Condor");
+					comboTmp.add(new Leg(1, new Put(409), 1.8));
+					comboTmp.add(new Leg(-1, new Put(410), 2.74));
+					comboTmp.add(new Leg(-1, new Call(415), 0.96));
+					comboTmp.add(new Leg(1, new Call(417), 0.5));
 
 				}
+				model.setCurrentCombo(comboTmp);
+				dataSource.saveCurrent(model.getCurrentCombo());
 				
-				updatujGui();
-				snimiToXML(Snimac.defCombo, combo);
 			}
 			
 		});
+		
+
+		model.currentComboProperty().addListener(new ChangeListener<Combo>() {
+			@Override
+			public void changed(ObservableValue<? extends Combo> observable, Combo oldValue, Combo newValue) {
+				grafikoncic.getData().clear();
+				grafikoncic.getData().add(model.getExtendedPnLpoints());
+				
+				lbl_comboInfo.setText(model.getComboStats());
+			}
+		});
+		
+		
 	}
 	
 
+
 	
-	
-	
-    protected void updatujGui() {
-	
-	    // popuni grafikon sa extended tackama (vise tacaka nego sto ima Leg-ova)
-	    TreeMap<Double, Double> pl = combo.getExtendedPnLPoints();
-		XYChart.Series<String, Double> series = new XYChart.Series<>();
-	    series.setName(combo.getComboName());
-	    for (Map.Entry<Double, Double> tacka : pl.entrySet()) {
-		    series.getData().add(new XYChart.Data<>(tacka.getKey().toString(), tacka.getValue()));
-	    }
-	    grafikoncic.getData().clear();
-		grafikoncic.getData().add(series);
-		
-		// obs_legs.setAll(combo.getLegs());
-	    obs_legs.clear();
-	    for (Leg l : combo.getLegs()) {
-			obs_legs.add(new ListCell_Leg(l));
-	    }
-		
-	
-	    StringBuilder sb = new StringBuilder();
-	    sb.append("probability " + String.format("%.2f", combo.getDelta()) + "\n");
-	    sb.append("max profit  " + String.format("%.2f", Math.abs(combo.getMaxProfit())) + "\n");
-	    sb.append("max loss    " + String.format("%.2f", Math.abs(combo.getMaxLoss())) + "\n");
-	    sb.append("min invest  " + String.format("%.2f", combo.getComboOpenPrice()) + "\n") ;
-		lbl_comboInfo.setText(sb.toString());
-    }
 	
 	@FXML
 	protected void dodajRandomDataPaStaBude() {
@@ -232,36 +214,7 @@ public class AppController implements Initializable {
 	}
 	
 	
-	public void savePreset(ActionEvent actionEvent) {
-		if ( obs_comboPresets.contains(combo)) {
-			obs_comboPresets.remove(combo);
-			obs_comboPresets.add(combo);
-			System.out.println("vec sadrzi, samo updatujem");
-		} else if (combo != null) {
-			obs_comboPresets.add(combo);
-		} else {
-			System.out.println("null je, nikom nista");
-		}
-		if ((obs_comboPresets.size() > 0) && (obs_comboPresets != null)) {
-			List<Combo> presetList = new ArrayList<>(obs_comboPresets);
-			snimiToXML(Snimac.presetList, presetList);
-		}
+	public void saveTmpToPreset(ActionEvent actionEvent) {
+		model.saveTmpToPresets();
 	}
-	
-	public void readPreset(){
-		Snimac sn = new Snimac();
-		combo = (Combo) sn.readXml(Snimac.defCombo);
-		Object tmp = sn.readXml(Snimac.presetList);
-		if (tmp instanceof List<?>) {
-			List<Combo> lc = (List<Combo>) tmp;
-			obs_comboPresets.addAll(lc);
-		}
-	}
-	
-	private void snimiToXML(String fileName, Object o){
-		Snimac snimac = new Snimac();
-		snimac.writeXml(fileName, o);
-	}
-	
-	
 }

@@ -1,7 +1,5 @@
 package rs.node.oc.io;
 
-import rs.node.oc.model.Combo;
-
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
@@ -51,7 +49,7 @@ public class Snimac {
 	}
 	
 	
-	public void writeObj(String fileName, Object o){
+	public void writeGenericObj(String fileName, Object o){
 		try {
 			FileOutputStream fos = new FileOutputStream(getAbsFileName(fileName));
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -63,7 +61,7 @@ public class Snimac {
 		}
 	}
 
-	public Object readObj(String fileName){
+	public Object readGenericObj(String fileName){
 		try {
 			FileInputStream fis = new FileInputStream(getAbsFileName(fileName));
 			BufferedInputStream bis =  new BufferedInputStream(fis);

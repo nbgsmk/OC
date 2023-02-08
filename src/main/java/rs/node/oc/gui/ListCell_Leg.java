@@ -173,6 +173,7 @@ public class ListCell_Leg extends HBox implements Initializable {
 
 		delta.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, 0.5, 0.02));
 		delta.getValueFactory().setWrapAround(true);
+		setDelta(leg.getDelta());
 		delta.getEditor().textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {

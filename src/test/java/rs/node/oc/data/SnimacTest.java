@@ -20,13 +20,13 @@ public class SnimacTest {
 	
 	@Test
 	public void testSaveObj() {
-		snimac.writeObj("rajl", combo);
+		snimac.writeGenericObj("rajl", combo);
 	}
 	
 	@Test
 	public void testReadObj() {
 		Combo getted = new Combo();
-		Object i = snimac.readObj("rajl");
+		Object i = snimac.readGenericObj("rajl");
 		getted = (Combo) i;
 	}
 	

@@ -3,18 +3,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!--
-<HBox fx:id="leg_row_content"
-	  alignment="CENTER_LEFT"
-	  spacing="10.0"
-	  xmlns="http://javafx.com/javafx/17.0.2-ea"
-	  xmlns:fx="http://javafx.com/fxml/1"
->
--->
-<!--
-	  fx:controller="rs.node.oc.gui.ListCell_Leg"
-	-->
-
 <fx:root fx:id="leg_row_content" alignment="CENTER_LEFT" spacing="5.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
 	<!--
   	fx:controller="rs.node.oc.gui.ListCell_Leg"
