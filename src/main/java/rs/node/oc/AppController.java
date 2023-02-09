@@ -11,7 +11,9 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.util.Callback;
+import rs.node.oc.data.DataSource;
 import rs.node.oc.data.DemoData;
+import rs.node.oc.gui.DesniKlik;
 import rs.node.oc.gui.ListCell_Combo;
 import rs.node.oc.model.*;
 
@@ -21,32 +23,32 @@ import java.util.*;
 public class AppController implements Initializable {
 
 	@FXML
-	public ToggleGroup comboTip;
+	public ToggleGroup rg_comboTip;
 
 	@FXML
-	public RadioButton vert_call;
+	public RadioButton rb_vert_call;
 	@FXML
-	public RadioButton vert_put;
+	public RadioButton rb_vert_put;
 
 	@FXML
-	public RadioButton butterfly_call;
+	public RadioButton rb_butterfly_call;
 	@FXML
-	public RadioButton butterfly_put;
+	public RadioButton rb_butterfly_put;
 
 	@FXML
-	public RadioButton unbal_call;
+	public RadioButton rb_unbal_call;
 	@FXML
-	public RadioButton unbal_put;
+	public RadioButton rb_unbal_put;
 
 	@FXML
-	public RadioButton condor;
+	public RadioButton rb_ondor;
 	@FXML
-	public RadioButton calendar;
+	public RadioButton rb_calendar;
 
 	@FXML
-	public Button randomData;
+	public Button b_randomData;
 	@FXML
-	public Button saveTmpToPreset;
+	public Button b_saveTmpToPreset;
 	
 	
 	private Combo comboTmp;
@@ -76,6 +78,7 @@ public class AppController implements Initializable {
 		model = new DataModel();
 		
 		lv_comboPresets.setItems(model.getComboPresets());
+		// lv_comboPresets.setSelectionModel();
 		lv_comboPresets.setCellFactory(new Callback<ListView<Combo>, ListCell<Combo>>() {
 			@Override
 			public ListCell<Combo> call(ListView<Combo> param) {
@@ -85,26 +88,11 @@ public class AppController implements Initializable {
 		lv_comboPresets.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				System.out.println("lv_ " + newValue);
 				model.setCurrentCombo( model.getComboPresets().get((Integer) newValue) );
-				// updatujGui();
 			}
 		});
-		// lv_comboPresets.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		// 	@Override
-		// 	public void handle(MouseEvent event) {
-		// 		if (combo != null) {
-		// 			updatujGui();
-		// 		}
-		// 	}
-		// });
-		lv_comboPresets.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-			@Override
-			public void handle(ContextMenuEvent event) {
-				Combo sel = lv_comboPresets.getSelectionModel().getSelectedItem();
-				model.getComboPresets().remove(sel);
-				dataSource.savePresets(model.getComboPresets());
-			}
-		});
+		lv_comboPresets.setContextMenu(new DesniKlik(model));
 
 		
 		// obs_legs = FXCollections.observableArrayList();
@@ -128,48 +116,48 @@ public class AppController implements Initializable {
 		// });
 		
 		
-		comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+		rg_comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-				if (newValue == vert_call) {
+				if (newValue == rb_vert_call) {
 					comboTmp = new Combo("Vertical Call Spread");
 					comboTmp.add(new Leg(1, new Call(397), 0.68));
 					comboTmp.add(new Leg(-1, new Call(399), 1.12));
-				} else if (newValue == vert_put) {
+				} else if (newValue == rb_vert_put) {
 					comboTmp = new Combo("Vertical Put Spread");
 					comboTmp.add(new Leg(1, new Put(397), 0.68));
 					comboTmp.add(new Leg(-1, new Put(399), 1.12));
 					
-				} else if (newValue == butterfly_call) {
+				} else if (newValue == rb_butterfly_call) {
 					comboTmp = new Combo("Butterfly Call");
 					comboTmp.add(new Leg(1, new Call(397), 1));
 					comboTmp.add(new Leg(-2, new Call(398), 1.5));
 					comboTmp.add(new Leg(1, new Call(402), 2));
-				} else if (newValue == butterfly_put) {
+				} else if (newValue == rb_butterfly_put) {
 					comboTmp = new Combo("Butterfly Put");
 					comboTmp.add(new Leg(1, new Put(397), 1));
 					comboTmp.add(new Leg(-2, new Put(398), 1.5));
 					comboTmp.add(new Leg(1, new Put(402), 2));
 					
-				} else if (newValue == unbal_call) {
+				} else if (newValue == rb_unbal_call) {
 					comboTmp = new Combo("Unbal. Call Butterfly");
 					comboTmp.add(new Leg(2, new Call(398), 0.89));
 					comboTmp.add(new Leg(-3, new Call(401), 1.81));
 					comboTmp.add(new Leg(1, new Call(403), 2.81));
-				} else if (newValue == unbal_put) {
+				} else if (newValue == rb_unbal_put) {
 					comboTmp = new Combo("Unbal. Put Butterfly");
 					comboTmp.add(new Leg(2, new Put(398), 0.89));
 					comboTmp.add(new Leg(-3, new Put(401), 1.81));
 					comboTmp.add(new Leg(1, new Put(403), 2.81));
 					
-				} else if (newValue == condor) {
+				} else if (newValue == rb_ondor) {
 					comboTmp = new Combo("Iron Condor");
 					comboTmp.add(new Leg(1, new Put(401), 1.8));
 					comboTmp.add(new Leg(-1, new Put(403), 2.74));
 					comboTmp.add(new Leg(-1, new Call(405), 0.96));
 					comboTmp.add(new Leg(1, new Call(407), 0.5));
 					
-				} else if (newValue == calendar) {
+				} else if (newValue == rb_calendar) {
 					comboTmp = new Combo("Iron Condor");
 					comboTmp.add(new Leg(1, new Put(409), 1.8));
 					comboTmp.add(new Leg(-1, new Put(410), 2.74));

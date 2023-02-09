@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
+import rs.node.oc.data.DataSource;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -13,6 +14,10 @@ import java.util.TreeMap;
 public class DataModel {
 	private ObservableList<Combo> comboPresets = FXCollections.observableArrayList();
 	private final ObjectProperty<Combo> currentCombo = new SimpleObjectProperty<>(null);
+	
+	private final ObservableList<Leg> legs = FXCollections.observableArrayList();
+	private final ObjectProperty<Leg> leg = new SimpleObjectProperty<>();
+	
 	
 	public DataModel() {
 		DataSource ds = new DataSource();

@@ -1,6 +1,7 @@
-package rs.node.oc.model;
+package rs.node.oc.data;
 
 import rs.node.oc.io.Snimac;
+import rs.node.oc.model.Combo;
 
 import java.util.ArrayList;
 import java.util.List;
