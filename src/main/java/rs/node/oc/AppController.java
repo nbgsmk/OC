@@ -2,6 +2,7 @@ package rs.node.oc;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import rs.node.oc.data.DataSource;
 import rs.node.oc.data.DemoData;
 import rs.node.oc.gui.DesniKlik;
 import rs.node.oc.gui.ListCell_Combo;
+import rs.node.oc.gui.ListCell_Leg;
 import rs.node.oc.model.*;
 
 import java.net.URL;
@@ -62,8 +64,7 @@ public class AppController implements Initializable {
 	
 	@FXML
 	public ListView<Leg> lv_legs;
-	// public ListView<ListCell_Leg> lv_legs;
-	// ObservableList<ListCell_Leg> obs_legs;
+	ObservableList<Leg> obs_legs;
 	
 	@FXML
 	public Label lbl_comboInfo;
@@ -78,7 +79,6 @@ public class AppController implements Initializable {
 		model = new DataModel();
 		
 		lv_comboPresets.setItems(model.getComboPresets());
-		// lv_comboPresets.setSelectionModel();
 		lv_comboPresets.setCellFactory(new Callback<ListView<Combo>, ListCell<Combo>>() {
 			@Override
 			public ListCell<Combo> call(ListView<Combo> param) {
@@ -88,32 +88,24 @@ public class AppController implements Initializable {
 		lv_comboPresets.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				System.out.println("lv_ " + newValue);
+				App.LOG.log(System.Logger.Level.INFO, "lv_ " + newValue);
 				model.setCurrentCombo( model.getComboPresets().get((Integer) newValue) );
+				App.LOG.log(System.Logger.Level.INFO, "noge currentCombo   " + model.getCurrentCombo().getLegs().size() + " " + model.getCurrentCombo().getLegs());
+				App.LOG.log(System.Logger.Level.INFO, "noge model          " + model.getLegs().size() + " " + model.getLegs());
+				App.LOG.log(System.Logger.Level.INFO, "noge model PROPERTY " + model.currentComboProperty().get().getLegs().size() + " " + model.currentComboProperty().get().getLegs());
 			}
 		});
 		lv_comboPresets.setContextMenu(new DesniKlik(model));
-
 		
-		// obs_legs = FXCollections.observableArrayList();
-		// lv_legs.setItems(model.getCurrentCombo().getLegs());
-		// lv_legs.setCellFactory(new Callback<ListView<Leg>, ListCell<Leg>>() {
-		// 	@Override
-		// 	public ListCell<Leg> call(ListView<Leg> param) {
-		// 		return new ListCell_Leg();
-		// 	}
-		// });
-		// lv_legs.setOnScroll(new EventHandler<ScrollEvent>() {
-		// 	@Override
-		// 	public void handle(ScrollEvent event) {
-		// 		// try {
-		// 		// 	Thread.sleep(20);
-		// 		// } catch (InterruptedException e) {
-		// 		// 	throw new RuntimeException(e);
-		// 		// }
-		// 		updatujGui();
-		// 	}
-		// });
+		ObservableList<Leg> a = model.currentComboProperty().get().getLegs();
+		lv_legs.setItems(a);
+		lv_legs.setCellFactory(new Callback<ListView<Leg>, ListCell<Leg>>() {
+			@Override
+			public ListCell<Leg> call(ListView<Leg> param) {
+				return new ListCell_Leg();
+			}
+		});
+
 		
 		
 		rg_comboTip.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
@@ -180,9 +172,9 @@ public class AppController implements Initializable {
 				grafikoncic.getData().add(model.getExtendedPnLpoints());
 				
 				lbl_comboInfo.setText(model.getComboStats());
+				lv_legs.setItems(model.getLegs());
 			}
 		});
-		
 		
 	}
 	

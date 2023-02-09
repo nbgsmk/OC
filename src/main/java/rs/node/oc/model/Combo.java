@@ -13,7 +13,7 @@ public class Combo implements Serializable {
 	
 	private final StringProperty comboName = new SimpleStringProperty("");
 	private final StringProperty comboDescription = new SimpleStringProperty("");
-	private ObservableList<Leg> obs_legs = FXCollections.observableArrayList();
+	private final ObservableList<Leg> legs = FXCollections.observableArrayList();
 	
 	
 	public Combo() {
@@ -51,7 +51,7 @@ public class Combo implements Serializable {
 	
 	public String getComboDescription() {
 		StringJoiner sj = new StringJoiner(", ", "", "");
-		for (Leg l : obs_legs){
+		for (Leg l : legs){
 			String skr = l.getContract().getSkr();
 			String strk = String.valueOf(l.getContract().getStrajk());
 			strk = strk.replace(".0", "");
@@ -63,20 +63,20 @@ public class Combo implements Serializable {
 	
 	
 	public void setLegs(List<Leg> legs) {
-		this.obs_legs.addAll(legs);
+		this.legs.addAll(legs);
 	}
 	
 	public void add(Leg l) {
-		this.obs_legs.add(l);
+		this.legs.add(l);
 	}
 	
 	public void add(int amount, Contract contract, double px) {
-		this.obs_legs.add(new Leg(amount, contract, px));
+		this.legs.add(new Leg(amount, contract, px));
 	}
 	
 	public double getComboOpenPrice() {
 		double val = 0;
-		for (Leg leg : this.obs_legs) {
+		for (Leg leg : this.legs) {
 			val += leg.getAmount() * leg.getAvgPx();
 		}
 		return val;
@@ -84,7 +84,7 @@ public class Combo implements Serializable {
 	
 	public double getExpiredPriceAt(double underl) {
 		double val = 0d;
-		for (Leg leg : this.obs_legs) {
+		for (Leg leg : this.legs) {
 			val += leg.getAmount() * leg.getExpirationPriceAt(underl);
 		}
 		return val;
@@ -92,7 +92,7 @@ public class Combo implements Serializable {
 	
 	public double getPnlAt(double underl) {
 		double pnl = 0d;
-		for (Leg leg : this.obs_legs) {
+		for (Leg leg : this.legs) {
 			pnl += leg.getAmount() * leg.getPnlAt(underl);
 		}
 		return pnl;
@@ -119,7 +119,7 @@ public class Combo implements Serializable {
 		
 		for (Double strajk : strajkovi) {
 			double y = 0;
-			for (Leg leg : obs_legs) {
+			for (Leg leg : legs) {
 				y += leg.getPnlAt(strajk);
 				// System.out.print("\t" + leg.getAmount() + "\t" + leg.getContract().toString() + "\t" + "@ " + leg.getOpenPrice() + " PnL at " + strajk + " = " + leg.getPnlAt(strajk));
 			}
@@ -137,13 +137,13 @@ public class Combo implements Serializable {
 	}
 	
 	
-	public List<Leg> getLegs() {
-		return obs_legs;
+	public ObservableList<Leg> getLegs() {
+		return legs;
 	}
 	
 	public double getDelta() {
 		double delta = 0;
-		for (Leg leg : obs_legs) {
+		for (Leg leg : legs) {
 			delta += leg.getDelta();
 		}
 		return delta;

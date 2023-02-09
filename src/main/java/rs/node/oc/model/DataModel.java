@@ -15,10 +15,6 @@ public class DataModel {
 	private ObservableList<Combo> comboPresets = FXCollections.observableArrayList();
 	private final ObjectProperty<Combo> currentCombo = new SimpleObjectProperty<>(null);
 	
-	private final ObservableList<Leg> legs = FXCollections.observableArrayList();
-	private final ObjectProperty<Leg> leg = new SimpleObjectProperty<>();
-	
-	
 	public DataModel() {
 		DataSource ds = new DataSource();
 		comboPresets.setAll(ds.loadPresets());
@@ -40,6 +36,11 @@ public class DataModel {
 	public void setCurrentCombo(Combo currentCombo) {
 		this.currentCombo.set(currentCombo);
 	}
+	
+	public ObservableList<Leg> getLegs() {
+		return currentCombo.get().getLegs();
+	}
+	
 	
 	public void setComboPresets(ObservableList<Combo> comboPresets) {
 		this.comboPresets = comboPresets;

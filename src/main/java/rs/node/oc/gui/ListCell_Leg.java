@@ -5,17 +5,20 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import rs.node.oc.App;
 import rs.node.oc.model.Leg;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ListCell_Leg extends HBox implements Initializable {
+public class ListCell_Leg extends ListCell<Leg> implements Initializable {
 
 	@FXML
 	public HBox leg_row_content;
@@ -35,12 +38,11 @@ public class ListCell_Leg extends HBox implements Initializable {
 	
 	private Leg leg;
 	
-	public ListCell_Leg(Leg leg) {
+	
+	public ListCell_Leg() {
 		App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
-
-		this.leg = leg;
-
-		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("leg-row.fxml"));
+		
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("leg-row.fxml"));
 		fxmlLoader.setController(this);
 		fxmlLoader.setRoot(this);
 		try {
@@ -51,27 +53,27 @@ public class ListCell_Leg extends HBox implements Initializable {
 		
 	}
 	
-	// @Override
-	// protected void updateItem(Leg leg, boolean empty) {
-	// 	super.updateItem(leg, empty);
-	// 	App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
-	// 	if (leg == null || empty) {     // <== test for null leg and empty parameter
-	// 		setText(null);
-	// 		setGraphic(null);
-	// 	} else {
-	// 		this.leg = leg;
-	// 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("leg-row.fxml"));
-	// 		fxmlLoader.setController(this);
-	// 		fxmlLoader.setRoot(this);
-	//
-	// 		setAmount(leg.getAmount());
-	// 		call_put.setText(leg.getContract().getSkr());
-	// 		setStrajk(leg.getContract().getStrajk());
-	// 		setAvg_px(leg.getOpenPrice());
-	// 		setDelta(leg.getDelta());
-	// 		setGraphic(leg_row_content);
-	// 	}
-	// }
+	@Override
+	protected void updateItem(Leg leg, boolean empty) {
+		super.updateItem(leg, empty);
+		App.LOG.log(System.Logger.Level.INFO, getClass().getSimpleName());
+		if (leg == null || empty) {     // <== test for null leg and empty parameter
+			setText(null);
+			setGraphic(null);
+		} else {
+		// 	this.leg = leg;
+		// 	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("leg-row.fxml"));
+		// 	fxmlLoader.setController(this);
+		// 	fxmlLoader.setRoot(this);
+		//
+		// 	setAmount(leg.getAmount());
+		// 	call_put.setText(leg.getContract().getSkr());
+		// 	setStrajk(leg.getContract().getStrajk());
+		// 	setAvg_px(leg.getOpenPrice());
+		// 	setDelta(leg.getDelta());
+			setGraphic(leg_row_content);
+		}
+	}
 	
 	
 	public void setAmount(int amount) {
